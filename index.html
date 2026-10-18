@@ -2,173 +2,198 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#100b20">
-<title>MADGEK — Mini App</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#10091a">
+<title>MADGEK Casino Demo</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-:root{--bg:#0d0918;--panel:#191228;--panel2:#251a37;--line:#39294d;--gold:#f3ce7c;--text:#fff9ff;--muted:#ad9dbd;--green:#64e6a2;--red:#ff8299}
+:root{
+ --bg:#0d0814;--surface:#181121;--surface2:#21162e;--surface3:#2c1d3d;
+ --gold:#f5ce79;--gold2:#b78332;--text:#fff9ee;--muted:#ad9dbb;
+ --green:#39c983;--red:#e64d64;--border:#493257;
+}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at top,#38204e,transparent 48%),var(--bg);color:var(--text);font:15px system-ui,-apple-system,sans-serif;padding-bottom:90px}
+body{margin:0;background:radial-gradient(ellipse at 50% -15%,#54306b 0,transparent 55%),var(--bg);color:var(--text);font:14px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:90px}
 button,input,select{font:inherit}
-button{cursor:pointer;border:0;color:inherit}
-.app{max-width:560px;margin:auto;padding:14px}
-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:18px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:1px}
-.logo{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#ffe5a1,#9360db);color:#1c1028;font-size:23px}
-.brand small{display:block;font-size:10px;color:var(--muted);letter-spacing:2px}
-select,input{background:#100b1b;border:1px solid var(--line);color:white;border-radius:11px;padding:10px;max-width:100%}
-.hero{padding:20px;border-radius:23px;background:linear-gradient(135deg,#38224b,#1b142b 70%,#33203d);border:1px solid #614674;margin-bottom:13px}
-.eyebrow{font-size:11px;color:var(--gold);letter-spacing:2px;font-weight:800}
-h1{font-size:25px;line-height:1.2;margin:8px 0}
-.muted{color:var(--muted);font-size:12px}
-.balancebox{background:#100b1d99;padding:14px;border-radius:16px;margin-top:16px;border:1px solid #ffffff15}
-.balance{font-size:31px;font-weight:900;margin:5px 0}
-.balance small{font-size:14px;color:var(--gold)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
-.stat,.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:13px}
-.stat strong{display:block;font-size:18px}
-.stat span{font-size:10px;color:var(--muted)}
-h2{font-size:18px;margin:22px 2px 10px}
+button{cursor:pointer;touch-action:manipulation}
+button:disabled{opacity:.35;cursor:not-allowed}
+.app{max-width:680px;margin:auto;padding:13px}
+header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:1000;letter-spacing:1.3px;font-size:18px}
+.brand small{display:block;font-size:9px;letter-spacing:3px;color:var(--gold);font-weight:600}
+.logo{height:42px;width:42px;border-radius:13px;display:grid;place-items:center;color:#1d1027;font-size:23px;background:linear-gradient(135deg,#fff0b4,#bf8438);box-shadow:0 0 25px #d9aa4d24}
+select,input{background:#100a19;color:white;border:1px solid var(--border);border-radius:10px;padding:10px;min-width:0}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+button:active{filter:brightness(1.13)}
+.btn{background:linear-gradient(135deg,#ffe6a2,#c9923f);color:#20132a;font-weight:900;border:0;border-radius:11px;padding:12px 15px}
+.btn2{background:#281a37;color:var(--text);border:1px solid var(--border);border-radius:11px;padding:10px 12px}
+.btn3{background:#11101b;color:var(--gold);border:1px solid #5b4268;border-radius:10px;padding:10px}
+.full{width:100%}
+.row{display:flex;align-items:center;gap:8px}
+.row>*{min-width:0}
+.row .grow{flex:1}
+.balancebar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 14px;background:#171021ed;border:1px solid var(--border);border-radius:15px;margin:12px 0}
+.balancebar strong{font-size:21px;color:var(--gold)}
+.balancebar small{display:block;color:var(--muted);font-size:10px}
+.eyebrow{color:var(--gold);font-size:10px;letter-spacing:2px;font-weight:900}
+h1{font-size:24px;margin:6px 0}
+h2{font-size:19px;margin:20px 1px 10px}
 h3{font-size:15px;margin:4px 0 8px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.game{background:linear-gradient(145deg,#251834,#171123);border:1px solid var(--line);border-radius:17px;text-align:left;padding:14px;min-height:115px}
-.game:active{transform:scale(.98)}
-.game .emoji{font-size:30px;display:block;margin-bottom:7px}
-.game b{display:block}
-.game small{color:var(--muted);font-size:11px}
-.btn{padding:12px 14px;border-radius:12px;font-weight:800;background:linear-gradient(135deg,#ffe4a0,#d6a54b);color:#21142c}
-.btn2{padding:11px 13px;border-radius:12px;background:var(--panel2);border:1px solid var(--line)}
-.btn:disabled{opacity:.4}
-.full{width:100%;margin-top:8px}
-.row{display:flex;gap:8px;align-items:center}
-.row>*{flex:1;min-width:0}
-.panel{margin:10px 0}
-.notice{padding:11px;border-radius:12px;background:#241832;color:var(--muted);font-size:11px;margin:12px 0}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#120d1ded;border-top:1px solid var(--line);display:flex;justify-content:center;padding:8px 5px max(8px,env(safe-area-inset-bottom));z-index:10;backdrop-filter:blur(12px)}
-.navinner{width:100%;max-width:560px;display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
-.nav button{background:transparent;color:var(--muted);font-size:10px;padding:7px 1px;border-radius:10px}
-.nav button.active{background:#342344;color:var(--gold)}
-.nav span{display:block;font-size:20px;margin-bottom:3px}
+.muted{color:var(--muted);font-size:12px}
 .page{display:none}
 .page.active{display:block}
-.modal{position:fixed;inset:0;background:#08050dd9;z-index:20;display:none;align-items:flex-end;justify-content:center;padding:10px}
+.hero{padding:19px;border:1px solid #5d3f6b;border-radius:21px;background:linear-gradient(145deg,#392149,#191023 80%);margin-bottom:12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.stat{padding:12px 9px;background:var(--surface);border:1px solid var(--border);border-radius:13px}
+.stat strong{display:block;font-size:18px;color:var(--gold)}
+.stat small{font-size:10px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.gamecard{background:linear-gradient(145deg,#261a35,#15101f);border:1px solid var(--border);border-radius:16px;text-align:left;padding:13px;min-height:125px;color:var(--text)}
+.gamecard .emoji{display:block;font-size:30px;margin-bottom:8px}
+.gamecard strong{display:block;font-size:14px}
+.gamecard small{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+.gamecard .tag{display:inline-block;margin-top:9px;color:var(--gold);font-size:9px;letter-spacing:1px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;margin:10px 0}
+.notice{padding:11px;background:#21172d;border:1px solid #392647;border-radius:12px;color:var(--muted);font-size:11px;line-height:1.5;margin:12px 0}
+.nav{position:fixed;z-index:20;bottom:0;left:0;right:0;padding:7px 5px max(7px,env(safe-area-inset-bottom));background:#100b19f2;border-top:1px solid var(--border);backdrop-filter:blur(15px)}
+.navinner{max-width:680px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.nav button{background:none;border:0;border-radius:10px;color:var(--muted);padding:6px 1px;font-size:10px}
+.nav button.active{background:#30203e;color:var(--gold)}
+.nav button span{display:block;font-size:19px;margin-bottom:3px}
+.modal{display:none;position:fixed;z-index:30;inset:0;background:#07040ce8;align-items:flex-end;justify-content:center;padding:0}
 .modal.open{display:flex}
-.modalbox{width:100%;max-width:540px;max-height:90vh;overflow:auto;background:#1b132a;border:1px solid #634477;border-radius:23px;padding:17px}
-.modalhead{display:flex;justify-content:space-between;align-items:center}
-.stage{text-align:center;border:1px solid #4b355e;border-radius:18px;padding:20px 12px;background:radial-gradient(circle at top,#492e5d,#1a1128 75%);margin:13px 0}
-.big{font-size:48px;min-height:62px;margin:8px}
-.result{min-height:25px;color:var(--gold);font-weight:800}
-.field{margin:12px 0}
-.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}
+.modalbox{width:100%;max-width:680px;max-height:95dvh;overflow-y:auto;background:linear-gradient(155deg,#241731,#100b18 70%);border:1px solid #634575;border-radius:23px 23px 0 0;padding:14px 13px max(24px,env(safe-area-inset-bottom))}
+.modalhead{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.modalhead h2{margin:5px 0 12px}
+.tablefelt{background:radial-gradient(ellipse at center,#276647,#103a2a 78%);border:4px solid #79522a;box-shadow:inset 0 0 0 2px #d7b66a40,0 8px 24px #0006;border-radius:18px;padding:13px;margin:9px 0;color:#fff;overflow:hidden}
+.tablefelt.goldfelt{background:radial-gradient(ellipse at center,#49315d,#21132f 80%);border-color:#98713c}
+.tablefelt h3{text-align:center}
+.result{text-align:center;min-height:24px;color:var(--gold);font-weight:800;padding:6px 2px}
+.big{font-size:42px;text-align:center;min-height:58px;display:grid;place-items:center}
+.field{margin:10px 0}
+.field label{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}
 .field input,.field select{width:100%}
-.listrow{display:flex;gap:10px;align-items:center;background:#21172f;border:1px solid var(--line);border-radius:13px;padding:12px;margin:8px 0}
+.betline{display:flex;gap:7px;flex-wrap:wrap;margin:9px 0}
+.betline button{flex:1;min-width:48px}
+.chip{border-radius:50%!important;width:39px;height:39px;min-width:39px!important;padding:0!important;border:3px dashed #fff8!important;font-weight:900;color:white!important;box-shadow:0 2px 4px #0006}
+.chip.selected{outline:3px solid var(--gold);outline-offset:2px}
+.c10{background:#b52e47!important}.c25{background:#2362b3!important}.c50{background:#29252d!important}.c100{background:#218d58!important}.c500{background:#a36d23!important}
+.wheelwrap{position:relative;width:min(82vw,360px);aspect-ratio:1;margin:15px auto 18px}
+.wheel{position:absolute;inset:0;border:8px solid #b98b44;border-radius:50%;box-shadow:0 0 0 4px #442b21,0 0 30px #0008;overflow:hidden;background:repeating-conic-gradient(#a72a3a 0 9.73deg,#17131e 9.73deg 19.46deg,#a72a3a 19.46deg 29.19deg,#17131e 29.19deg 38.92deg,#1d7947 38.92deg 48.65deg)}
+.wheel::before{content:"";position:absolute;inset:15%;border-radius:50%;border:5px solid #d6ad63;background:radial-gradient(circle,#34213f 0,#1a1025 70%);box-shadow:inset 0 0 20px #0009}
+.wheel::after{content:"M";position:absolute;inset:36%;display:grid;place-items:center;border-radius:50%;border:4px solid #b98b44;background:linear-gradient(135deg,#f7df98,#865422);color:#211328;font-weight:1000;font-size:clamp(22px,7vw,38px);box-shadow:0 0 15px #0009}
+.wheelnumbers{position:absolute;inset:0;border-radius:50%;pointer-events:none}
+.wheelnumbers span{position:absolute;left:50%;top:50%;width:20px;height:18px;margin-left:-10px;margin-top:-9px;text-align:center;font-size:10px;font-weight:900;color:#fff;transform-origin:center center}
+.pointer{position:absolute;z-index:3;top:-5px;left:calc(50% - 14px);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:30px solid #ffe4a0;filter:drop-shadow(0 2px 2px #000)}
+.balltrack{position:absolute;inset:8%;border-radius:50%;pointer-events:none;z-index:2;transform:rotate(0deg)}
+.ball{position:absolute;top:0;left:calc(50% - 5px);width:10px;height:10px;border-radius:50%;background:#fff9db;box-shadow:0 0 7px white}
+.spinwheel{transition:transform 5.2s cubic-bezier(.09,.7,.13,1)}
+.balltrack.moving{animation:ballorbit 1.1s linear infinite}
+@keyframes ballorbit{to{transform:rotate(360deg)}}
+@keyframes shake{0%,100%{transform:translateX(0) rotate(0)}25%{transform:translateX(-7px) rotate(-4deg)}75%{transform:translateX(7px) rotate(4deg)}}
+.shaking{animation:shake .5s ease-in-out infinite}
+.roulettegrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
+.rnum{padding:8px 1px;border:1px solid #ffffff38;border-radius:5px;color:#fff;font-weight:900;background:#17131e;font-size:12px;position:relative}
+.rnum.red{background:#a82d3e}.rnum.black{background:#17131e}.rnum.zero{background:#177846;grid-column:span 3}
+.rnum.hasbet::after{content:attr(data-chip);position:absolute;right:1px;top:0;font-size:9px;color:#ffe7a6}
+.rnum.selected{outline:2px solid var(--gold);outline-offset:-2px}
+.outsidebets{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:5px}
+.outsidebets button{padding:9px 2px;background:#193e31;border:1px solid #75b99b;border-radius:6px;color:white;font-size:10px}
+.outsidebets button.active{outline:2px solid var(--gold)}
+.slotmachine{border:5px solid #b98237;border-radius:20px;padding:12px;background:linear-gradient(135deg,#4b2a52,#160e20);box-shadow:inset 0 0 0 2px #f5d68a50,0 10px 20px #0007}
+.reels{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#0d0813;padding:8px;border-radius:12px;border:2px solid #76512d}
+.reelwindow{height:100px;overflow:hidden;border-radius:8px;background:linear-gradient(#ddd1bc,#fff8e7,#d6c7ac);border:2px solid #9c7a50;position:relative}
+.reelwindow::after{content:"";position:absolute;inset:33% 0;border-top:2px solid #c29b4b;border-bottom:2px solid #c29b4b;pointer-events:none}
+.reelstrip{display:flex;flex-direction:column;align-items:center;transition:transform 1.2s cubic-bezier(.1,.72,.1,1)}
+.reelstrip span{height:96px;min-height:96px;display:grid;place-items:center;font-size:42px;width:100%}
+.reelstrip.spinning{filter:blur(2px)}
+.cards{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;min-height:95px;margin:9px 0}
+.playcard{width:53px;height:77px;border-radius:8px;background:#fffaf0;color:#21182a;display:flex;flex-direction:column;justify-content:space-between;padding:5px;font-weight:900;box-shadow:0 4px 8px #0005;border:1px solid #c9b88f}
+.playcard .suit{font-size:24px;text-align:center}
+.playcard.redcard{color:#c52f45}
+.playcard.hidden{background:repeating-linear-gradient(45deg,#37204b,#37204b 5px,#523566 5px,#523566 10px);border:2px solid #b88d51}
+.diceboard{display:flex;justify-content:center;gap:18px;padding:15px}
+.die{height:75px;width:75px;background:#fff7e9;color:#b82f43;border-radius:13px;display:grid;place-items:center;font-size:50px;box-shadow:0 6px 0 #9c7a54,0 9px 13px #0005}
+.die.rolling{animation:shake .15s infinite}
+.baccaratzones{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.baccaratzones button{background:#214a37;border:1px solid #75a88a;color:white;border-radius:10px;padding:12px 2px;font-size:12px}
+.baccaratzones button.active{outline:2px solid var(--gold)}
+.progress{height:6px;background:#3b2a49;border-radius:8px;overflow:hidden}
+.progress div{height:100%;background:linear-gradient(90deg,#a16ce9,#f3ce79)}
+.listrow{display:flex;align-items:center;gap:9px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:11px;margin:7px 0}
 .listrow .info{flex:1;min-width:0}
-.listrow small{display:block;color:var(--muted);font-size:11px}
-.good{color:var(--green)}.bad{color:var(--red)}
-.toast{position:fixed;top:12px;left:50%;transform:translate(-50%,-150%);transition:.2s;z-index:50;background:var(--gold);color:#20142b;font-weight:800;padding:12px 17px;border-radius:12px;max-width:90%;text-align:center}
+.listrow small{display:block;color:var(--muted);font-size:10px;overflow-wrap:anywhere}
+.toast{position:fixed;z-index:60;top:12px;left:50%;transform:translate(-50%,-150%);transition:.22s;background:var(--gold);color:#1d1226;font-weight:900;padding:12px 17px;border-radius:12px;max-width:90%;text-align:center;box-shadow:0 6px 20px #0007}
 .toast.show{transform:translate(-50%,0)}
-.progress{height:6px;background:#392b48;border-radius:9px;overflow:hidden;margin-top:8px}
-.progress div{height:100%;background:linear-gradient(90deg,#9c67ed,#f3ce7c)}
-@media(min-width:480px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:500px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.modal{align-items:center;padding:15px}.modalbox{border-radius:22px;max-height:90dvh}}
 </style>
 </head>
 <body>
 <div class="app">
 <header>
- <div class="brand"><div class="logo">M</div><div>MADGEK<small>ARCADE • DEMO</small></div></div>
- <div class="row" style="flex:0 1 145px">
-  <select id="lang" aria-label="Language">
-   <option value="ru">RU</option><option value="en">EN</option><option value="zh">中文</option><option value="de">DE</option><option value="pl">PL</option>
-  </select>
-  <button class="btn2" id="level">LVL 1</button>
- </div>
+ <div class="brand"><div class="logo">M</div><div>MADGEK<small>ARCADE • VIRTUAL DEMO</small></div></div>
+ <select id="lang" aria-label="Language"><option value="ru">🇷🇺 RU</option><option value="en">🇬🇧 EN</option><option value="zh">🇨🇳 中文</option><option value="de">🇩🇪 DE</option><option value="pl">🇵🇱 PL</option></select>
 </header>
+
+<div class="balancebar">
+ <div><small data-t="balance">ВИРТУАЛЬНЫЙ БАЛАНС</small><strong><span id="balance">1,000</span> MGK</strong></div>
+ <div style="text-align:right"><small data-t="level">УРОВЕНЬ</small><strong id="level">1</strong></div>
+</div>
 
 <section class="page active" id="home">
  <div class="hero">
-  <div class="eyebrow" data-t="welcome">ДОБРО ПОЖАЛОВАТЬ В MADGEK</div>
-  <h1 data-t="headline">Играй. Выполняй задания. Получай XP.</h1>
-  <div class="muted" data-t="description">Развлекательная демо-платформа с виртуальными монетами.</div>
-  <div class="balancebox">
-   <div class="row"><span class="muted" data-t="balanceLabel">Твой виртуальный баланс</span><span style="color:var(--gold);font-size:11px">DEMO</span></div>
-   <div class="balance"><span id="balance">1,000</span> <small>MGK</small></div>
-   <div class="row"><span class="muted" id="xptext">0 / 100 XP</span><span class="muted" id="xppercent">0%</span></div>
-   <div class="progress"><div id="xpbar" style="width:0%"></div></div>
+  <div class="eyebrow">MADGEK PRIVATE CLUB</div>
+  <h1 data-t="headline">Твой игровой зал</h1>
+  <p class="muted" data-t="subhead">Анимации, игровые столы и виртуальные монеты.</p>
+  <div class="row">
+   <div class="grow"><small class="muted">XP <span id="xp">0</span>/100</small><div class="progress"><div id="xpbar" style="width:0%"></div></div></div>
+   <button class="btn2" onclick="dailyBonus()">🎁 <span data-t="bonus">Бонус</span></button>
   </div>
  </div>
  <div class="stats">
-  <div class="stat"><strong id="levelstat">1</strong><span data-t="level">Уровень</span></div>
-  <div class="stat"><strong id="streak">0</strong><span data-t="streak">Дней подряд</span></div>
-  <div class="stat"><strong id="played">0</strong><span data-t="played">Игр сыграно</span></div>
+  <div class="stat"><strong id="gamesPlayed">0</strong><small data-t="played">Раундов</small></div>
+  <div class="stat"><strong id="wins">0</strong><small data-t="wins">Побед</small></div>
+  <div class="stat"><strong id="streak">0</strong><small data-t="days">Дней подряд</small></div>
  </div>
- <h2 data-t="games">🎮 Мини-игры</h2>
- <div class="grid" id="games"></div>
- <div class="row">
-  <button class="btn full" onclick="daily()" data-t="daily">🎁 Забрать бонус</button>
-  <button class="btn2 full" onclick="go('wallet')" data-t="wallet">Кошелёк</button>
- </div>
- <div class="notice" data-t="disclaimer">ДЕМО: MGK — виртуальные монеты. Депозиты и вывод средств не обрабатываются.</div>
+ <h2 data-t="chooseGame">Выбери игру</h2>
+ <div class="grid" id="gamecards"></div>
+ <div class="notice" data-t="demoNotice">Это развлекательная демоверсия. MGK — виртуальные очки без денежной стоимости. Реальные платежи отключены.</div>
 </section>
 
 <section class="page" id="tasks">
- <h2 data-t="tasksTitle">📋 Задания и награды</h2>
- <div class="panel">
-  <h3 data-t="dailyTitle">Ежедневный бонус</h3>
-  <p class="muted" data-t="dailyDescription">Забирай бонус раз в день.</p>
-  <button class="btn full" onclick="daily()" data-t="collect">Забрать 100 MGK + 20 XP</button>
- </div>
+ <h2 data-t="tasks">🎯 Задания</h2>
+ <div class="panel"><h3 data-t="daily">Ежедневный бонус</h3><p class="muted" data-t="dailyText">Заходи каждый день, чтобы получать виртуальные MGK.</p><button class="btn full" onclick="dailyBonus()" data-t="claimBonus">Получить 100 MGK + 20 XP</button></div>
  <div id="tasklist"></div>
 </section>
 
 <section class="page" id="wallet">
- <h2 data-t="walletTitle">💳 Демо-кошелёк</h2>
- <div class="panel">
-  <h3 data-t="deposit">Депозит (тестовый)</h3>
-  <div class="field"><label data-t="currency">Платёжная система</label>
-   <select id="depositCoin"><option>USDT</option><option>Bitcoin</option><option>Ethereum</option></select>
-  </div>
-  <div class="field"><label data-t="amountUSD">Сумма в USD</label><input id="depositAmount" type="number" min="1" value="50"></div>
-  <button class="btn full" onclick="deposit()" data-t="testDeposit">Сымитировать депозит</button>
-  <p class="muted" data-t="minUSDT">Минимум для USDT: $50. Никакого реального платежа не будет.</p>
+ <h2 data-t="wallet">💳 Демо-кошелёк</h2>
+ <div class="panel"><div class="eyebrow">DEMO ONLY</div><h3 data-t="demoDeposit">Тестовый депозит</h3>
+  <div class="field"><label data-t="system">Система</label><select id="coinIn"><option>USDT</option><option>Bitcoin</option><option>Ethereum</option></select></div>
+  <div class="field"><label>USD</label><input id="usdIn" type="number" min="1" value="50"></div>
+  <button class="btn full" onclick="fakeDeposit()" data-t="simulate">Добавить тестовую запись</button>
+  <p class="muted" data-t="depositInfo">USDT: минимум $50. Платёж не совершается; реальная криптовалюта не используется.</p>
  </div>
- <div class="panel">
-  <h3 data-t="withdraw">Вывод (тестовый)</h3>
-  <div class="field"><label data-t="currency">Платёжная система</label>
-   <select id="withdrawCoin"><option>USDT</option><option>Bitcoin</option><option>Ethereum</option></select>
-  </div>
-  <div class="field"><label data-t="amountMGK">Сумма MGK</label><input id="withdrawAmount" type="number" min="1" value="100"></div>
-  <button class="btn full" onclick="withdraw()" data-t="testWithdraw">Сымитировать вывод</button>
-  <p class="muted" data-t="withdrawNote">Демо-запись не отправляет криптовалюту и не списывает баланс.</p>
+ <div class="panel"><h3 data-t="demoWithdraw">Тестовый вывод</h3>
+  <div class="field"><label data-t="system">Система</label><select id="coinOut"><option>USDT</option><option>Bitcoin</option><option>Ethereum</option></select></div>
+  <div class="field"><label>MGK</label><input id="mgkOut" type="number" min="1" value="100"></div>
+  <button class="btn full" onclick="fakeWithdraw()" data-t="simulateOut">Добавить тестовую запись</button>
+  <p class="muted" data-t="withdrawInfo">Никакие средства не переводятся и не списываются.</p>
  </div>
- <div class="notice" data-t="demoOnly">Важно: это демонстрация интерфейса. Адреса кошельков и реальные транзакции не используются.</div>
- <h2 data-t="historyTitle">История операций</h2>
- <div id="history"></div>
-</section>
-
-<section class="page" id="profile">
- <h2 data-t="profileTitle">👤 Профиль</h2>
- <div class="panel">
-  <div class="row" style="align-items:center">
-   <div class="logo" id="avatar">M</div>
-   <div style="flex:1"><h3 id="username">Игрок MADGEK</h3><div class="muted" id="profileLevel">Уровень 1</div></div>
-  </div>
-  <div class="field"><label data-t="nickname">Никнейм</label><input id="nickname" maxlength="24" placeholder="Nickname"></div>
-  <button class="btn full" onclick="saveName()" data-t="saveName">Сохранить никнейм</button>
- </div>
- <div class="stats">
-  <div class="stat"><strong id="profileBalance">1,000</strong><span>MGK</span></div>
-  <div class="stat"><strong id="profileGames">0</strong><span data-t="played">Игр сыграно</span></div>
-  <div class="stat"><strong id="profileXP">0</strong><span>XP</span></div>
- </div>
- <button class="btn2 full" onclick="resetDemo()" data-t="reset">Сбросить демо-прогресс</button>
- <div class="notice" data-t="localSave">Прогресс сохраняется в локальном хранилище этого браузера.</div>
+ <h2 data-t="history">История</h2><div id="walletHistory"></div>
 </section>
 
 <section class="page" id="historypage">
- <h2 data-t="historyTitle">📜 История</h2>
- <div id="fullhistory"></div>
- <button class="btn2 full" onclick="clearHistory()" data-t="clearHistory">Очистить историю</button>
+ <h2 data-t="history">📜 История раундов</h2><div id="historyList"></div>
+ <button class="btn2 full" onclick="clearHistory()" data-t="clear">Очистить историю</button>
+</section>
+
+<section class="page" id="profile">
+ <h2 data-t="profile">👤 Профиль</h2>
+ <div class="panel"><div class="row"><div class="logo" id="avatar">M</div><div class="grow"><h3 id="username">MADGEK Player</h3><div class="muted" id="profileLevel">Уровень 1</div></div></div>
+ <div class="field"><label data-t="nickname">Никнейм</label><input id="nickname" maxlength="24" placeholder="Nickname"></div><button class="btn full" onclick="saveNickname()" data-t="save">Сохранить</button></div>
+ <div class="notice" data-t="saveInfo">Демо-прогресс сохраняется в браузере на этом устройстве.</div>
+ <button class="btn2 full" onclick="resetDemo()" data-t="reset">Сбросить демо-прогресс</button>
 </section>
 </div>
 
@@ -180,155 +205,280 @@ h3{font-size:15px;margin:4px 0 8px}
  <button data-page="profile" onclick="go('profile')"><span>👤</span><i data-t="navProfile">Профиль</i></button>
 </div></nav>
 
-<div class="modal" id="modal">
- <div class="modalbox">
-  <div class="modalhead"><h2 id="modalTitle">Игра</h2><button class="btn2" onclick="closeGame()">✕</button></div>
-  <div id="modalBody"></div>
- </div>
-</div>
+<div class="modal" id="modal"><div class="modalbox">
+ <div class="modalhead"><div><div class="eyebrow">MADGEK GAME TABLE</div><h2 id="modalTitle">Игра</h2></div><button class="btn2" onclick="closeGame()">✕</button></div>
+ <div id="modalBody"></div>
+</div></div>
 <div class="toast" id="toast"></div>
 
 <script>
 const $=id=>document.getElementById(id);
-const TXT={
-ru:{welcome:"ДОБРО ПОЖАЛОВАТЬ В MADGEK",headline:"Играй. Выполняй задания. Получай XP.",description:"Развлекательная демо-платформа с виртуальными монетами.",balanceLabel:"Твой виртуальный баланс",level:"Уровень",streak:"Дней подряд",played:"Игр сыграно",games:"🎮 Мини-игры",daily:"🎁 Забрать бонус",wallet:"Кошелёк",disclaimer:"ДЕМО: MGK — виртуальные монеты. Депозиты и вывод средств не обрабатываются.",tasksTitle:"📋 Задания и награды",dailyTitle:"Ежедневный бонус",dailyDescription:"Забирай бонус раз в день.",collect:"Забрать 100 MGK + 20 XP",deposit:"Депозит (тестовый)",currency:"Платёжная система",amountUSD:"Сумма в USD",testDeposit:"Сымитировать депозит",minUSDT:"Минимум для USDT: $50. Никакого реального платежа не будет.",withdraw:"Вывод (тестовый)",amountMGK:"Сумма MGK",testWithdraw:"Сымитировать вывод",withdrawNote:"Демо-запись не отправляет криптовалюту и не списывает баланс.",demoOnly:"Важно: это демонстрация интерфейса. Адреса кошельков и реальные транзакции не используются.",historyTitle:"📜 История операций",profileTitle:"👤 Профиль",nickname:"Никнейм",saveName:"Сохранить никнейм",reset:"Сбросить демо-прогресс",localSave:"Прогресс сохраняется в локальном хранилище этого браузера.",clearHistory:"Очистить историю",navHome:"Главная",navTasks:"Задания",navWallet:"Кошелёк",navHistory:"История",navProfile:"Профиль",claim:"Забрать",claimed:"Получено",task1:"Сыграй 3 игры",task2:"Попробуй Lucky Spin",task3:"Выиграй в любой игре",taskDesc:"Награда",slots:"Слоты",roulette:"Рулетка",blackjack:"Блэкджек",dice:"Кости",spin:"Колесо удачи",number:"Счастливое число",play:"Играть",bet:"Ставка MGK",start:"Запустить",hit:"Ещё карту",stand:"Хватит",dealer:"Дилер",yourHand:"Твои карты",choose:"Сделай выбор",chooseRed:"Красное",chooseBlack:"Чёрное",even:"Чётное",odd:"Нечётное",chooseNumber:"Выбери число",roll:"Бросить кости",spinNow:"Крутить",win:"Победа!",lose:"Не повезло",invalid:"Проверь сумму.",minDeposit:"Минимальный депозит USDT — $50.",notEnough:"Недостаточно MGK.",dailyDone:"Бонус уже получен сегодня.",dailySuccess:"Получено 100 MGK и 20 XP!",saved:"Сохранено!",resetDone:"Демо-прогресс сброшен.",demoDeposit:"Тестовый депозит",demoWithdraw:"Тестовый вывод",depositSuccess:"Тестовая запись добавлена. Платёж не совершён.",withdrawSuccess:"Тестовая запись добавлена. Вывод не совершён.",confirmReset:"Сбросить демо-прогресс?",clearConfirm:"Очистить историю?",historyEmpty:"Пока записей нет.",taskComplete:"Задание выполнено!",newRound:"Новый раунд"},
-en:{welcome:"WELCOME TO MADGEK",headline:"Play. Complete tasks. Earn XP.",description:"A demo entertainment platform with virtual coins.",balanceLabel:"Your virtual balance",level:"Level",streak:"Day streak",played:"Games played",games:"🎮 Mini-games",daily:"🎁 Claim bonus",wallet:"Wallet",disclaimer:"DEMO: MGK are virtual coins. Deposits and withdrawals are not processed.",tasksTitle:"📋 Tasks & rewards",dailyTitle:"Daily bonus",dailyDescription:"Claim your bonus once a day.",collect:"Claim 100 MGK + 20 XP",deposit:"Deposit (test)",currency:"Payment system",amountUSD:"Amount in USD",testDeposit:"Simulate deposit",minUSDT:"USDT minimum: $50. No real payment will occur.",withdraw:"Withdrawal (test)",amountMGK:"MGK amount",testWithdraw:"Simulate withdrawal",withdrawNote:"This demo entry does not send crypto or deduct your balance.",demoOnly:"Demo interface only. No wallet addresses or real transactions are used.",historyTitle:"📜 Transaction history",profileTitle:"👤 Profile",nickname:"Nickname",saveName:"Save nickname",reset:"Reset demo progress",localSave:"Progress is saved in this browser.",clearHistory:"Clear history",navHome:"Home",navTasks:"Tasks",navWallet:"Wallet",navHistory:"History",navProfile:"Profile",claim:"Claim",claimed:"Claimed",task1:"Play 3 games",task2:"Try Lucky Spin",task3:"Win any game",taskDesc:"Reward",slots:"Slots",roulette:"Roulette",blackjack:"Blackjack",dice:"Dice",spin:"Lucky wheel",number:"Lucky number",play:"Play",bet:"MGK bet",start:"Play",hit:"Hit",stand:"Stand",dealer:"Dealer",yourHand:"Your hand",choose:"Make a choice",chooseRed:"Red",chooseBlack:"Black",even:"Even",odd:"Odd",chooseNumber:"Choose a number",roll:"Roll dice",spinNow:"Spin",win:"You won!",lose:"No luck",invalid:"Check the amount.",minDeposit:"USDT minimum deposit is $50.",notEnough:"Not enough MGK.",dailyDone:"Bonus already claimed today.",dailySuccess:"100 MGK and 20 XP received!",saved:"Saved!",resetDone:"Demo progress reset.",demoDeposit:"Test deposit",demoWithdraw:"Test withdrawal",depositSuccess:"Test entry added. No payment was made.",withdrawSuccess:"Test entry added. No withdrawal was made.",confirmReset:"Reset demo progress?",clearConfirm:"Clear history?",historyEmpty:"No records yet.",taskComplete:"Task completed!",newRound:"New round"},
-zh:{welcome:"欢迎来到 MADGEK",headline:"玩游戏、完成任务、获取 XP。",description:"使用虚拟金币的娱乐演示平台。",balanceLabel:"你的虚拟余额",level:"等级",streak:"连续天数",played:"游戏次数",games:"🎮 小游戏",daily:"🎁 领取奖励",wallet:"钱包",disclaimer:"演示版：MGK 是虚拟金币，不处理真实存款或提款。",tasksTitle:"📋 任务与奖励",dailyTitle:"每日奖励",dailyDescription:"每天可以领取一次奖励。",collect:"领取 100 MGK + 20 XP",deposit:"充值（测试）",currency:"支付方式",amountUSD:"美元金额",testDeposit:"模拟充值",minUSDT:"USDT 最低金额：50 美元。不会进行真实支付。",withdraw:"提款（测试）",amountMGK:"MGK 数量",testWithdraw:"模拟提款",withdrawNote:"此演示不会发送加密货币或扣除余额。",demoOnly:"仅为界面演示，不使用真实钱包地址或交易。",historyTitle:"📜 交易记录",profileTitle:"👤 个人资料",nickname:"昵称",saveName:"保存昵称",reset:"重置演示进度",localSave:"进度保存在当前浏览器中。",clearHistory:"清除记录",navHome:"首页",navTasks:"任务",navWallet:"钱包",navHistory:"记录",navProfile:"资料",claim:"领取",claimed:"已领取",task1:"玩 3 局游戏",task2:"试试幸运转盘",task3:"赢得任意游戏",taskDesc:"奖励",slots:"老虎机",roulette:"轮盘",blackjack:"二十一点",dice:"骰子",spin:"幸运转盘",number:"幸运数字",play:"开始",bet:"MGK 下注",start:"开始",hit:"要牌",stand:"停牌",dealer:"庄家",yourHand:"你的手牌",choose:"请选择",chooseRed:"红色",chooseBlack:"黑色",even:"偶数",odd:"奇数",chooseNumber:"选择数字",roll:"掷骰子",spinNow:"旋转",win:"赢了！",lose:"再试一次",invalid:"请检查金额。",minDeposit:"USDT 最低金额为 50 美元。",notEnough:"MGK 不足。",dailyDone:"今天已领取奖励。",dailySuccess:"获得 100 MGK 和 20 XP！",saved:"已保存！",resetDone:"演示进度已重置。",demoDeposit:"测试充值",demoWithdraw:"测试提款",depositSuccess:"已添加测试记录，没有支付。",withdrawSuccess:"已添加测试记录，没有提款。",confirmReset:"重置演示进度？",clearConfirm:"清除记录？",historyEmpty:"暂无记录。",taskComplete:"任务完成！",newRound:"新一局"},
-de:{welcome:"WILLKOMMEN BEI MADGEK",headline:"Spielen. Aufgaben erledigen. XP sammeln.",description:"Demo-Unterhaltungsplattform mit virtuellen Münzen.",balanceLabel:"Dein virtuelles Guthaben",level:"Level",streak:"Tage in Folge",played:"Gespielte Spiele",games:"🎮 Minispiele",daily:"🎁 Bonus abholen",wallet:"Wallet",disclaimer:"DEMO: MGK sind virtuelle Münzen. Ein- und Auszahlungen werden nicht verarbeitet.",tasksTitle:"📋 Aufgaben & Belohnungen",dailyTitle:"Tagesbonus",dailyDescription:"Hole deinen Bonus einmal täglich ab.",collect:"100 MGK + 20 XP abholen",deposit:"Einzahlung (Test)",currency:"Zahlungssystem",amountUSD:"Betrag in USD",testDeposit:"Einzahlung simulieren",minUSDT:"USDT-Mindestbetrag: 50 $. Keine echte Zahlung.",withdraw:"Auszahlung (Test)",amountMGK:"MGK-Betrag",testWithdraw:"Auszahlung simulieren",withdrawNote:"Dieser Demo-Eintrag sendet keine Kryptowährung und zieht kein Guthaben ab.",demoOnly:"Nur eine Demo. Es werden keine echten Wallets oder Transaktionen verwendet.",historyTitle:"📜 Verlauf",profileTitle:"👤 Profil",nickname:"Spitzname",saveName:"Spitznamen speichern",reset:"Demo-Fortschritt zurücksetzen",localSave:"Fortschritt wird in diesem Browser gespeichert.",clearHistory:"Verlauf löschen",navHome:"Start",navTasks:"Aufgaben",navWallet:"Wallet",navHistory:"Verlauf",navProfile:"Profil",claim:"Abholen",claimed:"Erhalten",task1:"Spiele 3 Spiele",task2:"Probiere Lucky Spin",task3:"Gewinne ein Spiel",taskDesc:"Belohnung",slots:"Slots",roulette:"Roulette",blackjack:"Blackjack",dice:"Würfel",spin:"Glücksrad",number:"Glückszahl",play:"Spielen",bet:"MGK-Einsatz",start:"Start",hit:"Karte ziehen",stand:"Halten",dealer:"Dealer",yourHand:"Deine Karten",choose:"Wähle",chooseRed:"Rot",chooseBlack:"Schwarz",even:"Gerade",odd:"Ungerade",chooseNumber:"Zahl wählen",roll:"Würfeln",spinNow:"Drehen",win:"Gewonnen!",lose:"Leider verloren",invalid:"Betrag prüfen.",minDeposit:"USDT-Mindestbetrag: 50 $.",notEnough:"Nicht genug MGK.",dailyDone:"Bonus heute bereits abgeholt.",dailySuccess:"100 MGK und 20 XP erhalten!",saved:"Gespeichert!",resetDone:"Demo zurückgesetzt.",demoDeposit:"Testeinzahlung",demoWithdraw:"Testauszahlung",depositSuccess:"Testeintrag hinzugefügt. Keine Zahlung erfolgt.",withdrawSuccess:"Testeintrag hinzugefügt. Keine Auszahlung erfolgt.",confirmReset:"Demo-Fortschritt zurücksetzen?",clearConfirm:"Verlauf löschen?",historyEmpty:"Noch keine Einträge.",taskComplete:"Aufgabe erledigt!",newRound:"Neue Runde"},
-pl:{welcome:"WITAJ W MADGEK",headline:"Graj. Wykonuj zadania. Zdobywaj XP.",description:"Platforma rozrywkowa demo z wirtualnymi monetami.",balanceLabel:"Twoje wirtualne saldo",level:"Poziom",streak:"Dni z rzędu",played:"Rozegrane gry",games:"🎮 Minigry",daily:"🎁 Odbierz bonus",wallet:"Portfel",disclaimer:"DEMO: MGK to wirtualne monety. Wpłaty i wypłaty nie są przetwarzane.",tasksTitle:"📋 Zadania i nagrody",dailyTitle:"Bonus dzienny",dailyDescription:"Odbierz bonus raz dziennie.",collect:"Odbierz 100 MGK + 20 XP",deposit:"Wpłata (test)",currency:"System płatności",amountUSD:"Kwota w USD",testDeposit:"Symuluj wpłatę",minUSDT:"Minimum USDT: 50 $. Żadna prawdziwa płatność nie nastąpi.",withdraw:"Wypłata (test)",amountMGK:"Kwota MGK",testWithdraw:"Symuluj wypłatę",withdrawNote:"Wpis demo nie wysyła kryptowalut ani nie zmniejsza salda.",demoOnly:"Tylko demo. Nie używamy prawdziwych portfeli ani transakcji.",historyTitle:"📜 Historia",profileTitle:"👤 Profil",nickname:"Pseudonim",saveName:"Zapisz pseudonim",reset:"Zresetuj demo",localSave:"Postęp jest zapisany w tej przeglądarce.",clearHistory:"Wyczyść historię",navHome:"Start",navTasks:"Zadania",navWallet:"Portfel",navHistory:"Historia",navProfile:"Profil",claim:"Odbierz",claimed:"Odebrano",task1:"Zagraj 3 razy",task2:"Wypróbuj Lucky Spin",task3:"Wygraj dowolną grę",taskDesc:"Nagroda",slots:"Automaty",roulette:"Ruletka",blackjack:"Blackjack",dice:"Kości",spin:"Koło fortuny",number:"Szczęśliwa liczba",play:"Graj",bet:"Stawka MGK",start:"Start",hit:"Dobierz",stand:"Pas",dealer:"Krupier",yourHand:"Twoje karty",choose:"Wybierz",chooseRed:"Czerwone",chooseBlack:"Czarne",even:"Parzyste",odd:"Nieparzyste",chooseNumber:"Wybierz liczbę",roll:"Rzuć kośćmi",spinNow:"Zakręć",win:"Wygrana!",lose:"Brak szczęścia",invalid:"Sprawdź kwotę.",minDeposit:"Minimalna wpłata USDT to 50 $.",notEnough:"Za mało MGK.",dailyDone:"Bonus odebrano już dzisiaj.",dailySuccess:"Otrzymano 100 MGK i 20 XP!",saved:"Zapisano!",resetDone:"Demo zresetowane.",demoDeposit:"Wpłata testowa",demoWithdraw:"Wypłata testowa",depositSuccess:"Dodano wpis testowy. Bez płatności.",withdrawSuccess:"Dodano wpis testowy. Bez wypłaty.",confirmReset:"Zresetować postęp demo?",clearConfirm:"Wyczyścić historię?",historyEmpty:"Brak wpisów.",taskComplete:"Zadanie wykonane!",newRound:"Nowa runda"}
+const LANG={
+ru:{balance:"ВИРТУАЛЬНЫЙ БАЛАНС",level:"УРОВЕНЬ",headline:"Твой игровой зал",subhead:"Анимации, игровые столы и виртуальные монеты.",bonus:"Бонус",played:"Раундов",wins:"Побед",days:"Дней подряд",chooseGame:"Выбери игру",demoNotice:"Это развлекательная демоверсия. MGK — виртуальные очки без денежной стоимости. Реальные платежи отключены.",tasks:"🎯 Задания",daily:"Ежедневный бонус",dailyText:"Заходи каждый день, чтобы получать виртуальные MGK.",claimBonus:"Получить 100 MGK + 20 XP",wallet:"Кошелёк",demoDeposit:"Тестовый депозит",system:"Система",simulate:"Добавить тестовую запись",depositInfo:"USDT: минимум $50. Платёж не совершается; реальная криптовалюта не используется.",demoWithdraw:"Тестовый вывод",simulateOut:"Добавить тестовую запись",withdrawInfo:"Никакие средства не переводятся и не списываются.",history:"История",clear:"Очистить историю",profile:"Профиль",nickname:"Никнейм",save:"Сохранить",saveInfo:"Демо-прогресс сохраняется в браузере на этом устройстве.",reset:"Сбросить демо-прогресс",navHome:"Главная",navTasks:"Задания",navWallet:"Кошелёк",navHistory:"История",navProfile:"Профиль",slots:"Слоты",roulette:"Рулетка",blackjack:"Блэкджек",dice:"Кости",wheel:"Колесо удачи",baccarat:"Баккара",slotdesc:"Вращающиеся барабаны",roulettedesc:"Колесо, шарик и ставки",blackjackdesc:"Карты и правила 21",dicedesc:"Бросок и сумма кубиков",wheeldesc:"Сектора и множители",baccaratdesc:"Карты игрока и банкира",bet:"Ставка MGK",spin:"Крутить",red:"Красное",black:"Чёрное",odd:"Нечётное",even:"Чётное",low:"1–18",high:"19–36",doSpin:"Вращать колесо",selectChip:"Выбери фишку",placeBets:"Выбери поле ставки",number:"Число",outside:"Внешние ставки",clearBets:"Очистить ставки",totalBet:"Сумма ставок",startRound:"Начать раунд",hit:"Ещё карту",stand:"Хватит",double:"Удвоить",dealer:"Дилер",you:"Игрок",roll:"Бросить кубики",guess:"Предположенная сумма",chooseGuess:"Выбери сумму",start:"Запустить",banker:"Банкир",player:"Игрок",tie:"Ничья",again:"Ещё раунд",win:"ПОБЕДА",lose:"РАУНД ЗАВЕРШЁН",push:"НИЧЬЯ",result:"Результат",needBet:"Сначала сделай ставку.",notEnough:"Недостаточно виртуальных MGK.",invalid:"Проверь сумму.",bonusDone:"Бонус уже получен сегодня.",bonusSuccess:"Получено 100 MGK и 20 XP!",demoDepositDone:"Тестовая запись создана; деньги не переводились.",demoWithdrawDone:"Тестовая запись создана; вывод не совершён.",task1:"Сыграй 3 раунда",task2:"Попробуй колесо удачи",task3:"Выиграй раунд",claim:"Забрать",claimed:"Получено",reward:"Награда",complete:"Задание выполнено!",resetConfirm:"Сбросить демо-прогресс?",clearConfirm:"Очистить историю?",empty:"Пока записей нет.",saved:"Сохранено!",resetDone:"Демо-прогресс сброшен.",spinWin:"Колесо остановилось!",reelWin:"Комбинация!",natural:"Блэкджек!",noMore:"Раунд уже завершён.",demo:"ДЕМО",spinning:"Вращение...",chooseSide:"Выбери ставку",baccaratChoose:"Ставка на исход",invalidBet:"Минимальная ставка — 10 MGK."},
+en:{balance:"VIRTUAL BALANCE",level:"LEVEL",headline:"Your game room",subhead:"Animations, game tables and virtual coins.",bonus:"Bonus",played:"Rounds",wins:"Wins",days:"Day streak",chooseGame:"Choose a game",demoNotice:"Entertainment demo. MGK are virtual points with no monetary value. Real payments are disabled.",tasks:"🎯 Tasks",daily:"Daily bonus",dailyText:"Visit daily to collect virtual MGK.",claimBonus:"Claim 100 MGK + 20 XP",wallet:"Wallet",demoDeposit:"Test deposit",system:"System",simulate:"Add test entry",depositInfo:"USDT minimum $50. No payment or real cryptocurrency is used.",demoWithdraw:"Test withdrawal",simulateOut:"Add test entry",withdrawInfo:"No funds are transferred or deducted.",history:"History",clear:"Clear history",profile:"Profile",nickname:"Nickname",save:"Save",saveInfo:"Demo progress is saved in this browser.",reset:"Reset demo progress",navHome:"Home",navTasks:"Tasks",navWallet:"Wallet",navHistory:"History",navProfile:"Profile",slots:"Slots",roulette:"Roulette",blackjack:"Blackjack",dice:"Dice",wheel:"Lucky wheel",baccarat:"Baccarat",slotdesc:"Spinning reels",roulettedesc:"Wheel, ball and bets",blackjackdesc:"Cards and rules of 21",dicedesc:"Roll and dice total",wheeldesc:"Prize segments and multipliers",baccaratdesc:"Player and banker cards",bet:"MGK bet",spin:"Spin",red:"Red",black:"Black",odd:"Odd",even:"Even",low:"1–18",high:"19–36",doSpin:"Spin wheel",selectChip:"Choose a chip",placeBets:"Choose a bet space",number:"Number",outside:"Outside bets",clearBets:"Clear bets",totalBet:"Total bet",startRound:"Start round",hit:"Hit",stand:"Stand",double:"Double",dealer:"Dealer",you:"Player",roll:"Roll dice",guess:"Predicted total",chooseGuess:"Choose total",start:"Start",banker:"Banker",player:"Player",tie:"Tie",again:"Play again",win:"YOU WIN",lose:"ROUND OVER",push:"PUSH",result:"Result",needBet:"Place a bet first.",notEnough:"Not enough virtual MGK.",invalid:"Check the amount.",bonusDone:"Bonus already claimed today.",bonusSuccess:"100 MGK and 20 XP received!",demoDepositDone:"Test entry created; no money was transferred.",demoWithdrawDone:"Test entry created; no withdrawal occurred.",task1:"Play 3 rounds",task2:"Try the lucky wheel",task3:"Win a round",claim:"Claim",claimed:"Claimed",reward:"Reward",complete:"Task completed!",resetConfirm:"Reset demo progress?",clearConfirm:"Clear history?",empty:"No records yet.",saved:"Saved!",resetDone:"Demo progress reset.",spinWin:"The wheel stopped!",reelWin:"Combination!",natural:"Blackjack!",noMore:"Round already finished.",demo:"DEMO",spinning:"Spinning...",chooseSide:"Choose a bet",baccaratChoose:"Bet on an outcome",invalidBet:"Minimum bet is 10 MGK."},
+zh:{balance:"虚拟余额",level:"等级",headline:"你的游戏大厅",subhead:"动画、游戏桌和虚拟金币。",bonus:"奖励",played:"局数",wins:"胜场",days:"连续天数",chooseGame:"选择游戏",demoNotice:"娱乐演示。MGK 是没有货币价值的虚拟积分。真实支付已关闭。",tasks:"🎯 任务",daily:"每日奖励",dailyText:"每天领取虚拟 MGK。",claimBonus:"领取 100 MGK + 20 XP",wallet:"钱包",demoDeposit:"测试充值",system:"系统",simulate:"添加测试记录",depositInfo:"USDT 最低 50 美元。不会使用真实加密货币。",demoWithdraw:"测试提款",simulateOut:"添加测试记录",withdrawInfo:"不会转账或扣除资金。",history:"历史记录",clear:"清除记录",profile:"个人资料",nickname:"昵称",save:"保存",saveInfo:"进度保存在此浏览器。",reset:"重置演示进度",navHome:"首页",navTasks:"任务",navWallet:"钱包",navHistory:"记录",navProfile:"资料",slots:"老虎机",roulette:"轮盘",blackjack:"二十一点",dice:"骰子",wheel:"幸运转盘",baccarat:"百家乐",slotdesc:"旋转的转轴",roulettedesc:"轮盘、球和下注",blackjackdesc:"扑克牌与 21 点规则",dicedesc:"骰子点数",wheeldesc:"奖励区间与倍数",baccaratdesc:"玩家与庄家牌",bet:"MGK 下注",spin:"旋转",red:"红色",black:"黑色",odd:"奇数",even:"偶数",low:"1–18",high:"19–36",doSpin:"旋转轮盘",selectChip:"选择筹码",placeBets:"选择下注位置",number:"数字",outside:"外部下注",clearBets:"清除下注",totalBet:"下注总额",startRound:"开始",hit:"要牌",stand:"停牌",double:"加倍",dealer:"庄家",you:"玩家",roll:"掷骰子",guess:"预测总数",chooseGuess:"选择总数",start:"开始",banker:"庄家",player:"玩家",tie:"平局",again:"再玩一局",win:"获胜",lose:"本局结束",push:"平局",result:"结果",needBet:"请先下注。",notEnough:"虚拟 MGK 不足。",invalid:"请检查金额。",bonusDone:"今天已领取奖励。",bonusSuccess:"获得 100 MGK 和 20 XP！",demoDepositDone:"已创建测试记录，没有转账。",demoWithdrawDone:"已创建测试记录，没有提款。",task1:"玩 3 局",task2:"试试幸运转盘",task3:"赢一局",claim:"领取",claimed:"已领取",reward:"奖励",complete:"任务完成！",resetConfirm:"重置演示进度？",clearConfirm:"清除记录？",empty:"暂无记录。",saved:"已保存！",resetDone:"演示进度已重置。",spinWin:"转盘停止！",reelWin:"组合！",natural:"黑杰克！",noMore:"本局已结束。",demo:"演示",spinning:"旋转中...",chooseSide:"选择下注",baccaratChoose:"选择结果",invalidBet:"最低下注为 10 MGK。"},
+de:{balance:"VIRTUELLES GUTHABEN",level:"LEVEL",headline:"Dein Spielzimmer",subhead:"Animationen, Spieltische und virtuelle Münzen.",bonus:"Bonus",played:"Runden",wins:"Siege",days:"Tagesserie",chooseGame:"Spiel auswählen",demoNotice:"Unterhaltungsdemo. MGK sind virtuelle Punkte ohne Geldwert. Echte Zahlungen sind deaktiviert.",tasks:"🎯 Aufgaben",daily:"Tagesbonus",dailyText:"Hole täglich virtuelle MGK ab.",claimBonus:"100 MGK + 20 XP abholen",wallet:"Wallet",demoDeposit:"Testeinzahlung",system:"System",simulate:"Testeintrag hinzufügen",depositInfo:"USDT mindestens 50 $. Keine echte Zahlung oder Kryptowährung.",demoWithdraw:"Testauszahlung",simulateOut:"Testeintrag hinzufügen",withdrawInfo:"Es werden keine Gelder übertragen oder abgezogen.",history:"Verlauf",clear:"Verlauf löschen",profile:"Profil",nickname:"Spitzname",save:"Speichern",saveInfo:"Der Fortschritt wird in diesem Browser gespeichert.",reset:"Demo zurücksetzen",navHome:"Start",navTasks:"Aufgaben",navWallet:"Wallet",navHistory:"Verlauf",navProfile:"Profil",slots:"Slots",roulette:"Roulette",blackjack:"Blackjack",dice:"Würfel",wheel:"Glücksrad",baccarat:"Baccarat",slotdesc:"Drehende Walzen",roulettedesc:"Rad, Kugel und Einsätze",blackjackdesc:"Karten und 21er-Regeln",dicedesc:"Würfel und Summe",wheeldesc:"Segmente und Multiplikatoren",baccaratdesc:"Spieler- und Bankkarten",bet:"MGK-Einsatz",spin:"Drehen",red:"Rot",black:"Schwarz",odd:"Ungerade",even:"Gerade",low:"1–18",high:"19–36",doSpin:"Rad drehen",selectChip:"Chip wählen",placeBets:"Einsatzfeld wählen",number:"Zahl",outside:"Außeneinsätze",clearBets:"Einsätze löschen",totalBet:"Gesamteinsatz",startRound:"Runde starten",hit:"Karte ziehen",stand:"Halten",double:"Verdoppeln",dealer:"Dealer",you:"Spieler",roll:"Würfeln",guess:"Vorhergesagte Summe",chooseGuess:"Summe wählen",start:"Start",banker:"Banker",player:"Spieler",tie:"Unentschieden",again:"Neue Runde",win:"GEWONNEN",lose:"RUNDE BEENDET",push:"UNENTSCHIEDEN",result:"Ergebnis",needBet:"Setze zuerst einen Einsatz.",notEnough:"Nicht genug virtuelle MGK.",invalid:"Betrag prüfen.",bonusDone:"Bonus heute bereits abgeholt.",bonusSuccess:"100 MGK und 20 XP erhalten!",demoDepositDone:"Testeintrag erstellt; kein Geld übertragen.",demoWithdrawDone:"Testeintrag erstellt; keine Auszahlung erfolgt.",task1:"Spiele 3 Runden",task2:"Probiere das Glücksrad",task3:"Gewinne eine Runde",claim:"Abholen",claimed:"Erhalten",reward:"Belohnung",complete:"Aufgabe erledigt!",resetConfirm:"Demo-Fortschritt zurücksetzen?",clearConfirm:"Verlauf löschen?",empty:"Noch keine Einträge.",saved:"Gespeichert!",resetDone:"Demo zurückgesetzt.",spinWin:"Das Rad hält an!",reelWin:"Kombination!",natural:"Blackjack!",noMore:"Runde bereits beendet.",demo:"DEMO",spinning:"Dreht...",chooseSide:"Einsatz wählen",baccaratChoose:"Ergebnis wählen",invalidBet:"Mindesteinsatz: 10 MGK."},
+pl:{balance:"WIRTUALNE SALDO",level:"POZIOM",headline:"Twoja sala gier",subhead:"Animacje, stoły i wirtualne monety.",bonus:"Bonus",played:"Rundy",wins:"Wygrane",days:"Dni z rzędu",chooseGame:"Wybierz grę",demoNotice:"Demo rozrywkowe. MGK to wirtualne punkty bez wartości pieniężnej. Prawdziwe płatności są wyłączone.",tasks:"🎯 Zadania",daily:"Bonus dzienny",dailyText:"Odbieraj codziennie wirtualne MGK.",claimBonus:"Odbierz 100 MGK + 20 XP",wallet:"Portfel",demoDeposit:"Wpłata testowa",system:"System",simulate:"Dodaj wpis testowy",depositInfo:"USDT minimum 50 $. Bez prawdziwych płatności i kryptowalut.",demoWithdraw:"Wypłata testowa",simulateOut:"Dodaj wpis testowy",withdrawInfo:"Żadne środki nie są przesyłane ani odejmowane.",history:"Historia",clear:"Wyczyść historię",profile:"Profil",nickname:"Pseudonim",save:"Zapisz",saveInfo:"Postęp jest zapisywany w tej przeglądarce.",reset:"Zresetuj demo",navHome:"Start",navTasks:"Zadania",navWallet:"Portfel",navHistory:"Historia",navProfile:"Profil",slots:"Automaty",roulette:"Ruletka",blackjack:"Blackjack",dice:"Kości",wheel:"Koło fortuny",baccarat:"Bakarat",slotdesc:"Obracające się bębny",roulettedesc:"Koło, kulka i zakłady",blackjackdesc:"Karty i zasady 21",dicedesc:"Rzut i suma kości",wheeldesc:"Pola nagród i mnożniki",baccaratdesc:"Karty gracza i bankiera",bet:"Stawka MGK",spin:"Zakręć",red:"Czerwone",black:"Czarne",odd:"Nieparzyste",even:"Parzyste",low:"1–18",high:"19–36",doSpin:"Zakręć kołem",selectChip:"Wybierz żeton",placeBets:"Wybierz pole zakładu",number:"Numer",outside:"Zakłady zewnętrzne",clearBets:"Wyczyść zakłady",totalBet:"Suma zakładów",startRound:"Rozpocznij rundę",hit:"Dobierz kartę",stand:"Pas",double:"Podwój",dealer:"Krupier",you:"Gracz",roll:"Rzuć kośćmi",guess:"Przewidywana suma",chooseGuess:"Wybierz sumę",start:"Start",banker:"Bankier",player:"Gracz",tie:"Remis",again:"Nowa runda",win:"WYGRANA",lose:"KONIEC RUNDY",push:"REMIS",result:"Wynik",needBet:"Najpierw postaw zakład.",notEnough:"Za mało wirtualnych MGK.",invalid:"Sprawdź kwotę.",bonusDone:"Bonus odebrano już dzisiaj.",bonusSuccess:"Otrzymano 100 MGK i 20 XP!",demoDepositDone:"Dodano wpis testowy; bez płatności.",demoWithdrawDone:"Dodano wpis testowy; bez wypłaty.",task1:"Zagraj 3 rundy",task2:"Wypróbuj koło fortuny",task3:"Wygraj rundę",claim:"Odbierz",claimed:"Odebrano",reward:"Nagroda",complete:"Zadanie wykonane!",resetConfirm:"Zresetować postęp demo?",clearConfirm:"Wyczyścić historię?",empty:"Brak wpisów.",saved:"Zapisano!",resetDone:"Demo zresetowane.",spinWin:"Koło się zatrzymało!",reelWin:"Kombinacja!",natural:"Blackjack!",noMore:"Runda zakończona.",demo:"DEMO",spinning:"Obraca się...",chooseSide:"Wybierz zakład",baccaratChoose:"Wybierz wynik",invalidBet:"Minimalny zakład to 10 MGK."}
 };
-const GAME_DEFS=[
-{id:"slots",emoji:"🎰",name:"slots",desc:"3 × 🎰"},
-{id:"roulette",emoji:"🎯",name:"roulette",desc:"🔴 ⚫"},
-{id:"blackjack",emoji:"🃏",name:"blackjack",desc:"21"},
-{id:"dice",emoji:"🎲",name:"dice",desc:"1–6"},
-{id:"spin",emoji:"🎡",name:"spin",desc:"Lucky Spin"},
-{id:"number",emoji:"🍀",name:"number",desc:"1–6"}
+let state;
+const DEFAULT={balance:1000,xp:0,rounds:0,wins:0,streak:0,lastBonus:"",lastDate:"",nickname:"",history:[],tasks:[],playedWheel:false};
+try{state={...DEFAULT,...JSON.parse(localStorage.getItem("madgek_casino_demo_v2")||"{}")}}catch(e){state={...DEFAULT}}
+let lang=state.lang||"ru",current=null,chip=10,rouletteBets={},rouletteBusy=false,wheelBusy=false,slotBusy=false,bj=null,bcChoice="player",diceChoice=7;
+const tr=k=>(LANG[lang]||LANG.ru)[k]||LANG.ru[k]||k;
+const games=[
+ {id:"roulette",emoji:"🎡",name:"roulette",desc:"roulettedesc"},
+ {id:"slots",emoji:"🎰",name:"slots",desc:"slotdesc"},
+ {id:"blackjack",emoji:"🃏",name:"blackjack",desc:"blackjackdesc"},
+ {id:"dice",emoji:"🎲",name:"dice",desc:"dicedesc"},
+ {id:"wheel",emoji:"🎯",name:"wheel",desc:"wheeldesc"},
+ {id:"baccarat",emoji:"♠️",name:"baccarat",desc:"baccaratdesc"}
 ];
-const DEFAULT={balance:1000,xp:0,games:0,streak:0,lastDaily:"",lastDate:"",nickname:"",history:[],taskClaims:[],dailyProgress:0,spinPlayed:false,wonAny:false};
-let data;
-try{data={...DEFAULT,...JSON.parse(localStorage.getItem("madgek_demo_v1")||"{}")}}catch(e){data={...DEFAULT}}
-let currentGame=null,rouletteChoice="red",bj=null;
-const t=k=>(TXT[data.lang||"ru"]||TXT.ru)[k]||TXT.ru[k]||k;
-function save(){try{localStorage.setItem("madgek_demo_v1",JSON.stringify(data))}catch(e){}}
-function toast(s){$("toast").textContent=s;$("toast").classList.add("show");clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>$("toast").classList.remove("show"),2200)}
-function fmt(n){return Math.floor(n).toLocaleString("en-US")}
-function go(id){document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===id));document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.page===id));render()}
-function addHistory(title,amount){data.history.unshift({title,amount,date:new Date().toLocaleString()});data.history=data.history.slice(0,80);save()}
-function addXP(n){data.xp+=n}
-function level(){return Math.floor(data.xp/100)+1}
-function render(){
- document.documentElement.lang=data.lang||"ru";
- $("lang").value=data.lang||"ru";
- document.querySelectorAll("[data-t]").forEach(el=>{let key=el.dataset.t;if(t(key))el.textContent=t(key)});
- $("balance").textContent=fmt(data.balance);$("level").textContent="LVL "+level();$("levelstat").textContent=level();
- $("xptext").textContent=(data.xp%100)+" / 100 XP";$("xppercent").textContent=(data.xp%100)+"%";$("xpbar").style.width=(data.xp%100)+"%";
- $("streak").textContent=data.streak||0;$("played").textContent=data.games;
- $("profileBalance").textContent=fmt(data.balance);$("profileGames").textContent=data.games;$("profileXP").textContent=data.xp;
- $("username").textContent=data.nickname||"MADGEK Player";$("avatar").textContent=(data.nickname||"M").charAt(0).toUpperCase();$("profileLevel").textContent=t("level")+" "+level();
- if($("nickname")&&document.activeElement!==$("nickname"))$("nickname").value=data.nickname||"";
- $("games").innerHTML=GAME_DEFS.map(g=>`<button class="game" onclick="openGame('${g.id}')"><span class="emoji">${g.emoji}</span><b>${esc(t(g.name))}</b><small>${esc(g.desc)}</small></button>`).join("");
- renderTasks();renderHistory("history");renderHistory("fullhistory");
-}
+function save(){state.lang=lang;try{localStorage.setItem("madgek_casino_demo_v2",JSON.stringify(state))}catch(e){}}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function money(n){return Math.floor(n).toLocaleString("en-US")}
+function toast(s){$("toast").textContent=s;$("toast").classList.add("show");clearTimeout(window.toastTimeout);window.toastTimeout=setTimeout(()=>$("toast").classList.remove("show"),2300)}
+function go(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));render()}
+function addHistory(title,amount){state.history.unshift({title,amount,date:new Date().toLocaleString()});state.history=state.history.slice(0,100)}
+function xp(n){state.xp+=n}
+function level(){return Math.floor(state.xp/100)+1}
+function recordRound(title,net,won){
+ state.rounds++;if(won)state.wins++;state.dailyRounds=(state.dailyRounds||0)+1;xp(5);
+ addHistory(title,(net>=0?"+":"")+money(net)+" MGK");save();render();
+}
+function render(){
+ $("lang").value=lang;$("balance").textContent=money(state.balance);$("level").textContent=level();$("xp").textContent=state.xp%100;$("xpbar").style.width=(state.xp%100)+"%";
+ $("gamesPlayed").textContent=state.rounds;$("wins").textContent=state.wins;$("streak").textContent=state.streak||0;
+ $("gamecards").innerHTML=games.map(g=>`<button class="gamecard" onclick="openGame('${g.id}')"><span class="emoji">${g.emoji}</span><strong>${esc(tr(g.name))}</strong><small>${esc(tr(g.desc))}</small><span class="tag">● ${esc(tr("demo"))}</span></button>`).join("");
+ $("username").textContent=state.nickname||"MADGEK Player";$("avatar").textContent=(state.nickname||"M").slice(0,1).toUpperCase();$("profileLevel").textContent=tr("level")+" "+level();
+ if(document.activeElement!==$("nickname"))$("nickname").value=state.nickname||"";
+ document.querySelectorAll("[data-t]").forEach(el=>{el.textContent=tr(el.dataset.t)});
+ renderTasks();renderHistory("historyList");renderHistory("walletHistory");
+}
 function renderTasks(){
- const defs=[
- {id:"three",title:"task1",desc:"Play three games",reward:75,done:data.dailyProgress>=3},
- {id:"spin",title:"task2",desc:"Try the Lucky Spin",reward:50,done:data.spinPlayed},
- {id:"win",title:"task3",desc:"Win any game",reward:100,done:data.wonAny}
+ const tasks=[
+ {id:"three",key:"task1",done:(state.dailyRounds||0)>=3,reward:75},
+ {id:"wheel",key:"task2",done:state.playedWheel,reward:50},
+ {id:"win",key:"task3",done:state.wins>0,reward:100}
  ];
- $("tasklist").innerHTML=defs.map(a=>`<div class="listrow"><div style="font-size:25px">🎯</div><div class="info"><b>${esc(t(a.title))}</b><small>${esc(t("taskDesc"))}: ${a.reward} MGK · +10 XP</small></div><button class="${data.taskClaims.includes(a.id)?"btn2":"btn"}" ${!a.done||data.taskClaims.includes(a.id)?"disabled":""} onclick="claimTask('${a.id}')">${data.taskClaims.includes(a.id)?esc(t("claimed")):esc(t("claim"))}</button></div>`).join("");
+ $("tasklist").innerHTML=tasks.map(x=>`<div class="listrow"><div>🏆</div><div class="info"><b>${esc(tr(x.key))}</b><small>${esc(tr("reward"))}: ${x.reward} MGK + 10 XP</small></div><button class="${state.tasks.includes(x.id)?"btn2":"btn"}" ${!x.done||state.tasks.includes(x.id)?"disabled":""} onclick="claimTask('${x.id}')">${esc(state.tasks.includes(x.id)?tr("claimed"):tr("claim"))}</button></div>`).join("");
 }
 function renderHistory(id){
  const el=$(id);if(!el)return;
- if(!data.history.length){el.innerHTML=`<div class="panel muted">${esc(t("historyEmpty"))}</div>`;return}
- el.innerHTML=data.history.map(x=>`<div class="listrow"><div>📌</div><div class="info"><b>${esc(x.title)}</b><small>${esc(x.date)}</small></div><div class="muted">${esc(x.amount)}</div></div>`).join("");
+ if(!state.history.length){el.innerHTML=`<div class="panel muted">${esc(tr("empty"))}</div>`;return}
+ el.innerHTML=state.history.map(h=>`<div class="listrow"><div>📌</div><div class="info"><b>${esc(h.title)}</b><small>${esc(h.date)}</small></div><b class="muted">${esc(h.amount)}</b></div>`).join("");
 }
-function daily(){
- let today=new Date().toISOString().slice(0,10);
- if(data.lastDaily===today){toast(t("dailyDone"));return}
- data.lastDaily=today;data.balance+=100;data.streak=(data.lastDate&&data.lastDate!==today)?data.streak+1:Math.max(1,data.streak||0);data.lastDate=today;addXP(20);addHistory("Daily bonus","+100 MGK");save();render();toast(t("dailySuccess"));
+function dailyBonus(){
+ const d=new Date().toISOString().slice(0,10);if(state.lastBonus===d){toast(tr("bonusDone"));return}
+ state.lastBonus=d;state.balance+=100;state.streak=state.lastDate?((new Date(d)-new Date(state.lastDate))/86400000===1?(state.streak||1)+1:1):1;state.lastDate=d;
+ xp(20);addHistory("🎁 Daily bonus","+100 MGK");save();render();toast(tr("bonusSuccess"));
 }
 function claimTask(id){
- if(data.taskClaims.includes(id))return;
- let ok=id==="three"?data.dailyProgress>=3:id==="spin"?data.spinPlayed:data.wonAny;if(!ok)return;
- let reward=id==="three"?75:id==="spin"?50:100;data.taskClaims.push(id);data.balance+=reward;addXP(10);addHistory(t(id==="three"?"task1":id==="spin"?"task2":"task3"),"+"+reward+" MGK");save();render();toast(t("taskComplete"));
+ if(state.tasks.includes(id))return;
+ const ok=id==="three"?(state.dailyRounds||0)>=3:id==="wheel"?state.playedWheel:state.wins>0;if(!ok)return;
+ const n=id==="three"?75:id==="wheel"?50:100;state.tasks.push(id);state.balance+=n;xp(10);addHistory("🏆 "+tr(id==="three"?"task1":id==="wheel"?"task2":"task3"),"+"+n+" MGK");save();render();toast(tr("complete"));
 }
-function deposit(){
- let coin=$("depositCoin").value,amount=Number($("depositAmount").value);
- if(!Number.isFinite(amount)||amount<=0){toast(t("invalid"));return}
- if(coin==="USDT"&&amount<50){toast(t("minDeposit"));return}
- addHistory(t("demoDeposit"),coin+" $"+amount.toFixed(2)+" · DEMO ONLY");save();render();toast(t("depositSuccess"));
+function fakeDeposit(){
+ let c=$("coinIn").value,a=Number($("usdIn").value);if(!Number.isFinite(a)||a<=0){toast(tr("invalid"));return}if(c==="USDT"&&a<50){toast("USDT: minimum $50");return}
+ addHistory("DEMO deposit",c+" $"+a.toFixed(2)+" · NO PAYMENT");save();render();toast(tr("demoDepositDone"));
 }
-function withdraw(){
- let coin=$("withdrawCoin").value,amount=Number($("withdrawAmount").value);
- if(!Number.isFinite(amount)||amount<=0){toast(t("invalid"));return}
- addHistory(t("demoWithdraw"),coin+" · "+fmt(amount)+" MGK · DEMO ONLY");save();render();toast(t("withdrawSuccess"));
+function fakeWithdraw(){
+ let c=$("coinOut").value,a=Number($("mgkOut").value);if(!Number.isFinite(a)||a<=0){toast(tr("invalid"));return}
+ addHistory("DEMO withdrawal",c+" "+money(a)+" MGK · NO TRANSFER");save();render();toast(tr("demoWithdrawDone"));
 }
-function saveName(){data.nickname=$("nickname").value.trim().slice(0,24);save();render();toast(t("saved"))}
-function resetDemo(){if(!confirm(t("confirmReset")))return;let lang=data.lang;data={...DEFAULT,lang};save();render();toast(t("resetDone"))}
-function clearHistory(){if(!confirm(t("clearConfirm")))return;data.history=[];save();render()}
+function saveNickname(){state.nickname=$("nickname").value.trim().slice(0,24);save();render();toast(tr("saved"))}
+function clearHistory(){if(!confirm(tr("clearConfirm")))return;state.history=[];save();render()}
+function resetDemo(){if(!confirm(tr("resetConfirm")))return;let keepLang=lang;state={...DEFAULT,lang:keepLang};save();render();toast(tr("resetDone"))}
+function closeGame(){$("modal").classList.remove("open");current=null;rouletteBusy=false;wheelBusy=false;slotBusy=false;render()}
 function openGame(id){
- currentGame=id;let g=GAME_DEFS.find(x=>x.id===id);if(!g)return;
- $("modalTitle").textContent=t(g.name);$("modal").classList.add("open");
- const bet=`<div class="field"><label>${esc(t("bet"))}</label><input id="bet" type="number" min="10" max="500" value="50" inputmode="numeric"></div>`;
- let body="";
- if(id==="slots")body=`<div class="stage"><div class="big" id="display">🍒 ⭐ 🍋</div><div class="result" id="result"></div></div>${bet}<button class="btn full" onclick="playSlots()">${esc(t("start"))}</button>`;
- if(id==="roulette")body=`<div class="stage"><div class="big" id="display">🎯</div><div class="result" id="result"></div></div><div class="row"><button class="btn2" onclick="rouletteChoice='red'">${esc(t("chooseRed"))}</button><button class="btn2" onclick="rouletteChoice='black'">${esc(t("chooseBlack"))}</button></div><div class="row"><button class="btn2" onclick="rouletteChoice='even'">${esc(t("even"))}</button><button class="btn2" onclick="rouletteChoice='odd'">${esc(t("odd"))}</button></div>${bet}<button class="btn full" onclick="playRoulette()">${esc(t("start"))}</button>`;
- if(id==="dice"||id==="number")body=`<div class="stage"><div class="big" id="display">${id==="dice"?"🎲 🎲":"🍀"}</div><div class="result" id="result"></div></div><div class="field"><label>${esc(t("chooseNumber"))}</label><select id="guess">${(id==="dice"?[2,3,4,5,6,7,8,9,10,11,12]:[1,2,3,4,5,6]).map(n=>`<option value="${n}">${n}</option>`).join("")}</select></div>${bet}<button class="btn full" onclick="${id==="dice"?"playDice()":"playNumber()"}">${esc(id==="dice"?t("roll"):t("start"))}</button>`;
- if(id==="spin")body=`<div class="stage"><div class="big" id="display">🎡</div><div class="result" id="result"></div></div>${bet}<button class="btn full" onclick="playSpin()">${esc(t("spinNow"))}</button>`;
- if(id==="blackjack")body=`<div class="stage"><div class="muted">${esc(t("dealer"))}</div><div class="big" id="dealer">🂠 🂠</div><div class="muted">${esc(t("yourHand"))}</div><div class="big" id="player">🂠 🂠</div><div class="result" id="result"></div></div>${bet}<div class="row"><button class="btn2" onclick="bjHit()">${esc(t("hit"))}</button><button class="btn" onclick="bjStand()">${esc(t("stand"))}</button></div><button class="btn2 full" onclick="openGame('blackjack')">${esc(t("newRound"))}</button>`;
- $("modalBody").innerHTML=body;if(id==="blackjack")bjStart();
+ current=id;$("modal").classList.add("open");let g=games.find(x=>x.id===id);$("modalTitle").textContent=tr(g.name);
+ rouletteBets={};chip=10;bj=null;
+ if(id==="roulette")buildRoulette();
+ if(id==="slots")buildSlots();
+ if(id==="blackjack")buildBlackjack();
+ if(id==="dice")buildDice();
+ if(id==="wheel")buildWheel();
+ if(id==="baccarat")buildBaccarat();
 }
-function closeGame(){$("modal").classList.remove("open");currentGame=null;render()}
-function betAmount(){let b=Math.floor(Number($("bet")?.value||50));return Math.max(10,Math.min(500,b))}
-function canPlay(b){if(data.balance<b){toast(t("notEnough"));return false}data.balance-=b;return true}
-function settle(b,win,mult,title){
- let change=win?Math.floor(b*mult):0;data.balance+=change;data.games++;data.dailyProgress++;if(win)data.wonAny=true;addXP(5);addHistory(title,win?"+"+change+" MGK":"-"+b+" MGK");save();render();
- $("result").textContent=win?`${t("win")} +${change} MGK`:t("lose");
+function betInput(){return `<div class="field"><label>${esc(tr("bet"))}</label><input id="betAmount" type="number" min="10" max="500" step="10" value="50"></div>`}
+function getBet(){let n=Math.floor(Number($("betAmount")?.value||50));if(!Number.isFinite(n)||n<10){toast(tr("invalidBet"));return 0}return Math.min(n,500)}
+function spend(n){if(n<=0||state.balance<n){toast(tr("notEnough"));return false}state.balance-=n;return true}
+function finishGame(title,stake,payout){
+ state.balance+=payout;let net=payout-stake;recordRound(title,net,payout>stake);
+ return net;
 }
-function playSlots(){
- let b=betAmount();if(!canPlay(b))return;
- let s=["🍒","⭐","🍋","💎","🔔","🍀"],a=Array.from({length:3},()=>s[Math.floor(Math.random()*s.length)]);
- $("display").textContent=a.join(" ");let triple=a[0]===a[1]&&a[1]===a[2],pair=new Set(a).size<3;
- settle(b,triple||pair,triple?5:pair?1.5:0,"🎰 "+t("slots"));
+
+/* ROULETTE */
+const wheelOrder=[0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
+const reds=new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]);
+function buildRoulette(){
+ $("modalBody").innerHTML=`
+ <div class="muted">${esc(tr("roulettedesc"))} · European wheel 0–36</div>
+ <div class="wheelwrap"><div class="pointer"></div><div class="wheel spinwheel" id="rouletteWheel"><div class="wheelnumbers" id="wheelnumbers"></div></div><div class="balltrack" id="balltrack"><div class="ball"></div></div></div>
+ <div class="result" id="rouletteResult">${esc(tr("placeBets"))}</div>
+ <div class="tablefelt"><div class="row" style="justify-content:space-between"><b>${esc(tr("selectChip"))}</b><span class="muted" id="chipLabel">10 MGK</span></div>
+ <div class="betline"><button class="chip c10 selected" onclick="selectChip(10,this)">10</button><button class="chip c25" onclick="selectChip(25,this)">25</button><button class="chip c50" onclick="selectChip(50,this)">50</button><button class="chip c100" onclick="selectChip(100,this)">100</button><button class="chip c500" onclick="selectChip(500,this)">500</button></div>
+ <div class="roulettegrid" id="roulettegrid"></div><div class="outsidebets">
+ <button onclick="betOutside('red')">${esc(tr("red"))} ×2</button><button onclick="betOutside('black')">${esc(tr("black"))} ×2</button><button onclick="betOutside('even')">${esc(tr("even"))} ×2</button>
+ <button onclick="betOutside('odd')">${esc(tr("odd"))} ×2</button><button onclick="betOutside('low')">${esc(tr("low"))} ×2</button><button onclick="betOutside('high')">${esc(tr("high"))} ×2</button></div>
+ <div class="row" style="margin-top:10px"><div class="grow"><small class="muted">${esc(tr("totalBet"))}</small><h3 id="totalBets">0 MGK</h3></div><button class="btn2" onclick="clearRouletteBets()">${esc(tr("clearBets"))}</button></div>
+ <button class="btn full" id="rouletteStart" onclick="spinRoulette()">${esc(tr("doSpin"))}</button></div>`;
+ const wn=$("wheelnumbers");wheelOrder.forEach((n,i)=>{let a=i*360/37;let s=document.createElement("span");s.textContent=n;s.style.transform=`rotate(${a}deg) translateY(-${Math.min(125,$("rouletteWheel").clientWidth*.40)}px) rotate(${-a}deg)`;wn.appendChild(s)});
+ const grid=$("roulettegrid");let z=document.createElement("button");z.className="rnum zero";z.textContent="0";z.onclick=()=>betNumber(0);z.id="rn0";grid.appendChild(z);
+ for(let n=1;n<=36;n++){let b=document.createElement("button");b.className="rnum "+(reds.has(n)?"red":"black");b.textContent=n;b.id="rn"+n;b.onclick=()=>betNumber(n);grid.appendChild(b)}
+ updateRouletteBets();
 }
-function playRoulette(){
- let b=betAmount();if(!canPlay(b))return;let n=Math.floor(Math.random()*37),color=n===0?"green":n%2?"red":"black";
- $("display").textContent=(color==="red"?"🔴 ":color==="black"?"⚫ ":"🟢 ")+n;
- let win=rouletteChoice==="red"?color==="red":rouletteChoice==="black"?color==="black":rouletteChoice==="even"?n!==0&&n%2===0:n!==0&&n%2===1;
- settle(b,win,2,"🎯 "+t("roulette"));
+function selectChip(n,el){chip=n;document.querySelectorAll(".chip").forEach(x=>x.classList.remove("selected"));el.classList.add("selected");$("chipLabel").textContent=n+" MGK"}
+function betNumber(n){if(rouletteBusy)return;let k="n"+n;rouletteBets[k]=(rouletteBets[k]||0)+chip;updateRouletteBets()}
+function betOutside(k){if(rouletteBusy)return;rouletteBets[k]=(rouletteBets[k]||0)+chip;updateRouletteBets()}
+function clearRouletteBets(){rouletteBets={};updateRouletteBets()}
+function updateRouletteBets(){
+ let total=Object.values(rouletteBets).reduce((a,b)=>a+b,0);$("totalBets").textContent=money(total)+" MGK";
+ for(let n=0;n<=36;n++){let b=$("rn"+n);if(!b)continue;let v=rouletteBets["n"+n]||0;b.classList.toggle("selected",v>0);if(v){b.dataset.chip=money(v)}else delete b.dataset.chip}
+ document.querySelectorAll(".outsidebets button").forEach(b=>b.classList.remove("active"));
 }
-function playDice(){
- let b=betAmount();if(!canPlay(b))return;let a=1+Math.floor(Math.random()*6),c=1+Math.floor(Math.random()*6),sum=a+c;
- $("display").textContent=`${a} 🎲 ${c}`;$("result").textContent="Σ = "+sum;
- settle(b,sum===Number($("guess").value),5,"🎲 "+t("dice"));
+function spinRoulette(){
+ if(rouletteBusy)return;let stake=Object.values(rouletteBets).reduce((a,b)=>a+b,0);if(!stake){toast(tr("needBet"));return}if(!spend(stake))return;
+ rouletteBusy=true;$("rouletteStart").disabled=true;$("rouletteResult").textContent=tr("spinning");
+ let idx=Math.floor(Math.random()*37),n=wheelOrder[idx],step=360/37;
+ let rotation=360*6+(360-idx*step);
+ $("rouletteWheel").style.transition="transform 5.2s cubic-bezier(.09,.7,.13,1)";$("rouletteWheel").style.transform=`rotate(${rotation}deg)`;
+ $("balltrack").classList.add("moving");
+ setTimeout(()=>{
+  $("balltrack").classList.remove("moving");rouletteBusy=false;$("rouletteStart").disabled=false;
+  let color=n===0?"green":reds.has(n)?"red":"black";let payout=0;
+  for(let [k,v] of Object.entries(rouletteBets)){
+   if(k==="n"+n)payout+=v*36;
+   if(k==="red"&&color==="red")payout+=v*2;
+   if(k==="black"&&color==="black")payout+=v*2;
+   if(k==="even"&&n!==0&&n%2===0)payout+=v*2;
+   if(k==="odd"&&n%2===1)payout+=v*2;
+   if(k==="low"&&n>=1&&n<=18)payout+=v*2;
+   if(k==="high"&&n>=19&&n<=36)payout+=v*2;
+  }
+  $("rouletteResult").textContent=`${n} · ${color.toUpperCase()} · ${payout?tr("win")+" +"+money(payout-stake)+" MGK":tr("lose")}`;
+  finishGame("🎡 Roulette "+n,stake,payout);rouletteBets={};updateRouletteBets();
+ },5300);
 }
-function playNumber(){
- let b=betAmount();if(!canPlay(b))return;let n=1+Math.floor(Math.random()*6);
- $("display").textContent=["⚀","⚁","⚂","⚃","⚄","⚅"][n-1];$("result").textContent=""+n;
- settle(b,n===Number($("guess").value),5,"🍀 "+t("number"));
+
+/* SLOTS */
+const symbols=["🍒","🍋","🔔","⭐","🍀","💎","7️⃣","🍇"];
+function buildSlots(){
+ $("modalBody").innerHTML=`<div class="muted">${esc(tr("slotdesc"))}</div><div class="tablefelt goldfelt"><div class="slotmachine"><div class="eyebrow" style="text-align:center">MADGEK JACKPOT</div><div class="reels"><div class="reelwindow"><div class="reelstrip" id="reel0"></div></div><div class="reelwindow"><div class="reelstrip" id="reel1"></div></div><div class="reelwindow"><div class="reelstrip" id="reel2"></div></div></div><div class="result" id="slotResult">🍒 ⭐ 🍋</div></div></div>
+ ${betInput()}<div class="notice">3 одинаковых символа: ×5–10 · 2 одинаковых: ×1.5 · 💎💎💎: ×10. Только виртуальные MGK.</div><button class="btn full" id="slotStart" onclick="spinSlots()">🎰 ${esc(tr("spin"))}</button>`;
+ for(let i=0;i<3;i++){$("reel"+i).innerHTML=Array.from({length:18},()=>`<span>${symbols[Math.floor(Math.random()*symbols.length)]}</span>`).join("");$("reel"+i).style.transform="translateY(-"+(Math.floor(Math.random()*8)*96)+"px)"}
 }
-function playSpin(){
- let b=betAmount();if(!canPlay(b))return;
- let items=[["🍀",1],["⭐",1.5],["💎",3],["🎁",2],["✨",0],["👑",5]],p=items[Math.floor(Math.random()*items.length)];
- $("display").textContent=p[0];data.spinPlayed=true;settle(b,p[1]>0,p[1],"🎡 "+t("spin"));renderTasks();
+function spinSlots(){
+ if(slotBusy)return;let b=getBet();if(!b||!spend(b))return;slotBusy=true;$("slotStart").disabled=true;
+ let out=Array.from({length:3},()=>symbols[Math.floor(Math.random()*symbols.length)]);
+ out.forEach((sym,i)=>{let reel=$("reel"+i);let arr=Array.from({length:28},()=>symbols[Math.floor(Math.random()*symbols.length)]);arr[24]=out[i];reel.innerHTML=arr.map(s=>`<span>${s}</span>`).join("");reel.style.transition="none";reel.style.transform="translateY(0px)";reel.classList.add("spinning");reel.offsetHeight;reel.style.transition=`transform ${1.6+i*.65}s cubic-bezier(.1,.72,.1,1)`;reel.style.transform=`translateY(-${24*96}px)`});
+ setTimeout(()=>{slotBusy=false;$("slotStart").disabled=false;document.querySelectorAll(".reelstrip").forEach(r=>r.classList.remove("spinning"));
+ let counts={};out.forEach(s=>counts[s]=(counts[s]||0)+1);let max=Math.max(...Object.values(counts));let mult=max===3?(out[0]==="💎"?10:out[0]==="7️⃣"?8:5):max===2?1.5:0;
+ $("slotResult").textContent=out.join("  ")+"  "+(mult?tr("reelWin")+" ×"+mult:tr("lose"));
+ finishGame("🎰 Slots "+out.join(""),b,Math.floor(b*mult));
+ },2500);
 }
-function card(){return 1+Math.floor(Math.random()*13)}
-function cv(c){return Math.min(c,10)}
-function hand(cards){return cards.map(c=>c===11?"J":c===12?"Q":c===13?"K":c).join("  ")}
-function total(cards){return cards.reduce((s,c)=>s+cv(c),0)}
-function bjStart(){bj={p:[card(),card()],d:[card(),card()],bet:betAmount(),done:false};$("player").textContent=hand(bj.p);$("dealer").textContent=hand([bj.d[0]])+"  🂠";$("result").textContent=t("yourHand")+": "+total(bj.p)}
-function bjHit(){if(!bj||bj.done)return;bj.p.push(card());$("player").textContent=hand(bj.p);$("result").textContent=t("yourHand")+": "+total(bj.p);if(total(bj.p)>21){bj.done=true;let b=bj.bet;if(!canPlay(0))return;data.games++;data.dailyProgress++;addXP(5);addHistory("🃏 Blackjack","-"+b+" MGK");save();render();$("result").textContent=t("lose")}}
+
+/* BLACKJACK */
+const suits=["♠","♥","♦","♣"];
+function drawCard(){return {r:Math.floor(Math.random()*13)+1,s:suits[Math.floor(Math.random()*4)]}}
+function cardVal(c){return c.r===1?11:Math.min(c.r,10)}
+function handValue(h){let v=h.reduce((a,c)=>a+cardVal(c),0),aces=h.filter(c=>c.r===1).length;while(v>21&&aces){v-=10;aces--}return v}
+function cardName(c){return c.r===1?"A":c.r===11?"J":c.r===12?"Q":c.r===13?"K":c.r}
+function renderCards(h,hidden=false){return h.map((c,i)=>hidden&&i===1?`<div class="playcard hidden"></div>`:`<div class="playcard ${c.s==="♥"||c.s==="♦"?"redcard":""}"><div>${cardName(c)}</div><div class="suit">${c.s}</div><div style="text-align:right">${cardName(c)}</div></div>`).join("")}
+function buildBlackjack(){
+ $("modalBody").innerHTML=`<div class="tablefelt"><div class="eyebrow" style="text-align:center">BLACKJACK • 21</div><div class="muted" style="text-align:center">${esc(tr("dealer"))}</div><div class="cards" id="dealerCards"></div><div class="result" id="dealerTotal"></div><hr style="border-color:#ffffff30"><div class="muted" style="text-align:center">${esc(tr("you"))}</div><div class="cards" id="playerCards"></div><div class="result" id="playerTotal"></div><div class="result" id="bjResult"></div></div>
+ ${betInput()}<div class="row"><button class="btn2 grow" onclick="bjHit()">${esc(tr("hit"))}</button><button class="btn2 grow" onclick="bjStand()">${esc(tr("stand"))}</button><button class="btn grow" onclick="bjDouble()">${esc(tr("double"))}</button></div><button class="btn2 full" style="margin-top:9px" onclick="buildBlackjack()">${esc(tr("again"))}</button><div class="notice">Правила демо: дилер берёт карту до 17. Туз считается за 1 или 11. Блэкджек — виртуальная игра.</div>`;
+ $("betAmount").value=50;bjStart();
+}
+function bjStart(){
+ bj={p:[drawCard(),drawCard()],d:[drawCard(),drawCard()],stake:50,done:false,started:false};
+ $("playerCards").innerHTML=renderCards(bj.p);$("dealerCards").innerHTML=renderCards(bj.d,true);$("playerTotal").textContent=handValue(bj.p);$("dealerTotal").textContent=cardVal(bj.d[0]);$("bjResult").textContent="";
+}
+function bjBegin(){
+ if(!bj||bj.started)return true;let b=getBet();if(!b)return false;if(!spend(b))return false;bj.stake=b;bj.started=true;return true;
+}
+function bjRender(hide=true){$("playerCards").innerHTML=renderCards(bj.p);$("dealerCards").innerHTML=renderCards(bj.d,hide);$("playerTotal").textContent=handValue(bj.p);$("dealerTotal").textContent=hide?cardVal(bj.d[0]):handValue(bj.d)}
+function bjHit(){
+ if(!bj||bj.done){toast(tr("noMore"));return}if(!bjBegin())return;
+ bj.p.push(drawCard());bjRender(true);
+ if(handValue(bj.p)>21)bjFinish("lose");
+}
 function bjStand(){
- if(!bj||bj.done)return;while(total(bj.d)<17)bj.d.push(card());$("dealer").textContent=hand(bj.d);bj.done=true;
- let win=total(bj.p)<=21&&(total(bj.d)>21||total(bj.p)>total(bj.d)),b=bj.bet;
- if(win)data.balance+=b*2;data.games++;data.dailyProgress++;if(win)data.wonAny=true;addXP(5);addHistory("🃏 Blackjack",win?"+"+(b*2)+" MGK":"-"+b+" MGK");save();render();$("result").textContent=total(bj.p)+" vs "+total(bj.d)+" · "+(win?t("win"):t("lose"));
+ if(!bj||bj.done){toast(tr("noMore"));return}if(!bjBegin())return;
+ while(handValue(bj.d)<17)bj.d.push(drawCard());bjRender(false);
+ let p=handValue(bj.p),d=handValue(bj.d);
+ bjFinish(p>21?"lose":d>21||p>d?"win":p===d?"push":"lose");
 }
-$("lang").addEventListener("change",e=>{data.lang=e.target.value;save();render();if(currentGame)openGame(currentGame)});
+function bjDouble(){
+ if(!bj||bj.done){toast(tr("noMore"));return}if(!bjBegin())return;
+ if(!spend(bj.stake)){state.balance+=bj.stake;bj.started=false;return}
+ bj.stake*=2;bj.p.push(drawCard());bjRender(true);
+ if(handValue(bj.p)>21){bjFinish("lose");return}
+ while(handValue(bj.d)<17)bj.d.push(drawCard());bjRender(false);
+ let p=handValue(bj.p),d=handValue(bj.d);bjFinish(d>21||p>d?"win":p===d?"push":"lose");
+}
+function bjFinish(outcome){
+ if(bj.done)return;bj.done=true;$("dealerCards").innerHTML=renderCards(bj.d);$("dealerTotal").textContent=handValue(bj.d);
+ let payout=outcome==="win"?bj.stake*2:outcome==="push"?bj.stake:0;
+ if(!bj.started){if(!spend(bj.stake))return}
+ $("bjResult").textContent=outcome==="win"?tr("win")+" +"+payout+" MGK":outcome==="push"?tr("push"):tr("lose");
+ finishGame("🃏 Blackjack",bj.stake,payout);
+}
+
+/* DICE */
+function buildDice(){
+ $("modalBody").innerHTML=`<div class="tablefelt"><div class="eyebrow" style="text-align:center">DICE TABLE</div><div class="diceboard"><div class="die" id="die1">⚀</div><div class="die" id="die2">⚄</div></div><div class="result" id="diceResult">${esc(tr("chooseGuess"))}</div></div>
+ <div class="field"><label>${esc(tr("guess"))}</label><select id="diceGuess">${Array.from({length:11},(_,i)=>i+2).map(n=>`<option value="${n}" ${n===7?"selected":""}>${n}</option>`).join("")}</select></div>${betInput()}<button class="btn full" id="diceStart" onclick="rollDice()">${esc(tr("roll"))}</button>
+ <div class="notice">Два кубика. Выигрыш при точном совпадении суммы — ×5. Результат виртуального раунда.</div>`;
+}
+function rollDice(){
+ let b=getBet();if(!b||!spend(b))return;$("diceStart").disabled=true;let a=$("die1"),c=$("die2");a.classList.add("rolling");c.classList.add("rolling");
+ let interval=setInterval(()=>{a.textContent=["⚀","⚁","⚂","⚃","⚄","⚅"][Math.random()*6|0];c.textContent=["⚀","⚁","⚂","⚃","⚄","⚅"][Math.random()*6|0]},80);
+ setTimeout(()=>{clearInterval(interval);a.classList.remove("rolling");c.classList.remove("rolling");let x=1+Math.random()*6|0,y=1+Math.random()*6|0,sum=x+y;a.textContent=["⚀","⚁","⚂","⚃","⚄","⚅"][x-1];c.textContent=["⚀","⚁","⚂","⚃","⚄","⚅"][y-1];let win=sum===Number($("diceGuess").value);$("diceResult").textContent=`${x} + ${y} = ${sum} · ${win?tr("win"):tr("lose")}`;finishGame("🎲 Dice "+sum,b,win?b*5:0);$("diceStart").disabled=false},1400);
+}
+
+/* LUCKY WHEEL */
+const prizes=[{e:"💎",m:5},{e:"⭐",m:2},{e:"🍀",m:1.5},{e:"🎁",m:3},{e:"✨",m:0},{e:"👑",m:10},{e:"🔔",m:1},{e:"🌙",m:0}];
+function buildWheel(){
+ $("modalBody").innerHTML=`<div class="muted">${esc(tr("wheeldesc"))}</div><div class="wheelwrap"><div class="pointer"></div><div class="wheel spinwheel" id="prizeWheel" style="background:conic-gradient(#b43c50 0 45deg,#242035 45deg 90deg,#26714b 90deg 135deg,#4e2a65 135deg 180deg,#b43c50 180deg 225deg,#242035 225deg 270deg,#26714b 270deg 315deg,#4e2a65 315deg 360deg)"></div><div class="wheelnumbers" id="prizeLabels"></div></div><div class="result" id="wheelResult"></div>${betInput()}<button class="btn full" id="wheelStart" onclick="spinPrizeWheel()">${esc(tr("doSpin"))}</button><div class="notice">Сектора имеют виртуальные множители. Анимация показывает результат демо-раунда.</div>`;
+ const labels=$("prizeLabels");prizes.forEach((p,i)=>{let s=document.createElement("span");s.textContent=p.e+" ×"+p.m;s.style.width="54px";s.style.marginLeft="-27px";s.style.fontSize="11px";let a=i*45+22.5;s.style.transform=`rotate(${a}deg) translateY(-${Math.min(128,$("prizeWheel").clientWidth*.39)}px) rotate(${-a}deg)`;labels.appendChild(s)});
+}
+function spinPrizeWheel(){
+ if(wheelBusy)return;let b=getBet();if(!b||!spend(b))return;wheelBusy=true;$("wheelStart").disabled=true;
+ let idx=Math.floor(Math.random()*prizes.length),p=prizes[idx];$("wheelResult").textContent=tr("spinning");
+ $("prizeWheel").style.transition="transform 4.8s cubic-bezier(.09,.7,.13,1)";$("prizeWheel").style.transform=`rotate(${360*5+360-idx*45-22.5}deg)`;
+ setTimeout(()=>{wheelBusy=false;$("wheelStart").disabled=false;$("wheelResult").textContent=p.e+" ×"+p.m+" · "+(p.m>0?tr("spinWin"):tr("lose"));state.playedWheel=true;finishGame("🎯 Lucky wheel ×"+p.m,b,Math.floor(b*p.m));renderTasks()},4900);
+}
+
+/* BACCARAT */
+function baccaratValue(c){return c.r>=10?0:c.r===1?1:c.r}
+function baccaratTotal(h){return h.reduce((s,c)=>s+baccaratValue(c),0)%10}
+function buildBaccarat(){
+ bcChoice="player";
+ $("modalBody").innerHTML=`<div class="tablefelt"><div class="eyebrow" style="text-align:center">BACCARAT TABLE</div><div class="muted" style="text-align:center">${esc(tr("banker"))}</div><div class="cards" id="bankerCards"></div><div class="result" id="bankerTotal">—</div><hr style="border-color:#ffffff30"><div class="muted" style="text-align:center">${esc(tr("player"))}</div><div class="cards" id="baccaratPlayerCards"></div><div class="result" id="baccaratPlayerTotal">—</div><div class="result" id="baccaratResult"></div></div>
+ <div class="muted">${esc(tr("baccaratChoose"))}</div><div class="baccaratzones"><button class="active" id="bcplayer" onclick="chooseBaccarat('player')">${esc(tr("player"))} ×2</button><button id="bcbanker" onclick="chooseBaccarat('banker')">${esc(tr("banker"))} ×1.95</button><button id="bctie" onclick="chooseBaccarat('tie')">${esc(tr("tie"))} ×8</button></div>
+ ${betInput()}<button class="btn full" id="bcStart" onclick="playBaccarat()">${esc(tr("startRound"))}</button><div class="notice">Упрощённая демо-баккара: карты раздаются по очереди, очки считаются по правилам баккары.</div>`;
+}
+function chooseBaccarat(k){bcChoice=k;["player","banker","tie"].forEach(x=>$("bc"+x).classList.toggle("active",x===k))}
+function playBaccarat(){
+ let b=getBet();if(!b||!spend(b))return;$("bcStart").disabled=true;
+ $("bankerCards").innerHTML="";$("baccaratPlayerCards").innerHTML="";$("baccaratResult").textContent=tr("spinning");
+ let p=[drawCard(),drawCard()],d=[drawCard(),drawCard()];
+ // Third-card rules are simplified but the outcome is based on card totals.
+ let pv=baccaratTotal(p),dv=baccaratTotal(d);
+ if(pv<6&&Math.random()<.35)p.push(drawCard());
+ pv=baccaratTotal(p);
+ if(dv<6&&(dv<=2||pv<6)&&Math.random()<.65)d.push(drawCard());
+ dv=baccaratTotal(d);
+ $("baccaratPlayerCards").innerHTML=renderCards(p);$("bankerCards").innerHTML=renderCards(d);
+ $("baccaratPlayerTotal").textContent=pv;$("bankerTotal").textContent=dv;
+ let winner=pv>dv?"player":dv>pv?"banker":"tie",mult=winner==="player"?2:winner==="banker"?1.95:8;
+ setTimeout(()=>{$("baccaratResult").textContent=winner===bcChoice?tr("win")+" ×"+mult:tr("lose");finishGame("♠️ Baccarat "+winner,b, winner===bcChoice?Math.floor(b*mult):0);$("bcStart").disabled=false},600);
+}
+
+$("lang").addEventListener("change",e=>{lang=e.target.value;save();render();if(current)openGame(current)});
 $("modal").addEventListener("click",e=>{if(e.target===$("modal"))closeGame()});
-try{let tg=window.Telegram?.WebApp;if(tg){tg.ready();tg.expand()}}catch(e){}
-if(data.lastDaily&&data.lastDaily!==new Date().toISOString().slice(0,10))data.streak=0;
+try{const tg=window.Telegram?.WebApp;if(tg){tg.ready();tg.expand()}}catch(e){}
 render();
 </script>
 </body>
