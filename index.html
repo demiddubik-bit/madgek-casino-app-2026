@@ -1,365 +1,334 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="theme-color" content="#0a0710">
-<title>MADGEK</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#100b20">
+<title>MADGEK — Mini App</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-:root{--bg:#0a0710;--panel:#171121;--panel2:#211731;--gold:#f2cb70;--purple:#8c58ff;--text:#faf7ff;--muted:#a99dbb;--line:#ffffff12}
+:root{--bg:#0d0918;--panel:#191228;--panel2:#251a37;--line:#39294d;--gold:#f3ce7c;--text:#fff9ff;--muted:#ad9dbd;--green:#64e6a2;--red:#ff8299}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at top,#291743,var(--bg) 55%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:90px}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-button:active{transform:scale(.98)}
-.app{max-width:540px;margin:auto;padding:17px 15px}
-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
-.logo{font-size:25px;font-weight:950;letter-spacing:2px}.logo span{color:var(--gold)}
-.iconbtn{background:#ffffff10;border:1px solid var(--line);border-radius:13px;color:white;padding:11px}
-.eyebrow{font-size:10px;color:var(--gold);font-weight:800;letter-spacing:2px}
-h1{font-size:28px;line-height:1.2;margin:8px 0}
-h2{font-size:19px;margin:0 0 14px}
-h3{font-size:15px;margin:8px 0}
-p{line-height:1.5}.muted{font-size:12px;color:var(--muted)}
-.page{display:none}.page.active{display:block}
-.hero{padding:23px;border:1px solid #f2cb7045;border-radius:24px;background:linear-gradient(135deg,#38234e,#191121 65%,#28203b);margin:18px 0}
-.pill{display:inline-block;background:#ffffff10;border:1px solid var(--line);border-radius:30px;padding:7px 10px;font-size:10px}
-.balance{font-size:35px;font-weight:900;color:var(--gold);margin:8px 0}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:18px;padding:15px;min-width:0}
-.gameicon{font-size:31px}
-.btn{border:0;border-radius:12px;padding:13px 14px;background:linear-gradient(100deg,var(--gold),#ffe6a2);color:#211529;font-weight:800}
-.btn.full{width:100%}.btn.purple{background:linear-gradient(100deg,#905bff,#6232bd);color:white}
-.btn.ghost{background:#ffffff09;color:white;border:1px solid var(--line)}
-.btn:disabled{opacity:.6;cursor:not-allowed}
-.section{margin-top:24px}
-.rowline{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}
-.rowline:last-child{border-bottom:0}
-.nav{position:fixed;z-index:10;bottom:0;left:0;right:0;background:#100c19f5;backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:9px 4px calc(9px + env(safe-area-inset-bottom))}
-.navinner{max-width:540px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr)}
-.nav button{border:0;background:none;color:#92869f;font-size:10px;display:flex;flex-direction:column;align-items:center;gap:5px;padding:5px 0}
-.nav button span{font-size:20px}.nav button.active{color:var(--gold)}
-.field{margin:14px 0}.field label{display:block;font-size:12px;color:#c8bdd8;margin-bottom:7px}
-.field input,.field select,.field textarea{width:100%;background:#0d0a14;color:white;border:1px solid #44334f;border-radius:12px;padding:13px;outline:none}
-.notice{padding:13px;background:#8c58ff12;border:1px solid #8c58ff40;border-radius:13px;color:#d4c5ee;font-size:12px;line-height:1.5}
-.status{color:var(--gold);font-size:11px}
-.modalbg{display:none;position:fixed;inset:0;background:#000c;z-index:20;align-items:center;justify-content:center;padding:17px}
-.modalbg.show{display:flex}
-.modal{width:100%;max-width:430px;max-height:85vh;overflow:auto;background:#191222;border:1px solid #59416b;border-radius:22px;padding:20px}
-.modalhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px}
-.result{font-size:35px;text-align:center;padding:24px 5px;background:#0e0a15;border:1px solid var(--line);border-radius:15px;margin:15px 0}
-.small{font-size:11px;color:var(--muted)}
-footer{text-align:center;color:#70677e;font-size:10px;line-height:1.6;margin-top:25px}
+body{margin:0;background:radial-gradient(ellipse at top,#38204e,transparent 48%),var(--bg);color:var(--text);font:15px system-ui,-apple-system,sans-serif;padding-bottom:90px}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0;color:inherit}
+.app{max-width:560px;margin:auto;padding:14px}
+header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:1px}
+.logo{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#ffe5a1,#9360db);color:#1c1028;font-size:23px}
+.brand small{display:block;font-size:10px;color:var(--muted);letter-spacing:2px}
+select,input{background:#100b1b;border:1px solid var(--line);color:white;border-radius:11px;padding:10px;max-width:100%}
+.hero{padding:20px;border-radius:23px;background:linear-gradient(135deg,#38224b,#1b142b 70%,#33203d);border:1px solid #614674;margin-bottom:13px}
+.eyebrow{font-size:11px;color:var(--gold);letter-spacing:2px;font-weight:800}
+h1{font-size:25px;line-height:1.2;margin:8px 0}
+.muted{color:var(--muted);font-size:12px}
+.balancebox{background:#100b1d99;padding:14px;border-radius:16px;margin-top:16px;border:1px solid #ffffff15}
+.balance{font-size:31px;font-weight:900;margin:5px 0}
+.balance small{font-size:14px;color:var(--gold)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.stat,.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:13px}
+.stat strong{display:block;font-size:18px}
+.stat span{font-size:10px;color:var(--muted)}
+h2{font-size:18px;margin:22px 2px 10px}
+h3{font-size:15px;margin:4px 0 8px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.game{background:linear-gradient(145deg,#251834,#171123);border:1px solid var(--line);border-radius:17px;text-align:left;padding:14px;min-height:115px}
+.game:active{transform:scale(.98)}
+.game .emoji{font-size:30px;display:block;margin-bottom:7px}
+.game b{display:block}
+.game small{color:var(--muted);font-size:11px}
+.btn{padding:12px 14px;border-radius:12px;font-weight:800;background:linear-gradient(135deg,#ffe4a0,#d6a54b);color:#21142c}
+.btn2{padding:11px 13px;border-radius:12px;background:var(--panel2);border:1px solid var(--line)}
+.btn:disabled{opacity:.4}
+.full{width:100%;margin-top:8px}
+.row{display:flex;gap:8px;align-items:center}
+.row>*{flex:1;min-width:0}
+.panel{margin:10px 0}
+.notice{padding:11px;border-radius:12px;background:#241832;color:var(--muted);font-size:11px;margin:12px 0}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#120d1ded;border-top:1px solid var(--line);display:flex;justify-content:center;padding:8px 5px max(8px,env(safe-area-inset-bottom));z-index:10;backdrop-filter:blur(12px)}
+.navinner{width:100%;max-width:560px;display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
+.nav button{background:transparent;color:var(--muted);font-size:10px;padding:7px 1px;border-radius:10px}
+.nav button.active{background:#342344;color:var(--gold)}
+.nav span{display:block;font-size:20px;margin-bottom:3px}
+.page{display:none}
+.page.active{display:block}
+.modal{position:fixed;inset:0;background:#08050dd9;z-index:20;display:none;align-items:flex-end;justify-content:center;padding:10px}
+.modal.open{display:flex}
+.modalbox{width:100%;max-width:540px;max-height:90vh;overflow:auto;background:#1b132a;border:1px solid #634477;border-radius:23px;padding:17px}
+.modalhead{display:flex;justify-content:space-between;align-items:center}
+.stage{text-align:center;border:1px solid #4b355e;border-radius:18px;padding:20px 12px;background:radial-gradient(circle at top,#492e5d,#1a1128 75%);margin:13px 0}
+.big{font-size:48px;min-height:62px;margin:8px}
+.result{min-height:25px;color:var(--gold);font-weight:800}
+.field{margin:12px 0}
+.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}
+.field input,.field select{width:100%}
+.listrow{display:flex;gap:10px;align-items:center;background:#21172f;border:1px solid var(--line);border-radius:13px;padding:12px;margin:8px 0}
+.listrow .info{flex:1;min-width:0}
+.listrow small{display:block;color:var(--muted);font-size:11px}
+.good{color:var(--green)}.bad{color:var(--red)}
+.toast{position:fixed;top:12px;left:50%;transform:translate(-50%,-150%);transition:.2s;z-index:50;background:var(--gold);color:#20142b;font-weight:800;padding:12px 17px;border-radius:12px;max-width:90%;text-align:center}
+.toast.show{transform:translate(-50%,0)}
+.progress{height:6px;background:#392b48;border-radius:9px;overflow:hidden;margin-top:8px}
+.progress div{height:100%;background:linear-gradient(90deg,#9c67ed,#f3ce7c)}
+@media(min-width:480px){.grid{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
 <div class="app">
 <header>
-  <div class="logo">MAD<span>GEK</span></div>
-  <button class="iconbtn" onclick="go('profile')">♙ <span id="headerName">Guest</span></button>
+ <div class="brand"><div class="logo">M</div><div>MADGEK<small>ARCADE • DEMO</small></div></div>
+ <div class="row" style="flex:0 1 145px">
+  <select id="lang" aria-label="Language">
+   <option value="ru">RU</option><option value="en">EN</option><option value="zh">中文</option><option value="de">DE</option><option value="pl">PL</option>
+  </select>
+  <button class="btn2" id="level">LVL 1</button>
+ </div>
 </header>
 
 <section class="page active" id="home">
-  <div class="eyebrow">WELCOME TO MADGEK</div>
-  <h1 id="greeting">Твоя игровая вселенная.</h1>
-  <p class="muted">Игровая платформа • единый интерфейс • твой профиль</p>
-  <div class="hero">
-    <span class="pill">DEMO WALLET</span>
-    <div class="muted" style="margin-top:19px">Виртуальные игровые очки</div>
-    <div class="balance"><span id="homeBalance">1 000</span> <span style="font-size:14px">M</span></div>
-    <div class="muted">M — виртуальные очки, не деньги</div>
-    <div class="grid" style="margin-top:17px">
-      <button class="btn" onclick="go('games')">Игровой зал</button>
-      <button class="btn ghost" onclick="go('wallet')">Мой кошелёк</button>
-    </div>
+ <div class="hero">
+  <div class="eyebrow" data-t="welcome">ДОБРО ПОЖАЛОВАТЬ В MADGEK</div>
+  <h1 data-t="headline">Играй. Выполняй задания. Получай XP.</h1>
+  <div class="muted" data-t="description">Развлекательная демо-платформа с виртуальными монетами.</div>
+  <div class="balancebox">
+   <div class="row"><span class="muted" data-t="balanceLabel">Твой виртуальный баланс</span><span style="color:var(--gold);font-size:11px">DEMO</span></div>
+   <div class="balance"><span id="balance">1,000</span> <small>MGK</small></div>
+   <div class="row"><span class="muted" id="xptext">0 / 100 XP</span><span class="muted" id="xppercent">0%</span></div>
+   <div class="progress"><div id="xpbar" style="width:0%"></div></div>
   </div>
-  <div class="section">
-    <h2>Популярные игры</h2>
-    <div class="grid">
-      <div class="card"><div class="gameicon">🎰</div><h3>Lucky Spin</h3><p class="muted">Случайная комбинация</p><button class="btn full" onclick="game('slots')">Открыть</button></div>
-      <div class="card"><div class="gameicon">🎡</div><h3>Roulette</h3><p class="muted">Демо-рулетка</p><button class="btn purple full" onclick="game('roulette')">Открыть</button></div>
-      <div class="card"><div class="gameicon">🃏</div><h3>21 очко</h3><p class="muted">Карточная игра</p><button class="btn ghost full" onclick="game('blackjack')">Открыть</button></div>
-      <div class="card"><div class="gameicon">🎲</div><h3>Dice Lab</h3><p class="muted">Бросок кубика</p><button class="btn ghost full" onclick="game('dice')">Открыть</button></div>
-    </div>
-  </div>
-  <div class="section notice">Все игры работают бесплатно. Денежные ставки, денежные призы и обмен очков на деньги отключены.</div>
+ </div>
+ <div class="stats">
+  <div class="stat"><strong id="levelstat">1</strong><span data-t="level">Уровень</span></div>
+  <div class="stat"><strong id="streak">0</strong><span data-t="streak">Дней подряд</span></div>
+  <div class="stat"><strong id="played">0</strong><span data-t="played">Игр сыграно</span></div>
+ </div>
+ <h2 data-t="games">🎮 Мини-игры</h2>
+ <div class="grid" id="games"></div>
+ <div class="row">
+  <button class="btn full" onclick="daily()" data-t="daily">🎁 Забрать бонус</button>
+  <button class="btn2 full" onclick="go('wallet')" data-t="wallet">Кошелёк</button>
+ </div>
+ <div class="notice" data-t="disclaimer">ДЕМО: MGK — виртуальные монеты. Депозиты и вывод средств не обрабатываются.</div>
 </section>
 
-<section class="page" id="games">
-  <div class="eyebrow">GAME CENTER</div><h1>Игровой зал</h1>
-  <p class="muted">Выбирай игру и развлекайся без денежных ставок.</p>
-  <div class="grid">
-    <div class="card"><div class="gameicon">🎰</div><h3>Lucky Spin</h3><p class="muted">Три случайных символа</p><button class="btn full" onclick="game('slots')">Играть</button></div>
-    <div class="card"><div class="gameicon">🎡</div><h3>Roulette</h3><p class="muted">Европейская рулетка</p><button class="btn full" onclick="game('roulette')">Играть</button></div>
-    <div class="card"><div class="gameicon">🃏</div><h3>21 очко</h3><p class="muted">Набери ближе к 21</p><button class="btn purple full" onclick="game('blackjack')">Играть</button></div>
-    <div class="card"><div class="gameicon">🎲</div><h3>Dice Lab</h3><p class="muted">Случайный бросок</p><button class="btn purple full" onclick="game('dice')">Играть</button></div>
-    <div class="card"><div class="gameicon">🎯</div><h3>Lucky Number</h3><p class="muted">Угадай число от 1 до 10</p><button class="btn ghost full" onclick="game('number')">Играть</button></div>
-    <div class="card"><div class="gameicon">🌟</div><h3>Wheel of Fun</h3><p class="muted">Колесо развлечений</p><button class="btn ghost full" onclick="game('wheel')">Играть</button></div>
-  </div>
+<section class="page" id="tasks">
+ <h2 data-t="tasksTitle">📋 Задания и награды</h2>
+ <div class="panel">
+  <h3 data-t="dailyTitle">Ежедневный бонус</h3>
+  <p class="muted" data-t="dailyDescription">Забирай бонус раз в день.</p>
+  <button class="btn full" onclick="daily()" data-t="collect">Забрать 100 MGK + 20 XP</button>
+ </div>
+ <div id="tasklist"></div>
 </section>
 
 <section class="page" id="wallet">
-  <div class="eyebrow">WALLET CENTER</div><h1>Кошелёк</h1>
-  <div class="hero">
-    <div class="muted">Доступные виртуальные очки</div>
-    <div class="balance"><span id="walletBalance">1 000</span> M</div>
-    <span class="pill">ДЕНЕЖНЫЕ ОПЕРАЦИИ ОТКЛЮЧЕНЫ</span>
+ <h2 data-t="walletTitle">💳 Демо-кошелёк</h2>
+ <div class="panel">
+  <h3 data-t="deposit">Депозит (тестовый)</h3>
+  <div class="field"><label data-t="currency">Платёжная система</label>
+   <select id="depositCoin"><option>USDT</option><option>Bitcoin</option><option>Ethereum</option></select>
   </div>
-  <div class="grid section">
-    <div class="card"><div class="gameicon">＋</div><h3>Депозит</h3><p class="muted">Пополнение счёта</p><span class="status">Скоро</span><button class="btn full" style="margin-top:12px" onclick="coming('Депозиты')">Подробнее</button></div>
-    <div class="card"><div class="gameicon">↗</div><h3>Вывод средств</h3><p class="muted">Запрос на вывод</p><span class="status">Скоро</span><button class="btn full" style="margin-top:12px" onclick="coming('Вывод средств')">Подробнее</button></div>
+  <div class="field"><label data-t="amountUSD">Сумма в USD</label><input id="depositAmount" type="number" min="1" value="50"></div>
+  <button class="btn full" onclick="deposit()" data-t="testDeposit">Сымитировать депозит</button>
+  <p class="muted" data-t="minUSDT">Минимум для USDT: $50. Никакого реального платежа не будет.</p>
+ </div>
+ <div class="panel">
+  <h3 data-t="withdraw">Вывод (тестовый)</h3>
+  <div class="field"><label data-t="currency">Платёжная система</label>
+   <select id="withdrawCoin"><option>USDT</option><option>Bitcoin</option><option>Ethereum</option></select>
   </div>
-  <div class="section card">
-    <h2>Валюты интерфейса</h2>
-    <p class="muted">Выбери предпочитаемую валюту. Это настройка интерфейса, а не реальный валютный баланс.</p>
-    <div class="field"><label for="currency">Валюта отображения</label>
-      <select id="currency" onchange="setCurrency(this.value)">
-        <option value="USD">USD — доллар США</option>
-        <option value="EUR">EUR — евро</option>
-        <option value="UAH">UAH — украинская гривна</option>
-        <option value="USDT">USDT — отображение в формате USDT</option>
-      </select>
-    </div>
-    <div class="notice">Выбор валюты не конвертирует очки в деньги. Курсы, кошельки и транзакции не подключены.</div>
-  </div>
-  <div class="section card">
-    <h2>История кошелька</h2>
-    <div id="walletHistory" class="muted">Денежных операций нет.</div>
-  </div>
-</section>
-
-<section class="page" id="history">
-  <div class="eyebrow">ACTIVITY</div><h1>История активности</h1>
-  <div class="card" id="historyList"></div>
-  <button class="btn ghost full" style="margin-top:12px" onclick="clearHistory()">Очистить историю</button>
+  <div class="field"><label data-t="amountMGK">Сумма MGK</label><input id="withdrawAmount" type="number" min="1" value="100"></div>
+  <button class="btn full" onclick="withdraw()" data-t="testWithdraw">Сымитировать вывод</button>
+  <p class="muted" data-t="withdrawNote">Демо-запись не отправляет криптовалюту и не списывает баланс.</p>
+ </div>
+ <div class="notice" data-t="demoOnly">Важно: это демонстрация интерфейса. Адреса кошельков и реальные транзакции не используются.</div>
+ <h2 data-t="historyTitle">История операций</h2>
+ <div id="history"></div>
 </section>
 
 <section class="page" id="profile">
-  <div class="eyebrow">YOUR ACCOUNT</div><h1>Профиль</h1>
-  <div class="card">
-    <div style="display:flex;gap:13px;align-items:center">
-      <div class="iconbtn" style="font-size:25px">♙</div>
-      <div><h2 id="profileName" style="margin:0 0 5px">Гость MADGEK</h2><div class="muted" id="profileStatus">Локальный профиль</div></div>
-    </div>
-    <hr>
-    <div class="rowline"><span>Статус</span><span class="status">DEMO</span></div>
-    <div class="rowline"><span>Виртуальный баланс</span><strong id="profileBalance">1 000 M</strong></div>
-    <div class="rowline"><span>Валюта интерфейса</span><strong id="profileCurrency">USD</strong></div>
-    <div class="rowline"><span>Событий</span><strong id="eventCount">0</strong></div>
-    <button class="btn full" style="margin-top:15px" onclick="openRegister()">Создать / изменить профиль</button>
-    <button class="btn ghost full" style="margin-top:9px" onclick="logout()">Выйти из профиля</button>
+ <h2 data-t="profileTitle">👤 Профиль</h2>
+ <div class="panel">
+  <div class="row" style="align-items:center">
+   <div class="logo" id="avatar">M</div>
+   <div style="flex:1"><h3 id="username">Игрок MADGEK</h3><div class="muted" id="profileLevel">Уровень 1</div></div>
   </div>
-  <div class="section card"><h2>Настройки</h2>
-    <div class="rowline"><span>Версия</span><span class="status">MADGEK 2.0</span></div>
-    <div class="rowline"><span>Режим</span><span class="status">Бесплатный</span></div>
-    <button class="btn ghost full" style="margin-top:12px" onclick="resetApp()">Сбросить локальные данные</button>
-  </div>
+  <div class="field"><label data-t="nickname">Никнейм</label><input id="nickname" maxlength="24" placeholder="Nickname"></div>
+  <button class="btn full" onclick="saveName()" data-t="saveName">Сохранить никнейм</button>
+ </div>
+ <div class="stats">
+  <div class="stat"><strong id="profileBalance">1,000</strong><span>MGK</span></div>
+  <div class="stat"><strong id="profileGames">0</strong><span data-t="played">Игр сыграно</span></div>
+  <div class="stat"><strong id="profileXP">0</strong><span>XP</span></div>
+ </div>
+ <button class="btn2 full" onclick="resetDemo()" data-t="reset">Сбросить демо-прогресс</button>
+ <div class="notice" data-t="localSave">Прогресс сохраняется в локальном хранилище этого браузера.</div>
 </section>
 
-<section class="page" id="support">
-  <div class="eyebrow">SUPPORT CENTER</div><h1>Поддержка</h1>
-  <div class="card">
-    <h2>Частые вопросы</h2>
-    <div class="rowline"><span>Как создать профиль?</span><button class="iconbtn" onclick="faq('Профиль → Создать / изменить профиль.')">+</button></div>
-    <div class="rowline"><span>Можно ли пополнить счёт?</span><button class="iconbtn" onclick="faq('Депозиты отключены. Платёжные функции пока не подключены.')">+</button></div>
-    <div class="rowline"><span>Как работает вывод?</span><button class="iconbtn" onclick="faq('Вывод средств недоступен. Не отправляй деньги на адреса, указанные неизвестными лицами.')">+</button></div>
-    <div class="rowline"><span>Где мои валюты?</span><button class="iconbtn" onclick="faq('Выбери USD, EUR, UAH или USDT в разделе «Кошелёк». Пока это только настройка интерфейса.')">+</button></div>
-    <div id="faqAnswer" class="notice" style="display:none;margin-top:12px"></div>
-  </div>
-  <div class="section card">
-    <h2>Тестовое обращение</h2>
-    <p class="muted">Форма сохраняет обращение только локально. Для реальной поддержки потребуется подключить сервер или официальный канал связи.</p>
-    <div class="field"><label for="topic">Тема</label><input id="topic" maxlength="80" placeholder="Тема обращения"></div>
-    <div class="field"><label for="message">Сообщение</label><textarea id="message" maxlength="500" rows="4" placeholder="Напиши свой вопрос"></textarea></div>
-    <button class="btn full" onclick="sendTicket()">Создать обращение</button>
-    <p class="muted" id="ticketStatus"></p>
-  </div>
+<section class="page" id="historypage">
+ <h2 data-t="historyTitle">📜 История</h2>
+ <div id="fullhistory"></div>
+ <button class="btn2 full" onclick="clearHistory()" data-t="clearHistory">Очистить историю</button>
 </section>
-
-<footer>MADGEK • DEMO MODE<br>Без денежных ставок, депозитов и денежных выплат.</footer>
 </div>
 
 <nav class="nav"><div class="navinner">
-  <button class="active" data-page="home" onclick="go('home')"><span>⌂</span>Главная</button>
-  <button data-page="games" onclick="go('games')"><span>✧</span>Игры</button>
-  <button data-page="wallet" onclick="go('wallet')"><span>◈</span>Кошелёк</button>
-  <button data-page="history" onclick="go('history')"><span>◷</span>История</button>
-  <button data-page="profile" onclick="go('profile')"><span>♙</span>Профиль</button>
+ <button class="active" data-page="home" onclick="go('home')"><span>🏠</span><i data-t="navHome">Главная</i></button>
+ <button data-page="tasks" onclick="go('tasks')"><span>🎯</span><i data-t="navTasks">Задания</i></button>
+ <button data-page="wallet" onclick="go('wallet')"><span>💳</span><i data-t="navWallet">Кошелёк</i></button>
+ <button data-page="historypage" onclick="go('historypage')"><span>📜</span><i data-t="navHistory">История</i></button>
+ <button data-page="profile" onclick="go('profile')"><span>👤</span><i data-t="navProfile">Профиль</i></button>
 </div></nav>
 
-<div class="modalbg" id="registerModal"><div class="modal">
-  <div class="modalhead"><h2>Профиль MADGEK</h2><button class="iconbtn" onclick="closeModal('registerModal')">✕</button></div>
-  <p class="muted">Локальный профиль этого устройства. Пока нет серверной регистрации.</p>
-  <div class="field"><label for="nickname">Никнейм</label><input id="nickname" maxlength="24" placeholder="Твой никнейм"></div>
-  <button class="btn full" onclick="saveProfile()">Сохранить профиль</button>
-</div></div>
-
-<div class="modalbg" id="gameModal"><div class="modal">
-  <div class="modalhead"><h2 id="gameTitle">Игра</h2><button class="iconbtn" onclick="closeModal('gameModal')">✕</button></div>
-  <p id="gameDesc" class="muted"></p>
-  <div class="result" id="gameResult">✦ ✦ ✦</div>
-  <div id="gameExtra"></div>
-  <button class="btn full" id="gameAction" onclick="playGame()">Играть бесплатно</button>
-  <p class="small">Демо-игра без денежных ставок и денежных призов.</p>
-</div></div>
-
-<div class="modalbg" id="infoModal"><div class="modal">
-  <div class="modalhead"><h2>MADGEK</h2><button class="iconbtn" onclick="closeModal('infoModal')">✕</button></div>
-  <p id="infoText"></p><button class="btn full" onclick="closeModal('infoModal')">Понятно</button>
-</div></div>
+<div class="modal" id="modal">
+ <div class="modalbox">
+  <div class="modalhead"><h2 id="modalTitle">Игра</h2><button class="btn2" onclick="closeGame()">✕</button></div>
+  <div id="modalBody"></div>
+ </div>
+</div>
+<div class="toast" id="toast"></div>
 
 <script>
-const tg=window.Telegram?.WebApp;
-if(tg){tg.ready();tg.expand();}
-const KEY="madgek_project_v2";
-const initial=()=>({name:"",registered:false,currency:"USD",balance:1000,history:[],tickets:[]});
-let data=load();
-let activeGame="slots";
-let blackjack={player:[],dealer:[],over:false};
-
-function load(){
- try{const x=JSON.parse(localStorage.getItem(KEY));if(x&&typeof x.balance==="number"&&Array.isArray(x.history))return x;}catch(e){}
- return initial();
-}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-function num(n){return Math.floor(n).toLocaleString("ru-RU");}
-function go(id){
- document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));
- document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
- render();window.scrollTo({top:0,behavior:"smooth"});
-}
-function log(title,detail){
- data.history.unshift({title,detail,date:new Date().toLocaleString("ru-RU",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})});
- data.history=data.history.slice(0,60);save();
-}
+const $=id=>document.getElementById(id);
+const TXT={
+ru:{welcome:"ДОБРО ПОЖАЛОВАТЬ В MADGEK",headline:"Играй. Выполняй задания. Получай XP.",description:"Развлекательная демо-платформа с виртуальными монетами.",balanceLabel:"Твой виртуальный баланс",level:"Уровень",streak:"Дней подряд",played:"Игр сыграно",games:"🎮 Мини-игры",daily:"🎁 Забрать бонус",wallet:"Кошелёк",disclaimer:"ДЕМО: MGK — виртуальные монеты. Депозиты и вывод средств не обрабатываются.",tasksTitle:"📋 Задания и награды",dailyTitle:"Ежедневный бонус",dailyDescription:"Забирай бонус раз в день.",collect:"Забрать 100 MGK + 20 XP",deposit:"Депозит (тестовый)",currency:"Платёжная система",amountUSD:"Сумма в USD",testDeposit:"Сымитировать депозит",minUSDT:"Минимум для USDT: $50. Никакого реального платежа не будет.",withdraw:"Вывод (тестовый)",amountMGK:"Сумма MGK",testWithdraw:"Сымитировать вывод",withdrawNote:"Демо-запись не отправляет криптовалюту и не списывает баланс.",demoOnly:"Важно: это демонстрация интерфейса. Адреса кошельков и реальные транзакции не используются.",historyTitle:"📜 История операций",profileTitle:"👤 Профиль",nickname:"Никнейм",saveName:"Сохранить никнейм",reset:"Сбросить демо-прогресс",localSave:"Прогресс сохраняется в локальном хранилище этого браузера.",clearHistory:"Очистить историю",navHome:"Главная",navTasks:"Задания",navWallet:"Кошелёк",navHistory:"История",navProfile:"Профиль",claim:"Забрать",claimed:"Получено",task1:"Сыграй 3 игры",task2:"Попробуй Lucky Spin",task3:"Выиграй в любой игре",taskDesc:"Награда",slots:"Слоты",roulette:"Рулетка",blackjack:"Блэкджек",dice:"Кости",spin:"Колесо удачи",number:"Счастливое число",play:"Играть",bet:"Ставка MGK",start:"Запустить",hit:"Ещё карту",stand:"Хватит",dealer:"Дилер",yourHand:"Твои карты",choose:"Сделай выбор",chooseRed:"Красное",chooseBlack:"Чёрное",even:"Чётное",odd:"Нечётное",chooseNumber:"Выбери число",roll:"Бросить кости",spinNow:"Крутить",win:"Победа!",lose:"Не повезло",invalid:"Проверь сумму.",minDeposit:"Минимальный депозит USDT — $50.",notEnough:"Недостаточно MGK.",dailyDone:"Бонус уже получен сегодня.",dailySuccess:"Получено 100 MGK и 20 XP!",saved:"Сохранено!",resetDone:"Демо-прогресс сброшен.",demoDeposit:"Тестовый депозит",demoWithdraw:"Тестовый вывод",depositSuccess:"Тестовая запись добавлена. Платёж не совершён.",withdrawSuccess:"Тестовая запись добавлена. Вывод не совершён.",confirmReset:"Сбросить демо-прогресс?",clearConfirm:"Очистить историю?",historyEmpty:"Пока записей нет.",taskComplete:"Задание выполнено!",newRound:"Новый раунд"},
+en:{welcome:"WELCOME TO MADGEK",headline:"Play. Complete tasks. Earn XP.",description:"A demo entertainment platform with virtual coins.",balanceLabel:"Your virtual balance",level:"Level",streak:"Day streak",played:"Games played",games:"🎮 Mini-games",daily:"🎁 Claim bonus",wallet:"Wallet",disclaimer:"DEMO: MGK are virtual coins. Deposits and withdrawals are not processed.",tasksTitle:"📋 Tasks & rewards",dailyTitle:"Daily bonus",dailyDescription:"Claim your bonus once a day.",collect:"Claim 100 MGK + 20 XP",deposit:"Deposit (test)",currency:"Payment system",amountUSD:"Amount in USD",testDeposit:"Simulate deposit",minUSDT:"USDT minimum: $50. No real payment will occur.",withdraw:"Withdrawal (test)",amountMGK:"MGK amount",testWithdraw:"Simulate withdrawal",withdrawNote:"This demo entry does not send crypto or deduct your balance.",demoOnly:"Demo interface only. No wallet addresses or real transactions are used.",historyTitle:"📜 Transaction history",profileTitle:"👤 Profile",nickname:"Nickname",saveName:"Save nickname",reset:"Reset demo progress",localSave:"Progress is saved in this browser.",clearHistory:"Clear history",navHome:"Home",navTasks:"Tasks",navWallet:"Wallet",navHistory:"History",navProfile:"Profile",claim:"Claim",claimed:"Claimed",task1:"Play 3 games",task2:"Try Lucky Spin",task3:"Win any game",taskDesc:"Reward",slots:"Slots",roulette:"Roulette",blackjack:"Blackjack",dice:"Dice",spin:"Lucky wheel",number:"Lucky number",play:"Play",bet:"MGK bet",start:"Play",hit:"Hit",stand:"Stand",dealer:"Dealer",yourHand:"Your hand",choose:"Make a choice",chooseRed:"Red",chooseBlack:"Black",even:"Even",odd:"Odd",chooseNumber:"Choose a number",roll:"Roll dice",spinNow:"Spin",win:"You won!",lose:"No luck",invalid:"Check the amount.",minDeposit:"USDT minimum deposit is $50.",notEnough:"Not enough MGK.",dailyDone:"Bonus already claimed today.",dailySuccess:"100 MGK and 20 XP received!",saved:"Saved!",resetDone:"Demo progress reset.",demoDeposit:"Test deposit",demoWithdraw:"Test withdrawal",depositSuccess:"Test entry added. No payment was made.",withdrawSuccess:"Test entry added. No withdrawal was made.",confirmReset:"Reset demo progress?",clearConfirm:"Clear history?",historyEmpty:"No records yet.",taskComplete:"Task completed!",newRound:"New round"},
+zh:{welcome:"欢迎来到 MADGEK",headline:"玩游戏、完成任务、获取 XP。",description:"使用虚拟金币的娱乐演示平台。",balanceLabel:"你的虚拟余额",level:"等级",streak:"连续天数",played:"游戏次数",games:"🎮 小游戏",daily:"🎁 领取奖励",wallet:"钱包",disclaimer:"演示版：MGK 是虚拟金币，不处理真实存款或提款。",tasksTitle:"📋 任务与奖励",dailyTitle:"每日奖励",dailyDescription:"每天可以领取一次奖励。",collect:"领取 100 MGK + 20 XP",deposit:"充值（测试）",currency:"支付方式",amountUSD:"美元金额",testDeposit:"模拟充值",minUSDT:"USDT 最低金额：50 美元。不会进行真实支付。",withdraw:"提款（测试）",amountMGK:"MGK 数量",testWithdraw:"模拟提款",withdrawNote:"此演示不会发送加密货币或扣除余额。",demoOnly:"仅为界面演示，不使用真实钱包地址或交易。",historyTitle:"📜 交易记录",profileTitle:"👤 个人资料",nickname:"昵称",saveName:"保存昵称",reset:"重置演示进度",localSave:"进度保存在当前浏览器中。",clearHistory:"清除记录",navHome:"首页",navTasks:"任务",navWallet:"钱包",navHistory:"记录",navProfile:"资料",claim:"领取",claimed:"已领取",task1:"玩 3 局游戏",task2:"试试幸运转盘",task3:"赢得任意游戏",taskDesc:"奖励",slots:"老虎机",roulette:"轮盘",blackjack:"二十一点",dice:"骰子",spin:"幸运转盘",number:"幸运数字",play:"开始",bet:"MGK 下注",start:"开始",hit:"要牌",stand:"停牌",dealer:"庄家",yourHand:"你的手牌",choose:"请选择",chooseRed:"红色",chooseBlack:"黑色",even:"偶数",odd:"奇数",chooseNumber:"选择数字",roll:"掷骰子",spinNow:"旋转",win:"赢了！",lose:"再试一次",invalid:"请检查金额。",minDeposit:"USDT 最低金额为 50 美元。",notEnough:"MGK 不足。",dailyDone:"今天已领取奖励。",dailySuccess:"获得 100 MGK 和 20 XP！",saved:"已保存！",resetDone:"演示进度已重置。",demoDeposit:"测试充值",demoWithdraw:"测试提款",depositSuccess:"已添加测试记录，没有支付。",withdrawSuccess:"已添加测试记录，没有提款。",confirmReset:"重置演示进度？",clearConfirm:"清除记录？",historyEmpty:"暂无记录。",taskComplete:"任务完成！",newRound:"新一局"},
+de:{welcome:"WILLKOMMEN BEI MADGEK",headline:"Spielen. Aufgaben erledigen. XP sammeln.",description:"Demo-Unterhaltungsplattform mit virtuellen Münzen.",balanceLabel:"Dein virtuelles Guthaben",level:"Level",streak:"Tage in Folge",played:"Gespielte Spiele",games:"🎮 Minispiele",daily:"🎁 Bonus abholen",wallet:"Wallet",disclaimer:"DEMO: MGK sind virtuelle Münzen. Ein- und Auszahlungen werden nicht verarbeitet.",tasksTitle:"📋 Aufgaben & Belohnungen",dailyTitle:"Tagesbonus",dailyDescription:"Hole deinen Bonus einmal täglich ab.",collect:"100 MGK + 20 XP abholen",deposit:"Einzahlung (Test)",currency:"Zahlungssystem",amountUSD:"Betrag in USD",testDeposit:"Einzahlung simulieren",minUSDT:"USDT-Mindestbetrag: 50 $. Keine echte Zahlung.",withdraw:"Auszahlung (Test)",amountMGK:"MGK-Betrag",testWithdraw:"Auszahlung simulieren",withdrawNote:"Dieser Demo-Eintrag sendet keine Kryptowährung und zieht kein Guthaben ab.",demoOnly:"Nur eine Demo. Es werden keine echten Wallets oder Transaktionen verwendet.",historyTitle:"📜 Verlauf",profileTitle:"👤 Profil",nickname:"Spitzname",saveName:"Spitznamen speichern",reset:"Demo-Fortschritt zurücksetzen",localSave:"Fortschritt wird in diesem Browser gespeichert.",clearHistory:"Verlauf löschen",navHome:"Start",navTasks:"Aufgaben",navWallet:"Wallet",navHistory:"Verlauf",navProfile:"Profil",claim:"Abholen",claimed:"Erhalten",task1:"Spiele 3 Spiele",task2:"Probiere Lucky Spin",task3:"Gewinne ein Spiel",taskDesc:"Belohnung",slots:"Slots",roulette:"Roulette",blackjack:"Blackjack",dice:"Würfel",spin:"Glücksrad",number:"Glückszahl",play:"Spielen",bet:"MGK-Einsatz",start:"Start",hit:"Karte ziehen",stand:"Halten",dealer:"Dealer",yourHand:"Deine Karten",choose:"Wähle",chooseRed:"Rot",chooseBlack:"Schwarz",even:"Gerade",odd:"Ungerade",chooseNumber:"Zahl wählen",roll:"Würfeln",spinNow:"Drehen",win:"Gewonnen!",lose:"Leider verloren",invalid:"Betrag prüfen.",minDeposit:"USDT-Mindestbetrag: 50 $.",notEnough:"Nicht genug MGK.",dailyDone:"Bonus heute bereits abgeholt.",dailySuccess:"100 MGK und 20 XP erhalten!",saved:"Gespeichert!",resetDone:"Demo zurückgesetzt.",demoDeposit:"Testeinzahlung",demoWithdraw:"Testauszahlung",depositSuccess:"Testeintrag hinzugefügt. Keine Zahlung erfolgt.",withdrawSuccess:"Testeintrag hinzugefügt. Keine Auszahlung erfolgt.",confirmReset:"Demo-Fortschritt zurücksetzen?",clearConfirm:"Verlauf löschen?",historyEmpty:"Noch keine Einträge.",taskComplete:"Aufgabe erledigt!",newRound:"Neue Runde"},
+pl:{welcome:"WITAJ W MADGEK",headline:"Graj. Wykonuj zadania. Zdobywaj XP.",description:"Platforma rozrywkowa demo z wirtualnymi monetami.",balanceLabel:"Twoje wirtualne saldo",level:"Poziom",streak:"Dni z rzędu",played:"Rozegrane gry",games:"🎮 Minigry",daily:"🎁 Odbierz bonus",wallet:"Portfel",disclaimer:"DEMO: MGK to wirtualne monety. Wpłaty i wypłaty nie są przetwarzane.",tasksTitle:"📋 Zadania i nagrody",dailyTitle:"Bonus dzienny",dailyDescription:"Odbierz bonus raz dziennie.",collect:"Odbierz 100 MGK + 20 XP",deposit:"Wpłata (test)",currency:"System płatności",amountUSD:"Kwota w USD",testDeposit:"Symuluj wpłatę",minUSDT:"Minimum USDT: 50 $. Żadna prawdziwa płatność nie nastąpi.",withdraw:"Wypłata (test)",amountMGK:"Kwota MGK",testWithdraw:"Symuluj wypłatę",withdrawNote:"Wpis demo nie wysyła kryptowalut ani nie zmniejsza salda.",demoOnly:"Tylko demo. Nie używamy prawdziwych portfeli ani transakcji.",historyTitle:"📜 Historia",profileTitle:"👤 Profil",nickname:"Pseudonim",saveName:"Zapisz pseudonim",reset:"Zresetuj demo",localSave:"Postęp jest zapisany w tej przeglądarce.",clearHistory:"Wyczyść historię",navHome:"Start",navTasks:"Zadania",navWallet:"Portfel",navHistory:"Historia",navProfile:"Profil",claim:"Odbierz",claimed:"Odebrano",task1:"Zagraj 3 razy",task2:"Wypróbuj Lucky Spin",task3:"Wygraj dowolną grę",taskDesc:"Nagroda",slots:"Automaty",roulette:"Ruletka",blackjack:"Blackjack",dice:"Kości",spin:"Koło fortuny",number:"Szczęśliwa liczba",play:"Graj",bet:"Stawka MGK",start:"Start",hit:"Dobierz",stand:"Pas",dealer:"Krupier",yourHand:"Twoje karty",choose:"Wybierz",chooseRed:"Czerwone",chooseBlack:"Czarne",even:"Parzyste",odd:"Nieparzyste",chooseNumber:"Wybierz liczbę",roll:"Rzuć kośćmi",spinNow:"Zakręć",win:"Wygrana!",lose:"Brak szczęścia",invalid:"Sprawdź kwotę.",minDeposit:"Minimalna wpłata USDT to 50 $.",notEnough:"Za mało MGK.",dailyDone:"Bonus odebrano już dzisiaj.",dailySuccess:"Otrzymano 100 MGK i 20 XP!",saved:"Zapisano!",resetDone:"Demo zresetowane.",demoDeposit:"Wpłata testowa",demoWithdraw:"Wypłata testowa",depositSuccess:"Dodano wpis testowy. Bez płatności.",withdrawSuccess:"Dodano wpis testowy. Bez wypłaty.",confirmReset:"Zresetować postęp demo?",clearConfirm:"Wyczyścić historię?",historyEmpty:"Brak wpisów.",taskComplete:"Zadanie wykonane!",newRound:"Nowa runda"}
+};
+const GAME_DEFS=[
+{id:"slots",emoji:"🎰",name:"slots",desc:"3 × 🎰"},
+{id:"roulette",emoji:"🎯",name:"roulette",desc:"🔴 ⚫"},
+{id:"blackjack",emoji:"🃏",name:"blackjack",desc:"21"},
+{id:"dice",emoji:"🎲",name:"dice",desc:"1–6"},
+{id:"spin",emoji:"🎡",name:"spin",desc:"Lucky Spin"},
+{id:"number",emoji:"🍀",name:"number",desc:"1–6"}
+];
+const DEFAULT={balance:1000,xp:0,games:0,streak:0,lastDaily:"",lastDate:"",nickname:"",history:[],taskClaims:[],dailyProgress:0,spinPlayed:false,wonAny:false};
+let data;
+try{data={...DEFAULT,...JSON.parse(localStorage.getItem("madgek_demo_v1")||"{}")}}catch(e){data={...DEFAULT}}
+let currentGame=null,rouletteChoice="red",bj=null;
+const t=k=>(TXT[data.lang||"ru"]||TXT.ru)[k]||TXT.ru[k]||k;
+function save(){try{localStorage.setItem("madgek_demo_v1",JSON.stringify(data))}catch(e){}}
+function toast(s){$("toast").textContent=s;$("toast").classList.add("show");clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>$("toast").classList.remove("show"),2200)}
+function fmt(n){return Math.floor(n).toLocaleString("en-US")}
+function go(id){document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===id));document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.page===id));render()}
+function addHistory(title,amount){data.history.unshift({title,amount,date:new Date().toLocaleString()});data.history=data.history.slice(0,80);save()}
+function addXP(n){data.xp+=n}
+function level(){return Math.floor(data.xp/100)+1}
 function render(){
- const n=data.registered?data.name:"";
- document.getElementById("headerName").textContent=n?esc(n):"Guest";
- document.getElementById("greeting").textContent=n?"Рады видеть, "+n+"!":"Твоя игровая вселенная.";
- ["homeBalance","walletBalance"].forEach(id=>document.getElementById(id).textContent=num(data.balance));
- document.getElementById("profileBalance").textContent=num(data.balance)+" M";
- document.getElementById("profileName").textContent=n||"Гость MADGEK";
- document.getElementById("profileStatus").textContent=data.registered?"Локальный профиль создан":"Гостевой режим";
- document.getElementById("profileCurrency").textContent=data.currency;
- document.getElementById("eventCount").textContent=data.history.length;
- document.getElementById("currency").value=data.currency;
- document.getElementById("historyList").innerHTML=data.history.length?data.history.map(x=>'<div class="rowline"><div><strong>'+esc(x.title)+'</strong><div class="muted">'+esc(x.detail)+'</div></div><span class="small">'+esc(x.date)+'</span></div>').join(""):'<p class="muted">Пока нет активности.</p>';
- document.getElementById("walletHistory").textContent="Денежных операций нет. Все финансовые функции отключены.";
+ document.documentElement.lang=data.lang||"ru";
+ $("lang").value=data.lang||"ru";
+ document.querySelectorAll("[data-t]").forEach(el=>{let key=el.dataset.t;if(t(key))el.textContent=t(key)});
+ $("balance").textContent=fmt(data.balance);$("level").textContent="LVL "+level();$("levelstat").textContent=level();
+ $("xptext").textContent=(data.xp%100)+" / 100 XP";$("xppercent").textContent=(data.xp%100)+"%";$("xpbar").style.width=(data.xp%100)+"%";
+ $("streak").textContent=data.streak||0;$("played").textContent=data.games;
+ $("profileBalance").textContent=fmt(data.balance);$("profileGames").textContent=data.games;$("profileXP").textContent=data.xp;
+ $("username").textContent=data.nickname||"MADGEK Player";$("avatar").textContent=(data.nickname||"M").charAt(0).toUpperCase();$("profileLevel").textContent=t("level")+" "+level();
+ if($("nickname")&&document.activeElement!==$("nickname"))$("nickname").value=data.nickname||"";
+ $("games").innerHTML=GAME_DEFS.map(g=>`<button class="game" onclick="openGame('${g.id}')"><span class="emoji">${g.emoji}</span><b>${esc(t(g.name))}</b><small>${esc(g.desc)}</small></button>`).join("");
+ renderTasks();renderHistory("history");renderHistory("fullhistory");
 }
-function openRegister(){document.getElementById("nickname").value=data.name||"";document.getElementById("registerModal").classList.add("show");}
-function saveProfile(){
- const n=document.getElementById("nickname").value.trim();
- if(n.length<2){info("Введи никнейм длиной не менее двух символов.");return;}
- data.name=n;data.registered=true;log("Профиль сохранён","Локальный профиль");save();closeModal("registerModal");render();info("Профиль сохранён на этом устройстве. Серверная регистрация пока не подключена.");
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function renderTasks(){
+ const defs=[
+ {id:"three",title:"task1",desc:"Play three games",reward:75,done:data.dailyProgress>=3},
+ {id:"spin",title:"task2",desc:"Try the Lucky Spin",reward:50,done:data.spinPlayed},
+ {id:"win",title:"task3",desc:"Win any game",reward:100,done:data.wonAny}
+ ];
+ $("tasklist").innerHTML=defs.map(a=>`<div class="listrow"><div style="font-size:25px">🎯</div><div class="info"><b>${esc(t(a.title))}</b><small>${esc(t("taskDesc"))}: ${a.reward} MGK · +10 XP</small></div><button class="${data.taskClaims.includes(a.id)?"btn2":"btn"}" ${!a.done||data.taskClaims.includes(a.id)?"disabled":""} onclick="claimTask('${a.id}')">${data.taskClaims.includes(a.id)?esc(t("claimed")):esc(t("claim"))}</button></div>`).join("");
 }
-function logout(){data.name="";data.registered=false;save();log("Выход","Гостевой режим");render();info("Ты вышел из локального профиля.");}
-function resetApp(){data=initial();save();render();info("Локальные демо-данные сброшены.");}
-function clearHistory(){data.history=[];save();render();}
-function setCurrency(v){data.currency=v;save();log("Изменена валюта интерфейса",v);render();}
-function info(t){document.getElementById("infoText").textContent=t;document.getElementById("infoModal").classList.add("show");}
-function coming(t){info(t+" пока недоступны. Раздел подготовлен для будущей интеграции. Сейчас операции с реальными деньгами не поддерживаются.");}
-function faq(t){const e=document.getElementById("faqAnswer");e.textContent=t;e.style.display="block";}
-function closeModal(id){document.getElementById(id).classList.remove("show");}
-document.querySelectorAll(".modalbg").forEach(m=>m.addEventListener("click",e=>{if(e.target===m)m.classList.remove("show");}));
-
-function game(type){
- activeGame=type;
- const cfg={
- slots:["🎰 Lucky Spin","Посмотри на случайную комбинацию символов.","Вращать бесплатно"],
- roulette:["🎡 Roulette","Европейская рулетка: случайный номер от 0 до 36. Без ставок.","Запустить рулетку"],
- blackjack:["🃏 21 очко","Набирай очки ближе к 21, не превышая лимит. Бесплатная карточная игра.","Раздать карты"],
- dice:["🎲 Dice Lab","Бросок виртуального шестигранного кубика.","Бросить кубик"],
- number:["🎯 Lucky Number","Случайное число от 1 до 10.","Получить число"],
- wheel:["🌟 Wheel of Fun","Вращение колеса с развлекательными символами.","Крутить колесо"]
- };
- const c=cfg[type];
- document.getElementById("gameTitle").textContent=c[0];
- document.getElementById("gameDesc").textContent=c[1];
- document.getElementById("gameResult").textContent=type==="slots"?"✦ ✦ ✦":type==="blackjack"?"🂠 🂠":"?";
- document.getElementById("gameExtra").innerHTML="";
- document.getElementById("gameAction").textContent=c[2];
- document.getElementById("gameModal").classList.add("show");
- if(type==="blackjack")blackjack={player:[],dealer:[],over:false};
+function renderHistory(id){
+ const el=$(id);if(!el)return;
+ if(!data.history.length){el.innerHTML=`<div class="panel muted">${esc(t("historyEmpty"))}</div>`;return}
+ el.innerHTML=data.history.map(x=>`<div class="listrow"><div>📌</div><div class="info"><b>${esc(x.title)}</b><small>${esc(x.date)}</small></div><div class="muted">${esc(x.amount)}</div></div>`).join("");
 }
-function card(){const ranks=["A","2","3","4","5","6","7","8","9","10","J","Q","K"];return ranks[Math.floor(Math.random()*ranks.length)];}
-function points(hand){
- let total=0,aces=0;
- hand.forEach(c=>{if(c==="A"){total+=11;aces++;}else if(["K","Q","J"].includes(c))total+=10;else total+=Number(c);});
- while(total>21&&aces>0){total-=10;aces--;}
- return total;
+function daily(){
+ let today=new Date().toISOString().slice(0,10);
+ if(data.lastDaily===today){toast(t("dailyDone"));return}
+ data.lastDaily=today;data.balance+=100;data.streak=(data.lastDate&&data.lastDate!==today)?data.streak+1:Math.max(1,data.streak||0);data.lastDate=today;addXP(20);addHistory("Daily bonus","+100 MGK");save();render();toast(t("dailySuccess"));
 }
-function playGame(){
- let result="",title="",detail="";
- if(activeGame==="slots"){
-  const s=["🍇","🍋","🔔","⭐","🍒","💎"];
-  result=Array.from({length:3},()=>s[Math.floor(Math.random()*s.length)]).join(" ");
-  title="Lucky Spin";detail="Комбинация: "+result;
- }else if(activeGame==="roulette"){
-  const n=Math.floor(Math.random()*37);
-  result=n===0?"🟢 0":(n%2===0?"🔴 ":"⚫ ")+n;
-  title="Roulette";detail="Выпал номер "+n;
- }else if(activeGame==="dice"){
-  const n=Math.floor(Math.random()*6)+1;result=["⚀","⚁","⚂","⚃","⚄","⚅"][n-1]+"  "+n;
-  title="Dice Lab";detail="Выпало число "+n;
- }else if(activeGame==="number"){
-  const n=Math.floor(Math.random()*10)+1;result="🎯 "+n;title="Lucky Number";detail="Случайное число: "+n;
- }else if(activeGame==="wheel"){
-  const s=["🌟 Звезда","💎 Кристалл","🍀 Клевер","🌙 Луна","🔥 Огонь","👑 Корона"];
-  result=s[Math.floor(Math.random()*s.length)];title="Wheel of Fun";detail="Результат: "+result;
- }else if(activeGame==="blackjack"){
-  if(blackjack.over){blackjack={player:[],dealer:[],over:false};}
-  if(!blackjack.player.length){
-   blackjack.player=[card(),card()];blackjack.dealer=[card(),card()];
-  }else{
-   blackjack.player.push(card());
-  }
-  const p=points(blackjack.player);
-  let d=points(blackjack.dealer);
-  if(p<21&&blackjack.player.length<5){
-   document.getElementById("gameResult").textContent=blackjack.player.join(" · ");
-   document.getElementById("gameExtra").innerHTML='<p class="muted">Твои очки: '+p+' · Карты дилера: '+blackjack.dealer[0]+' · '+blackjack.dealer[1]+'</p><button class="btn ghost full" onclick="standBlackjack()">Остановиться</button>';
-   document.getElementById("gameAction").textContent="Взять карту";
-   return;
-  }
-  while(d<17) {blackjack.dealer.push(card());d=points(blackjack.dealer);}
-  blackjack.over=true;
-  result=blackjack.player.join(" · ")+"  |  "+p;
-  detail="Игрок: "+p+", дилер: "+d+". "+(p>21?"Перебор":d>21||p>d?"Игрок выиграл раунд":p===d?"Ничья":"Дилер выиграл раунд");
-  document.getElementById("gameExtra").innerHTML='<p class="muted">Дилер: '+blackjack.dealer.join(" · ")+' = '+d+'</p>';
-  document.getElementById("gameAction").textContent="Новый раунд";
- }
- document.getElementById("gameResult").textContent=result;
- if(title){log(title,detail);render();}
+function claimTask(id){
+ if(data.taskClaims.includes(id))return;
+ let ok=id==="three"?data.dailyProgress>=3:id==="spin"?data.spinPlayed:data.wonAny;if(!ok)return;
+ let reward=id==="three"?75:id==="spin"?50:100;data.taskClaims.push(id);data.balance+=reward;addXP(10);addHistory(t(id==="three"?"task1":id==="spin"?"task2":"task3"),"+"+reward+" MGK");save();render();toast(t("taskComplete"));
 }
-function standBlackjack(){
- if(!blackjack.player.length)return;
- let d=points(blackjack.dealer);
- while(d<17){blackjack.dealer.push(card());d=points(blackjack.dealer);}
- const p=points(blackjack.player);
- const detail="Игрок: "+p+", дилер: "+d+". "+(p>21?"Перебор":d>21||p>d?"Игрок выиграл раунд":p===d?"Ничья":"Дилер выиграл раунд");
- document.getElementById("gameResult").textContent=blackjack.player.join(" · ")+" = "+p;
- document.getElementById("gameExtra").innerHTML='<p class="muted">Дилер: '+blackjack.dealer.join(" · ")+' = '+d+'</p>';
- document.getElementById("gameAction").textContent="Новый раунд";
- blackjack.over=true;log("21 очко",detail);render();
+function deposit(){
+ let coin=$("depositCoin").value,amount=Number($("depositAmount").value);
+ if(!Number.isFinite(amount)||amount<=0){toast(t("invalid"));return}
+ if(coin==="USDT"&&amount<50){toast(t("minDeposit"));return}
+ addHistory(t("demoDeposit"),coin+" $"+amount.toFixed(2)+" · DEMO ONLY");save();render();toast(t("depositSuccess"));
 }
-function sendTicket(){
- const topic=document.getElementById("topic").value.trim();
- const message=document.getElementById("message").value.trim();
- if(!topic||!message){document.getElementById("ticketStatus").textContent="Заполни тему и сообщение.";return;}
- data.tickets=data.tickets||[];
- data.tickets.unshift({topic,message,date:new Date().toLocaleString("ru-RU")});
- log("Тестовое обращение",topic);save();
- document.getElementById("topic").value="";document.getElementById("message").value="";
- document.getElementById("ticketStatus").textContent="Обращение сохранено локально. Оператор его не получил.";
- render();
+function withdraw(){
+ let coin=$("withdrawCoin").value,amount=Number($("withdrawAmount").value);
+ if(!Number.isFinite(amount)||amount<=0){toast(t("invalid"));return}
+ addHistory(t("demoWithdraw"),coin+" · "+fmt(amount)+" MGK · DEMO ONLY");save();render();toast(t("withdrawSuccess"));
 }
-if(tg?.initDataUnsafe?.user&&!data.registered){
- const u=tg.initDataUnsafe.user;
- if(u.first_name)data.name=u.first_name;
+function saveName(){data.nickname=$("nickname").value.trim().slice(0,24);save();render();toast(t("saved"))}
+function resetDemo(){if(!confirm(t("confirmReset")))return;let lang=data.lang;data={...DEFAULT,lang};save();render();toast(t("resetDone"))}
+function clearHistory(){if(!confirm(t("clearConfirm")))return;data.history=[];save();render()}
+function openGame(id){
+ currentGame=id;let g=GAME_DEFS.find(x=>x.id===id);if(!g)return;
+ $("modalTitle").textContent=t(g.name);$("modal").classList.add("open");
+ const bet=`<div class="field"><label>${esc(t("bet"))}</label><input id="bet" type="number" min="10" max="500" value="50" inputmode="numeric"></div>`;
+ let body="";
+ if(id==="slots")body=`<div class="stage"><div class="big" id="display">🍒 ⭐ 🍋</div><div class="result" id="result"></div></div>${bet}<button class="btn full" onclick="playSlots()">${esc(t("start"))}</button>`;
+ if(id==="roulette")body=`<div class="stage"><div class="big" id="display">🎯</div><div class="result" id="result"></div></div><div class="row"><button class="btn2" onclick="rouletteChoice='red'">${esc(t("chooseRed"))}</button><button class="btn2" onclick="rouletteChoice='black'">${esc(t("chooseBlack"))}</button></div><div class="row"><button class="btn2" onclick="rouletteChoice='even'">${esc(t("even"))}</button><button class="btn2" onclick="rouletteChoice='odd'">${esc(t("odd"))}</button></div>${bet}<button class="btn full" onclick="playRoulette()">${esc(t("start"))}</button>`;
+ if(id==="dice"||id==="number")body=`<div class="stage"><div class="big" id="display">${id==="dice"?"🎲 🎲":"🍀"}</div><div class="result" id="result"></div></div><div class="field"><label>${esc(t("chooseNumber"))}</label><select id="guess">${(id==="dice"?[2,3,4,5,6,7,8,9,10,11,12]:[1,2,3,4,5,6]).map(n=>`<option value="${n}">${n}</option>`).join("")}</select></div>${bet}<button class="btn full" onclick="${id==="dice"?"playDice()":"playNumber()"}">${esc(id==="dice"?t("roll"):t("start"))}</button>`;
+ if(id==="spin")body=`<div class="stage"><div class="big" id="display">🎡</div><div class="result" id="result"></div></div>${bet}<button class="btn full" onclick="playSpin()">${esc(t("spinNow"))}</button>`;
+ if(id==="blackjack")body=`<div class="stage"><div class="muted">${esc(t("dealer"))}</div><div class="big" id="dealer">🂠 🂠</div><div class="muted">${esc(t("yourHand"))}</div><div class="big" id="player">🂠 🂠</div><div class="result" id="result"></div></div>${bet}<div class="row"><button class="btn2" onclick="bjHit()">${esc(t("hit"))}</button><button class="btn" onclick="bjStand()">${esc(t("stand"))}</button></div><button class="btn2 full" onclick="openGame('blackjack')">${esc(t("newRound"))}</button>`;
+ $("modalBody").innerHTML=body;if(id==="blackjack")bjStart();
 }
+function closeGame(){$("modal").classList.remove("open");currentGame=null;render()}
+function betAmount(){let b=Math.floor(Number($("bet")?.value||50));return Math.max(10,Math.min(500,b))}
+function canPlay(b){if(data.balance<b){toast(t("notEnough"));return false}data.balance-=b;return true}
+function settle(b,win,mult,title){
+ let change=win?Math.floor(b*mult):0;data.balance+=change;data.games++;data.dailyProgress++;if(win)data.wonAny=true;addXP(5);addHistory(title,win?"+"+change+" MGK":"-"+b+" MGK");save();render();
+ $("result").textContent=win?`${t("win")} +${change} MGK`:t("lose");
+}
+function playSlots(){
+ let b=betAmount();if(!canPlay(b))return;
+ let s=["🍒","⭐","🍋","💎","🔔","🍀"],a=Array.from({length:3},()=>s[Math.floor(Math.random()*s.length)]);
+ $("display").textContent=a.join(" ");let triple=a[0]===a[1]&&a[1]===a[2],pair=new Set(a).size<3;
+ settle(b,triple||pair,triple?5:pair?1.5:0,"🎰 "+t("slots"));
+}
+function playRoulette(){
+ let b=betAmount();if(!canPlay(b))return;let n=Math.floor(Math.random()*37),color=n===0?"green":n%2?"red":"black";
+ $("display").textContent=(color==="red"?"🔴 ":color==="black"?"⚫ ":"🟢 ")+n;
+ let win=rouletteChoice==="red"?color==="red":rouletteChoice==="black"?color==="black":rouletteChoice==="even"?n!==0&&n%2===0:n!==0&&n%2===1;
+ settle(b,win,2,"🎯 "+t("roulette"));
+}
+function playDice(){
+ let b=betAmount();if(!canPlay(b))return;let a=1+Math.floor(Math.random()*6),c=1+Math.floor(Math.random()*6),sum=a+c;
+ $("display").textContent=`${a} 🎲 ${c}`;$("result").textContent="Σ = "+sum;
+ settle(b,sum===Number($("guess").value),5,"🎲 "+t("dice"));
+}
+function playNumber(){
+ let b=betAmount();if(!canPlay(b))return;let n=1+Math.floor(Math.random()*6);
+ $("display").textContent=["⚀","⚁","⚂","⚃","⚄","⚅"][n-1];$("result").textContent=""+n;
+ settle(b,n===Number($("guess").value),5,"🍀 "+t("number"));
+}
+function playSpin(){
+ let b=betAmount();if(!canPlay(b))return;
+ let items=[["🍀",1],["⭐",1.5],["💎",3],["🎁",2],["✨",0],["👑",5]],p=items[Math.floor(Math.random()*items.length)];
+ $("display").textContent=p[0];data.spinPlayed=true;settle(b,p[1]>0,p[1],"🎡 "+t("spin"));renderTasks();
+}
+function card(){return 1+Math.floor(Math.random()*13)}
+function cv(c){return Math.min(c,10)}
+function hand(cards){return cards.map(c=>c===11?"J":c===12?"Q":c===13?"K":c).join("  ")}
+function total(cards){return cards.reduce((s,c)=>s+cv(c),0)}
+function bjStart(){bj={p:[card(),card()],d:[card(),card()],bet:betAmount(),done:false};$("player").textContent=hand(bj.p);$("dealer").textContent=hand([bj.d[0]])+"  🂠";$("result").textContent=t("yourHand")+": "+total(bj.p)}
+function bjHit(){if(!bj||bj.done)return;bj.p.push(card());$("player").textContent=hand(bj.p);$("result").textContent=t("yourHand")+": "+total(bj.p);if(total(bj.p)>21){bj.done=true;let b=bj.bet;if(!canPlay(0))return;data.games++;data.dailyProgress++;addXP(5);addHistory("🃏 Blackjack","-"+b+" MGK");save();render();$("result").textContent=t("lose")}}
+function bjStand(){
+ if(!bj||bj.done)return;while(total(bj.d)<17)bj.d.push(card());$("dealer").textContent=hand(bj.d);bj.done=true;
+ let win=total(bj.p)<=21&&(total(bj.d)>21||total(bj.p)>total(bj.d)),b=bj.bet;
+ if(win)data.balance+=b*2;data.games++;data.dailyProgress++;if(win)data.wonAny=true;addXP(5);addHistory("🃏 Blackjack",win?"+"+(b*2)+" MGK":"-"+b+" MGK");save();render();$("result").textContent=total(bj.p)+" vs "+total(bj.d)+" · "+(win?t("win"):t("lose"));
+}
+$("lang").addEventListener("change",e=>{data.lang=e.target.value;save();render();if(currentGame)openGame(currentGame)});
+$("modal").addEventListener("click",e=>{if(e.target===$("modal"))closeGame()});
+try{let tg=window.Telegram?.WebApp;if(tg){tg.ready();tg.expand()}}catch(e){}
+if(data.lastDaily&&data.lastDaily!==new Date().toISOString().slice(0,10))data.streak=0;
 render();
 </script>
 </body>
