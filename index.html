@@ -60,14 +60,7 @@ h1{font-size:clamp(36px,5vw,58px);line-height:1.04;margin:14px 0}h2{font-size:22
 <div class="app">
 <header>
  <div class="brand"><i>✦</i>MADGEK</div>
- <nav>
-  <button class="active" data-page="home">Главная</button>
-  <button data-page="games">Игры</button>
-  <button data-page="cash">Касса</button>
-  <button data-page="history">История</button>
-  <button data-page="profile">Профиль</button>
-  <button data-page="support">Поддержка</button>
- </nav>
+ <nav><button class="active" data-page="home">Главная</button><button data-page="games">Игры</button><button data-page="cash">Касса</button><button data-page="history">История</button><button data-page="support">Поддержка</button></nav>
  <div class="right">
   <select id="language" aria-label="Language"><option value="ru">RU</option><option value="uk">UK</option><option value="en">EN</option></select>
   <div class="balance">$ <b id="balance">10,000.00</b><small>USD · виртуальный баланс</small></div>
@@ -112,21 +105,6 @@ h1{font-size:clamp(36px,5vw,58px);line-height:1.04;margin:14px 0}h2{font-size:22
  <div class="sectionhead"><div><h2>История игр</h2><div class="muted">Последние игровые раунды</div></div><button class="secondary" id="clearHistory">Очистить</button></div><div class="panel" id="historyList"></div>
 </section>
 
-<section id="profile" class="page">
- <div class="sectionhead"><div><h2>Профиль</h2><div class="muted">Статистика и достижения</div></div></div>
- <div class="panel">
-  <div class="stats">
-   <div class="stat"><span>Баланс</span><b id="profileBalance">$10,000</b></div>
-   <div class="stat"><span>Раундов</span><b id="profileRounds">0</b></div>
-   <div class="stat"><span>Лучший результат</span><b id="profileBest">$0</b></div>
-  </div>
-  <h3 style="margin:20px 0 12px">Достижения</h3>
-  <div id="achievements" class="history"></div>
-  <h3 style="margin:20px 0 12px">Последние игры</h3>
-  <div id="recentActivity" class="history"></div>
- </div>
-</section>
-
 <section id="support" class="page">
  <div class="sectionhead"><div><h2>Поддержка</h2><div class="muted">Оставь обращение в службу поддержки</div></div></div>
  <div class="panel"><form id="supportForm"><div class="formgrid">
@@ -134,11 +112,11 @@ h1{font-size:clamp(36px,5vw,58px);line-height:1.04;margin:14px 0}h2{font-size:22
  <div class="formfield"><label>Контакт для ответа</label><input id="supportContact" placeholder="Telegram или email"></div></div>
  <div class="formfield" style="margin-top:12px"><label>Сообщение</label><textarea id="supportMessage" required placeholder="Опиши вопрос..."></textarea></div>
  <button class="primary wide">Сохранить обращение</button></form><div id="tickets" class="history" style="margin-top:18px"></div>
- <p class="muted" style="font-size:12px">Обращения сохраняются в этом браузере.</p></div>
+ <p class="muted" style="font-size:12px">Обращения сохраняются в этом браузере. Отправка оператору требует отдельного серверного подключения.</p></div>
 </section>
 <div class="notice">MADGEK · Все балансы виртуальные · Никаких реальных денежных операций</div>
 </div>
-<div class="mobile"><button class="active" data-page="home"><span>⌂</span>Главная</button><button data-page="games"><span>▦</span>Игры</button><button data-page="cash"><span>$</span>Касса</button><button data-page="history"><span>◷</span>История</button><button data-page="profile"><span>◎</span>Профиль</button></div>
+<div class="mobile"><button class="active" data-page="home"><span>⌂</span>Главная</button><button data-page="games"><span>▦</span>Игры</button><button data-page="cash"><span>$</span>Касса</button><button data-page="history"><span>◷</span>История</button><button data-page="support"><span>☏</span>Помощь</button></div>
 <div id="toast" class="toast"></div>
 
 <script>
@@ -159,21 +137,13 @@ let lang='ru';
 try{const saved=JSON.parse(localStorage.getItem('madgek_club_v1'));if(saved)S={...S,...saved}}catch(e){}
 function save(){try{localStorage.setItem('madgek_club_v1',JSON.stringify(S))}catch(e){}}
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>e.classList.remove('show'),2400)}
-function page(id){document.querySelectorAll('.page').forEach(e=>e.classList.toggle('active',e.id===id));document.querySelectorAll('[data-page]').forEach(e=>e.classList.toggle('active',e.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'});if(id==='history')renderHistory();if(id==='cash')renderCash();if(id==='support')renderTickets();if(id==='profile')renderProfile()}
+function page(id){document.querySelectorAll('.page').forEach(e=>e.classList.toggle('active',e.id===id));document.querySelectorAll('[data-page]').forEach(e=>e.classList.toggle('active',e.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'});if(id==='history')renderHistory();if(id==='cash')renderCash();if(id==='support')renderTickets()}
 function grid(target,filter='all'){const el=$(target);el.innerHTML=games.filter(g=>filter==='all'||g.cat===filter).map(g=>`<article class="game"><div class="art">${g.icon}</div><div class="gameinfo"><h3>${g.ru}</h3><p>${g.desc}</p><button class="primary" data-open="${g.id}">Играть →</button></div></article>`).join('');el.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openGame(b.dataset.open))}
 function renderStats(){$('#balance').textContent=fmt(S.balance);$('#statBalance').textContent='$'+fmt(S.balance);$('#cashBalance').textContent='$'+fmt(S.balance);$('#rounds').textContent=S.rounds;$('#best').textContent='$'+fmt(S.best);renderCash()}
 function renderHistory(){const e=$('#historyList');e.innerHTML=S.history.length?S.history.slice(0,40).map(h=>`<div class="histrow"><span><b>${h.game}</b><br><span class="muted">${h.detail} · ${h.time}</span></span><b class="${h.delta>=0?'positive':'negative'}">${h.delta>=0?'+':'−'}$${fmt(Math.abs(h.delta))}</b></div>`).join(''):'<div class="muted">История пока пуста.</div>'}
 function renderCash(){if(!$('#cashHistory'))return;$('#depTotal').textContent='$'+fmt(S.cash.filter(x=>x.kind==='deposit').reduce((a,x)=>a+x.amount,0));$('#withTotal').textContent='$'+fmt(S.cash.filter(x=>x.kind==='withdraw').reduce((a,x)=>a+x.amount,0));$('#cashHistory').innerHTML=S.cash.length?S.cash.slice(0,25).map(x=>`<div class="histrow"><span>${x.kind==='deposit'?'Депозит':'Вывод'} · ${x.method}<br><span class="muted">${x.time}</span></span><b>$${fmt(x.amount)}</b></div>`).join(''):'<div class="muted">Операций пока нет.</div>'}
 function renderTickets(){const e=$('#tickets');e.innerHTML=S.tickets.length?S.tickets.map(t=>`<div class="histrow"><span><b>${t.topic}</b><br>${t.message}<br><span class="muted">${t.time}</span></span><span class="gold">Сохранено</span></div>`).join(''):'<div class="muted">Нет обращений.</div>'}
-function renderProfile(){
- $('#profileBalance').textContent='$'+fmt(S.balance);
- $('#profileRounds').textContent=S.rounds;
- $('#profileBest').textContent='$'+fmt(S.best);
- const checks=[['Первый раунд',S.rounds>=1],['10 раундов',S.rounds>=10],['Первая победа',(S.history||[]).some(x=>x.delta>0)],['Крупный выигрыш',S.best>=1000],['Исследователь',new Set((S.history||[]).map(x=>x.game)).size>=4]];
- $('#achievements').innerHTML=checks.map(([n,ok])=>`<div class="histrow"><span>${ok?'🏆':'🔒'} ${n}</span><b>${ok?'Открыто':'Закрыто'}</b></div>`).join('');
- $('#recentActivity').innerHTML=(S.history||[]).length?S.history.slice(0,5).map(h=>`<div class="histrow"><span><b>${h.game}</b><br><span class="muted">${h.time}</span></span><b class="${h.delta>=0?'positive':'negative'}">${h.delta>=0?'+':'−'}$${fmt(Math.abs(h.delta))}</b></div>`).join(''):'<div class="muted">Пока нет результатов.</div>';
-}
-function record(game,stake,delta,detail){S.balance=Math.max(0,S.balance+delta);S.rounds++;S.best=Math.max(S.best,delta);S.history.unshift({game,stake,delta,detail,time:new Date().toLocaleString()});S.history=S.history.slice(0,60);save();renderStats();renderProfile()}
+function record(game,stake,delta,detail){S.balance=Math.max(0,S.balance+delta);S.rounds++;S.best=Math.max(S.best,delta);S.history.unshift({game,stake,delta,detail,time:new Date().toLocaleString()});S.history=S.history.slice(0,60);save();renderStats()}
 function stake(){const n=Number($('#stake')?.value||100);if(!Number.isFinite(n)||n<1||n>10000||n>S.balance){toast('Ставка должна быть от $1 до $10,000 и не превышать баланс.');return null}return Math.floor(n)}
 function stakeHTML(){return '<div class="row"><label>Ставка · USD</label><input class="field" id="stake" type="number" min="1" max="10000" value="100"></div>'}
 function layout(title,arena,controls){return `<div class="layout"><div class="stage"><div class="stagehead"><h2>${title}</h2><span class="eyebrow">MADGEK</span></div>${arena}</div><div class="controls">${controls}</div></div>`}
@@ -227,4 +197,16 @@ m.innerHTML=layout(g.ru,`<div class="arena"><div class="wheelwrap"><div class="p
 $('#spinPrize').onclick=()=>{const st=stake();if(!st)return;const b=$('#spinPrize');b.disabled=true;$('#prizeWheel').style.transform=`rotate(${1440+Math.random()*720}deg)`;setTimeout(()=>{const ms=[0,.5,1,1.5,2,3,5],mult=ms[Math.floor(Math.random()*ms.length)],delta=Math.floor(st*mult)-st;$('#result').textContent=`×${mult} · ${delta>=0?'+':'−'}$${fmt(Math.abs(delta))}`;record('Колесо удачи',st,delta,'Множитель ×'+mult);b.disabled=false},3500)};
 }
 }
-function cashOp(kind){const
+function cashOp(kind){const input=$(kind==='deposit'?'#depositAmount':'#withdrawAmount'),method=$(kind==='deposit'?'#depositMethod':'#withdrawMethod'),amount=Number(input.value);if(!Number.isFinite(amount)||amount<1||amount>100000){toast('Укажи сумму от $1 до $100,000');return}if(kind==='withdraw'&&amount>S.balance){toast('Недостаточно виртуальных средств');return}if(kind==='deposit')S.balance+=amount;else S.balance-=amount;S.cash.unshift({kind,amount,method:method.value,time:new Date().toLocaleString()});save();renderStats();renderCash();toast(kind==='deposit'?'Тестовый депозит добавлен':'Тестовый вывод выполнен локально')}
+$('#depositBtn').onclick=()=>cashOp('deposit');$('#withdrawBtn').onclick=()=>cashOp('withdraw');
+$('#supportForm').onsubmit=e=>{e.preventDefault();S.tickets.unshift({topic:$('#supportTopic').value,message:$('#supportMessage').value,contact:$('#supportContact').value,time:new Date().toLocaleString()});save();$('#supportMessage').value='';renderTickets();toast('Обращение сохранено в этом браузере')};
+$('#clearHistory').onclick=()=>{if(confirm('Очистить историю игр?')){S.history=[];save();renderHistory()}};
+document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>page(b.dataset.page));
+document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openGame(b.dataset.open));
+$('#back').onclick=()=>page('games');
+document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('active',x===b));grid('#allGrid',b.dataset.filter)});
+$('#language').onchange=e=>{lang=e.target.value;document.documentElement.lang=lang;toast(lang==='en'?'Language selected: English':lang==='uk'?'Мову змінено на українську':'Язык изменён на русский')};
+grid('#homeGrid');grid('#allGrid');renderStats();renderHistory();renderTickets();
+</script>
+</body>
+</html> 
