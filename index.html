@@ -1,105 +1,573 @@
-<!doctype html>
-<html lang="en">
+
+<!DOCTYPE html>
+<html lang="ru">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101512"><title>MADGEK — Social Casino</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080e0a">
+<title>MADGEK Casino</title>
 <style>
- 
-:root{--bg:#0d110f;--panel:#171d19;--panel2:#202923;--line:#2c3930;--text:#f4f7f3;--muted:#9ba99e;--green:#b8f36a;--green2:#77c844;--gold:#f1c878;--red:#ef626c;--radius:17px}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#24372a 0,transparent 42%),var(--bg);color:var(--text);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input{font:inherit}button{cursor:pointer;border:0;color:inherit}.app{max-width:1400px;margin:auto;min-height:100vh}.top{height:76px;display:flex;align-items:center;gap:22px;padding:0 28px;border-bottom:1px solid #ffffff0d;background:#0d110fe8;position:sticky;top:0;z-index:20;backdrop-filter:blur(18px)}.brand{display:flex;align-items:center;gap:10px;font-weight:950;letter-spacing:1.5px;font-size:21px;white-space:nowrap}.logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(145deg,#d5ff91,#6dbb3e);display:grid;place-items:center;color:#14200e;font-size:21px;box-shadow:0 5px 22px #a9f36525}.search{flex:1;max-width:430px;position:relative}.search input{width:100%;border:1px solid var(--line);background:#151b17;border-radius:12px;padding:12px 14px 12px 42px;color:white;outline:none}.search:before{content:'⌕';position:absolute;left:15px;top:5px;font-size:25px;color:var(--muted)}.topright{margin-left:auto;display:flex;align-items:center;gap:12px}.demo-tag{font-size:11px;font-weight:900;letter-spacing:1px;color:#1a2812;background:var(--green);padding:6px 9px;border-radius:6px}.balance{background:#1b241d;border:1px solid #394b39;padding:9px 14px;border-radius:12px;min-width:132px}.balance small{display:block;color:var(--muted);font-size:10px;letter-spacing:1px}.balance strong{font-size:18px}.btn{padding:11px 15px;border-radius:11px;font-weight:800;background:var(--green);color:#14200d;transition:.2s}.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}.btn.secondary{background:#263329;color:#e9f5e8;border:1px solid #3a4b3d}.btn.ghost{background:transparent;color:#c9d5cb;border:1px solid var(--line)}.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:25px;padding:25px 28px 80px}.side{position:sticky;top:96px;align-self:start}.nav-label{font-size:10px;font-weight:900;letter-spacing:1.5px;color:#6f8073;padding:14px 12px 8px}.navitem{width:100%;display:flex;align-items:center;gap:12px;padding:12px;border-radius:11px;background:transparent;color:#aebbb1;text-align:left;margin:3px 0;font-weight:650}.navitem .ico{font-size:19px;width:22px;text-align:center}.navitem.active,.navitem:hover{background:#243126;color:#d8ffae}.navitem.active{box-shadow:inset 3px 0 var(--green)}.sidecard{margin-top:24px;background:linear-gradient(145deg,#202b20,#141a16);border:1px solid var(--line);border-radius:15px;padding:16px}.sidecard strong{display:block;margin:6px 0}.sidecard p{color:var(--muted);font-size:12px;margin:5px 0 13px}.main{min-width:0}.hero{min-height:245px;border:1px solid #334438;border-radius:22px;overflow:hidden;position:relative;padding:30px 32px;display:flex;align-items:center;background:radial-gradient(circle at 78% 40%,#4b703a 0,transparent 22%),radial-gradient(circle at 80% 100%,#1b4a2e 0,transparent 42%),linear-gradient(110deg,#202e23,#17221a 58%,#233a25);box-shadow:0 20px 60px #0002}.hero:after{content:'♠';position:absolute;right:10%;top:-70px;font-size:330px;line-height:1;color:#c8ff8a0c;transform:rotate(-14deg)}.hero-copy{position:relative;z-index:1;max-width:540px}.eyebrow{font-size:11px;letter-spacing:2px;font-weight:900;color:var(--green);text-transform:uppercase}.hero h1{font-size:clamp(30px,4vw,48px);line-height:1.04;letter-spacing:-1.6px;margin:12px 0}.hero p{color:#b9c9bc;max-width:420px;margin:0 0 21px}.hero-art{position:absolute;right:9%;bottom:-22px;z-index:1;font-size:clamp(80px,13vw,160px);filter:drop-shadow(0 20px 24px #0008);transform:rotate(-8deg)}.hero-art span:nth-child(2){display:inline-block;transform:translate(-22px,-28px) rotate(17deg)}.quickstats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 28px}.stat{border:1px solid var(--line);background:#141a16;border-radius:13px;padding:13px 16px}.stat small{display:block;color:var(--muted);font-size:11px}.stat strong{font-size:17px}.section-head{display:flex;align-items:end;justify-content:space-between;margin:25px 0 13px;gap:12px}.section-head h2{margin:0;font-size:21px;letter-spacing:-.5px}.section-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.textlink{color:var(--green);background:transparent;font-size:12px;font-weight:800}.chips{display:flex;gap:8px;overflow:auto;padding-bottom:4px;margin-bottom:17px}.chip{white-space:nowrap;padding:9px 13px;border-radius:9px;border:1px solid var(--line);background:#141a16;color:#aebbb1;font-weight:700;font-size:12px}.chip.active{background:#d4ff9c;color:#1b2914;border-color:#d4ff9c}.gamegrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.gamecard{border:1px solid #2a382d;background:#171e19;border-radius:15px;overflow:hidden;min-width:0;transition:.2s}.gamecard:hover{transform:translateY(-3px);border-color:#68845d;box-shadow:0 10px 24px #0003}.gameart{height:137px;position:relative;display:grid;place-items:center;font-size:64px;overflow:hidden;background:radial-gradient(circle at 50% 45%,#426b3c,#1a2b20 70%)}.gameart:before,.gameart:after{content:'';position:absolute;width:170px;height:170px;border:1px solid #ffffff16;border-radius:50%}.gameart:after{width:120px;height:120px}.gameart span{position:relative;z-index:1;filter:drop-shadow(0 7px 10px #0008)}.gameart.purple{background:radial-gradient(circle at 50% 45%,#684b9b,#211a38 75%)}.gameart.gold{background:radial-gradient(circle at 50% 45%,#87632c,#292116 75%)}.gameart.blue{background:radial-gradient(circle at 50% 45%,#286c8c,#142633 75%)}.gameart.red{background:radial-gradient(circle at 50% 45%,#8b343a,#2a171a 75%)}.tag{position:absolute;left:10px;top:10px;background:#0d130ed9;border:1px solid #ffffff19;border-radius:6px;padding:4px 6px;font-size:9px;font-weight:900;letter-spacing:.7px}.gameinfo{padding:12px}.gameinfo strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}.gameinfo small{display:block;color:var(--muted);margin-top:4px;font-size:11px}.gameinfo .play{width:100%;margin-top:11px;padding:9px;background:#26362a;border:1px solid #3b513d;border-radius:8px;color:#d9ffc0;font-size:11px;font-weight:900}.livebanner{display:flex;align-items:center;gap:18px;padding:19px;border:1px solid #3a493c;background:linear-gradient(100deg,#1d2a20,#171e19);border-radius:16px;margin:20px 0}.liveorb{width:57px;height:57px;flex-shrink:0;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#f6d68a,#94642b);font-size:27px;box-shadow:0 0 30px #d2a45c25}.livebanner h3{margin:0 0 4px}.livebanner p{margin:0;color:var(--muted);font-size:12px}.livebanner .btn{margin-left:auto;white-space:nowrap}.screen{display:none}.screen.active{display:block}.gameview{border:1px solid var(--line);background:#141a16;border-radius:18px;padding:22px}.gamebar{display:flex;align-items:center;gap:12px;margin-bottom:20px}.back{background:#263329;border:1px solid var(--line);padding:9px 12px;border-radius:9px}.gamebar h2{margin:0;font-size:22px}.gamebar .demo-tag{margin-left:auto}.tablefelt{background:radial-gradient(ellipse at center,#235c38,#123322 70%);border:8px solid #5c4427;outline:1px solid #94774c;border-radius:48% / 35%;min-height:255px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:9px;padding:25px;box-shadow:inset 0 0 40px #0005,0 14px 24px #0003}.roulette-wheel{width:min(230px,60vw);aspect-ratio:1;border-radius:50%;border:7px solid #c8a66b;background:repeating-conic-gradient(#bb3438 0deg 9.73deg,#173c29 9.73deg 19.46deg);display:grid;place-items:center;position:relative;box-shadow:0 0 0 5px #2c2016,0 0 0 8px #a98a55;transition:transform 4s cubic-bezier(.1,.72,.08,1)}.roulette-wheel:before{content:'';position:absolute;inset:17%;border-radius:50%;border:5px solid #e1c17e;background:radial-gradient(circle,#d4b778,#59411d 65%,#16130e)}.roulette-wheel:after{content:'✦';position:absolute;z-index:2;color:#ffe3a1;font-size:34px}.wheel-pointer{position:absolute;top:-12px;left:calc(50% - 10px);z-index:4;border-left:10px solid transparent;border-right:10px solid transparent;border-top:24px solid #fff0b4;filter:drop-shadow(0 2px 3px #000)}.roulette-result{font-size:28px;font-weight:950;margin:15px 0 0;text-align:center}.betcontrols{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:20px 0 12px}.betcontrols input{width:110px;background:#0f1511;border:1px solid #3a493d;border-radius:9px;padding:10px;color:white}.betcontrols label{font-size:12px;color:var(--muted)}.betgrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;margin-top:15px}.betpick{padding:12px 4px;border-radius:8px;background:#1e2921;border:1px solid #334337;font-weight:800}.betpick.rednum{background:#762d33}.betpick.blacknum{background:#222725}.betpick.greennum{background:#277448}.betpick.selected{outline:2px solid var(--green);outline-offset:1px}.result{min-height:26px;text-align:center;color:var(--green);font-weight:800;margin-top:12px}.slotmachine{display:flex;justify-content:center;gap:10px;background:#0b100d;border:5px solid #8c6b3d;border-radius:17px;padding:16px;max-width:440px;margin:10px auto 18px;box-shadow:0 10px 30px #0005}
- .reel{width:28%;height:108px;background:linear-gradient(90deg,#d7d4bd,#fffce8,#c3bea9);border-radius:9px;display:grid;place-items:center;color:#20221b;font-size:52px;box-shadow:inset 0 0 13px #0004}.reel.spin{animation:reel .13s linear infinite}@keyframes reel{0%{transform:translateY(-3px);filter:blur(1px)}100%{transform:translateY(3px);filter:blur(2px)}}.subheading{font-size:12px;color:var(--muted);font-weight:900;letter-spacing:1px;text-align:center;margin:16px 0 8px}.cards{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;min-height:100px}.playingcard{width:67px;height:96px;background:#f6f3e8;color:#20231e;border-radius:8px;padding:7px;font-weight:900;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 4px 12px #0005}.playingcard.redcard{color:#c5333c}.playingcard .big{font-size:28px;text-align:center}.walletgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.walletbox{padding:20px;border:1px solid var(--line);border-radius:15px;background:#171e19}.walletbox h3{margin:0 0 7px}.walletbox p{color:var(--muted);font-size:12px}.walletbox input,.walletbox select{width:100%;padding:11px;background:#0e1410;border:1px solid #344237;border-radius:9px;color:white;margin:7px 0 12px}.historyrow{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #ffffff0d}.historyrow:last-child{border:0}.historyicon{width:38px;height:38px;border-radius:10px;background:#263329;display:grid;place-items:center}.historyrow .detail{flex:1;min-width:0}.historyrow strong{display:block;font-size:13px}.historyrow small{color:var(--muted);font-size:11px}.positive{color:var(--green);font-weight:900}.negative{color:#ef9297;font-weight:900}.profilehero{padding:22px;border-radius:16px;background:linear-gradient(120deg,#263d2a,#19231b);border:1px solid #3a503c;display:flex;align-items:center;gap:15px}.avatar{width:58px;height:58px;border-radius:17px;background:linear-gradient(140deg,#d7ff9b,#6aaf40);color:#182411;font-size:28px;font-weight:950;display:grid;place-items:center}.profilehero h2{margin:0}.profilehero p{margin:4px 0;color:var(--muted);font-size:12px}.notice{font-size:11px;color:#9aab9d;padding:14px;border:1px solid #303d32;border-radius:11px;background:#131a15;margin-top:20px}.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#e1ffc1;color:#1b2814;padding:12px 18px;border-radius:11px;font-weight:900;z-index:100;transition:.25s;box-shadow:0 8px 30px #0005}.toast.show{opacity:1;transform:translate(-50%,0)}.mobile-nav{display:none}.slotsub{color:var(--muted);font-size:13px;text-align:center;margin:0 0 15px}.liveflag{color:#ff8b91;font-size:10px;font-weight:900;letter-spacing:1px}.liveflag:before{content:'●';margin-right:6px}.empty{color:var(--muted);padding:25px;text-align:center}@media(max-width:1050px){.gamegrid{grid-template-columns:repeat(3,minmax(0,1fr))}.layout{grid-template-columns:190px minmax(0,1fr);gap:18px;padding:20px}.top{padding:0 20px}.hero-art{right:2%}}@media(max-width:760px){.top{height:65px;padding:0 13px;gap:10px}.brand{font-size:17px;gap:7px}.logo{width:31px;height:31px}.search{display:none}.topright{gap:7px}.balance{min-width:95px;padding:7px 9px}.balance strong{font-size:15px}.balance small{font-size:9px}.demo-tag{font-size:9px;padding:5px 6px}.topright>.btn{display:none}.layout{display:block;padding:14px 13px 92px}.side{display:none}.hero{min-height:235px;padding:22px 20px;border-radius:17px}.hero-copy{max-width:70%}.hero h1{font-size:32px}.hero p{font-size:12px}.hero-art{right:-2%;bottom:0;font-size:90px}.quickstats{gap:7px;margin:12px 0 22px}.stat{padding:10px}.stat small{font-size:9px}.stat strong{font-size:14px}.gamegrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.gameart{height:115px;font-size:55px}.gameinfo{padding:10px}.gameinfo strong{font-size:12px}.section-head h2{font-size:19px}.livebanner{padding:13px;gap:10px}.liveorb{width:44px;height:44px;font-size:21px}.livebanner h3{font-size:14px}.livebanner p{font-size:10px}.livebanner .btn{padding:9px;font-size:11px}.gameview{padding:13px}.gamebar h2{font-size:18px}.betgrid{grid-template-columns:repeat(6,minmax(0,1fr));gap:5px}.betpick{padding:10px 2px;font-size:12px}.walletgrid{grid-template-columns:1fr}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:30;background:#101612f5;border-top:1px solid #2b382d;backdrop-filter:blur(15px);justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom))}.mobile-nav button{background:transparent;color:#96a599;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;min-width:50px}.mobile-nav button span{font-size:19px}.mobile-nav button.active{color:var(--green)}.roulette-wheel{width:min(200px,57vw)}.tablefelt{min-height:210px;padding:18px}.playingcard{width:57px;height:84px;font-size:12px}.playingcard .big{font-size:24px}}@media(max-width:380px){.brand{font-size:14px}.balance{min-width:86px}.hero h1{font-size:27px}.hero-copy{max-width:75%}.gameart{height:100px}.gameart span{font-size:49px}.gameinfo .play{font-size:10px}.quickstats{grid-template-columns:1fr 1fr}.quickstats .stat:last-child{display:none}}
+:root{--bg:#080e0a;--panel:#111b14;--panel2:#18261c;--line:#2b4030;--green:#c6fa83;--white:#f3f7f2;--muted:#91a294;--gold:#d9b66a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--white);font:14px Arial,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0;border-radius:8px;padding:11px 14px;font-weight:700}
+button:disabled{opacity:.4;cursor:not-allowed}
+.primary{background:var(--green);color:#10200f}
+.secondary{background:#24352a;color:white;border:1px solid #3a5140}
+input,select{background:#0a120c;color:white;border:1px solid #344a38;border-radius:8px;padding:11px;min-width:0}
+header{height:68px;position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:0 20px;background:#080e0af5;border-bottom:1px solid var(--line)}
+.logo{font-size:22px;font-weight:1000;letter-spacing:2px;white-space:nowrap}.logo span{color:var(--green)}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.balancebox{background:#142219;border:1px solid #3b583d;padding:8px 12px;border-radius:9px}
+.balancebox small{display:block;color:var(--muted);font-size:10px;margin-bottom:4px}
+.balancebox strong{color:var(--green);font-size:16px}
+.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#d8f7a5,#558c46);color:#132214;display:grid;place-items:center;font-weight:900;font-size:17px}
+.shell{display:grid;grid-template-columns:218px minmax(0,1fr);min-height:calc(100vh - 68px)}
+.sidebar{border-right:1px solid var(--line);padding:18px 12px;background:#0b130d}
+.navlabel{color:#728778;font-size:10px;letter-spacing:2px;padding:17px 10px 7px}
+.nav{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:transparent;color:#b5c5b8;margin:2px 0;padding:12px;border-radius:8px;font-weight:500}
+.nav:hover,.nav.active{background:#203627;color:var(--green)}
+.navicon{width:22px;text-align:center;font-size:17px}
+.profile-mini{background:#142019;border:1px solid var(--line);border-radius:12px;padding:13px;margin-bottom:12px;display:flex;gap:10px;align-items:center}
+.profile-mini small{display:block;color:var(--muted);margin-top:4px;font-size:11px}
+main{padding:23px;max-width:1500px;width:100%;margin:auto;min-width:0}
+.screen{display:none}.screen.active{display:block}
+.hero{border:1px solid #3b5a3e;border-radius:16px;background:radial-gradient(ellipse at 80% 50%,#38552d,transparent 50%),linear-gradient(110deg,#203d28,#101b13);padding:32px;margin-bottom:24px;position:relative;overflow:hidden}
+.eyebrow{color:var(--green);font-size:10px;letter-spacing:2px;font-weight:800}
+h1{font-size:clamp(28px,4vw,43px);line-height:1.1;margin:13px 0}
+h2{font-size:21px;margin:0}
+h3{font-size:16px;margin:0 0 14px}
+p{color:var(--muted);line-height:1.55}
+.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:24px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.gamecard{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.18s}
+.gamecard:hover{border-color:#83b56d;transform:translateY(-2px)}
+.gameart{height:125px;display:grid;place-items:center;font-size:51px;position:relative;background:radial-gradient(circle,var(--c),#111a13 76%)}
+.gameart:after{content:"";position:absolute;width:90px;height:90px;border:1px solid #ffffff22;border-radius:50%}
+.gameart span{z-index:1;filter:drop-shadow(0 5px 8px #0008)}
+.gameinfo{padding:12px}
+.gameinfo strong{display:block;font-size:13px}
+.gameinfo small{display:block;color:var(--muted);font-size:11px;margin-top:6px}
+.playbtn{width:100%;margin-top:12px;background:#22382a;color:var(--green);border:1px solid #3b5940;padding:10px}
+.search{width:100%;margin-bottom:12px}
+.filters{display:flex;gap:7px;overflow:auto;margin-bottom:15px}
+.chip{white-space:nowrap;background:#17231a;color:#c4d2c6;border:1px solid var(--line);padding:9px 12px}
+.chip.active{background:var(--green);color:#10200f}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:18px;margin-bottom:16px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:17px 0}
+.stat{padding:16px;background:#142019;border:1px solid var(--line);border-radius:10px}
+.stat small{color:var(--muted);display:block;margin-bottom:9px}
+.stat strong{font-size:21px;color:var(--green)}
+.formrow{display:flex;flex-direction:column;gap:7px;margin-bottom:15px}
+.formrow label{font-size:12px;color:var(--muted)}
+.formrow input,.formrow select{width:100%}
+.gamebar{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.gamebar h2{flex:1}
+.gamebar button{padding:9px 12px}
+.felt{background:radial-gradient(ellipse,#287047,#0c3822 78%);border:7px solid #76512c;border-radius:24px;padding:22px;min-height:230px;box-shadow:inset 0 0 35px #0004}
+.betrow{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin:18px 0}
+.betrow label{font-size:11px;color:var(--muted)}
+.betrow input{width:100px}
+.result{text-align:center;color:var(--green);font-weight:bold;min-height:24px;margin:13px 0}
+.reels{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;max-width:510px;margin:auto}
+.reel{height:95px;display:grid;place-items:center;background:linear-gradient(90deg,#b9b7a8,#fff9e9,#b9b7a8);border-radius:7px;color:#182018;font-size:clamp(25px,5vw,40px)}
+.reel.spinning{animation:shake .09s linear infinite}
+@keyframes shake{50%{transform:translateY(5px);filter:blur(1px)}}
+.dealer{display:flex;align-items:center;gap:13px;max-width:550px;margin:0 auto 20px;background:#30271e;border:1px solid #69543a;border-radius:12px;padding:12px}
+.dealerface{height:55px;width:55px;flex-shrink:0;border-radius:50%;background:linear-gradient(#f0d3ac,#a97b4d);display:grid;place-items:center;font-size:32px}
+.dealer small{color:#d0bfa5;display:block;margin-top:5px}
+.cards{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;min-height:92px}
+.card{width:57px;height:84px;background:#f7f0df;color:#20251f;border-radius:7px;padding:6px;display:flex;flex-direction:column;justify-content:space-between;font-weight:bold;box-shadow:0 4px 8px #0004;animation:deal .3s ease-out}
+.card.red{color:#c32c3b}.card .suit{text-align:center;font-size:25px}
+@keyframes deal{from{opacity:0;transform:translateY(-25px) rotate(-5deg)}to{opacity:1;transform:translateY(0)}}
+.hand{margin:15px 0;text-align:center}
+.hand p{margin:8px}
+.wheelarea{display:flex;flex-direction:column;align-items:center;gap:8px}
+.wheelpointer{font-size:24px;color:#f3d98b;margin-bottom:-9px;z-index:2}
+.wheel{width:min(350px,78vw);aspect-ratio:1;position:relative;border:8px solid #c5a15a;border-radius:50%;background:#17452b;box-shadow:0 0 0 4px #332619,0 0 0 7px #a28a55,0 0 30px #0007;transition:transform 5s cubic-bezier(.12,.72,.06,1);overflow:hidden}
+.wheel svg{width:100%;height:100%;display:block}
+.wheelcenter{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:24%;height:24%;border:5px solid #e3c984;border-radius:50%;background:radial-gradient(circle,#f3dda0,#765027);box-shadow:0 0 0 3px #49351d;display:grid;place-items:center;color:#fff1bd;font-size:25px;pointer-events:none}
+.roulette-number{font-size:24px;font-weight:900;background:#111a12;border:1px solid #4b6446;padding:10px 25px;border-radius:8px}
+.roulette-bets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:15px}
+.numgrid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px;margin-top:10px}
+.num{min-width:0;padding:10px 0;border-radius:4px;color:white;font-size:12px;background:#1d2820;border:1px solid #435447}
+.num.red{background:#9c303c}.num.black{background:#151b17}.num.green{background:#16743d;grid-column:span 12}
+.num.selected{outline:2px solid var(--gold);outline-offset:1px}
+.roulette-bets .chip{font-size:11px;padding:9px 3px}
+.historyrow{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid #ffffff12}
+.historyrow small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
+.success{color:var(--green)}.danger{color:#ff8c8c}
+.badge{display:inline-block;font-size:10px;padding:5px 7px;border-radius:4px;background:#26372a;color:var(--green)}
+.notice{margin-top:25px;padding:13px;border:1px solid var(--line);border-radius:10px;color:#819184;font-size:11px;line-height:1.6}
+.mobilebottom{display:none}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){
+ header{height:62px;padding:0 10px;gap:8px}.logo{font-size:17px}.header-right{gap:6px}.balancebox{padding:6px 8px}.balancebox strong{font-size:13px}.balancebox small{font-size:9px}.avatar{width:32px;height:32px}
+ .shell{display:block}.sidebar{display:none}main{padding:13px 11px 85px}.hero{padding:23px 18px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.gameart{height:105px}.gameinfo{padding:9px}.gameinfo strong{font-size:12px}.stats{gap:7px}.stat{padding:10px}.stat strong{font-size:16px}.stat small{font-size:10px}
+ .mobilebottom{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;bottom:0;left:0;right:0;z-index:25;background:#0a120df7;border-top:1px solid var(--line);padding:7px 2px calc(7px + env(safe-area-inset-bottom))}
+ .mobilebottom button{background:transparent;color:#a8b9ab;font-size:10px;padding:6px 0;border-radius:5px}.mobilebottom button.active{color:var(--green);background:#1a2c1f}
+ .felt{padding:12px 8px;min-height:210px;border-width:5px}.reel{height:68px}.numgrid{grid-template-columns:repeat(6,minmax(0,1fr))}.num.green{grid-column:span 6}.roulette-number{font-size:20px}.panel{padding:12px}.card{width:49px;height:75px}.gamebar{gap:7px}.gamebar h2{font-size:16px}.betrow{gap:7px}.betrow button{padding:10px}.wheel{width:min(310px,77vw)}
+}
 </style>
 </head>
 <body>
-<div class="app">
-<header class="top">
- <div class="brand"><div class="logo">M</div>MADGEK</div>
- <div class="search"><input id="search" placeholder="Search games..." aria-label="Search games"></div>
- <div class="topright"><span class="demo-tag">DEMO MODE</span><div class="balance"><small>VIRTUAL BALANCE</small><strong id="topBalance">$1,000.00</strong></div><button class="btn" onclick="showScreen('wallet')">Wallet</button></div>
+<header>
+  <div class="logo">♠ <span>MADGEK</span></div>
+  <div class="header-right">
+    <div class="balancebox"><small id="balanceLabel">DEMO BALANCE</small><strong id="balance">$1,000.00</strong></div>
+    <button class="primary" onclick="addCredits()">+500</button>
+    <button class="secondary" onclick="navigate('profile')" aria-label="Profile"><span id="headerInitial">D</span> ◉</button>
+  </div>
 </header>
-<div class="layout">
-<aside class="side">
- <div class="nav-label">LOBBY</div>
- <button class="navitem active" data-screen="home" onclick="showScreen('home')"><span class="ico">⌂</span>Home</button>
- <button class="navitem" data-screen="slots" onclick="showScreen('slots')"><span class="ico">🎰</span>Slots</button>
- <button class="navitem" data-screen="live" onclick="showScreen('live')"><span class="ico">♛</span>Live Casino</button>
- <button class="navitem" data-screen="tables" onclick="showScreen('tables')"><span class="ico">♠</span>Table Games</button>
- <button class="navitem" data-screen="all" onclick="showScreen('all')"><span class="ico">✧</span>All Games</button>
- <div class="nav-label">ACCOUNT</div>
- <button class="navitem" data-screen="wallet" onclick="showScreen('wallet')"><span class="ico">$</span>Wallet</button>
- <button class="navitem" data-screen="history" onclick="showScreen('history')"><span class="ico">◷</span>Game History</button>
- <button class="navitem" data-screen="profile" onclick="showScreen('profile')"><span class="ico">♙</span>My Profile</button>
- <div class="sidecard"><span class="eyebrow">WELCOME BONUS</span><strong>$1,000 Demo Credits</strong><p>Practice with virtual credits. No real-money gambling.</p><button class="btn secondary" style="width:100%" onclick="resetDemo()">Reset balance</button></div>
+
+<div class="shell">
+<aside class="sidebar">
+  <div class="profile-mini">
+    <div class="avatar" id="sideAvatar">D</div>
+    <div><strong id="sideName">Demyd</strong><small>DEMO MEMBER</small></div>
+  </div>
+  <div class="navlabel">MAIN MENU</div>
+  <button class="nav active" data-page="home" onclick="navigate('home')"><span class="navicon">⌂</span> Главная</button>
+  <button class="nav" data-page="allgames" onclick="navigate('allgames')"><span class="navicon">▦</span> Все игры</button>
+  <button class="nav" data-page="slots" onclick="navigate('slots')"><span class="navicon">🎰</span> Слоты</button>
+  <button class="nav" data-page="roulette" onclick="openRoulette()"><span class="navicon">🎡</span> Рулетка</button>
+  <button class="nav" data-page="blackjack" onclick="openBlackjack()"><span class="navicon">🂡</span> Блэкджек</button>
+  <button class="nav" data-page="table" onclick="navigate('table')"><span class="navicon">♠</span> Настольные игры</button>
+  <button class="nav" data-page="live" onclick="navigate('live')"><span class="navicon">♦</span> Virtual Live</button>
+  <div class="navlabel">MY ACCOUNT</div>
+  <button class="nav" data-page="profile" onclick="navigate('profile')"><span class="navicon">◉</span> Мой профиль</button>
+  <button class="nav" data-page="history" onclick="navigate('history')"><span class="navicon">◷</span> История игр</button>
+  <button class="nav" data-page="wallet" onclick="navigate('wallet')"><span class="navicon">▤</span> Демо-кошелёк</button>
+  <div class="notice">DEMO VERSION<br>Только виртуальные кредиты. Реальных финансовых операций нет.</div>
 </aside>
-<main class="main">
-<section class="screen active" id="screen-home">
-<div class="hero"><div class="hero-copy"><div class="eyebrow">THE MADGEK EXPERIENCE</div><h1>Play bold.<br>Play your way.</h1><p>Explore a premium social casino with virtual credits, table classics and a world of slots.</p><button class="btn" onclick="showScreen('all')">Explore games　→</button></div><div class="hero-art"><span>♠</span><span>♦</span></div></div>
-<div class="quickstats"><div class="stat"><small>DEMO BALANCE</small><strong id="heroBalance">$1,000.00</strong></div><div class="stat"><small>ROUNDS PLAYED</small><strong id="roundCount">0</strong></div><div class="stat"><small>NET DEMO RESULT</small><strong id="netResult">$0.00</strong></div></div>
-<div class="section-head"><div><h2>Popular games</h2><p>Explore the community favourites</p></div><button class="textlink" onclick="showScreen('all')">VIEW ALL →</button></div>
-<div class="gamegrid" id="homeGames"></div>
-<div class="livebanner"><div class="liveorb">♛</div><div><div class="liveflag">LIVE LOBBY</div><h3>Live Casino</h3><p>Roulette, blackjack and classic table experiences.</p></div><button class="btn" onclick="showScreen('live')">Explore</button></div>
-<div class="section-head"><div><h2>Table games</h2><p>Classic games, one polished lobby</p></div><button class="textlink" onclick="showScreen('tables')">VIEW ALL →</button></div><div class="gamegrid" id="tableGames"></div>
+
+<main>
+<section class="screen active" id="page-home">
+  <div class="hero">
+    <div class="eyebrow">WELCOME TO MADGEK</div>
+    <h1>Время испытать<br>свою удачу.</h1>
+    <p>Слоты, европейская рулетка и карточные игры с виртуальным дилером.</p>
+    <button class="primary" onclick="navigate('allgames')">ОТКРЫТЬ ИГРЫ →</button>
+  </div>
+  <div class="stats">
+    <div class="stat"><small>Твой демобаланс</small><strong id="homeBalance">$1,000</strong></div>
+    <div class="stat"><small>Всего раундов</small><strong id="roundCount">0</strong></div>
+    <div class="stat"><small>Твой профиль</small><strong style="font-size:15px" id="homeUsername">Demyd</strong></div>
+  </div>
+  <div class="sectionhead"><h2>Популярные игры</h2><button class="secondary" onclick="navigate('allgames')">Все игры →</button></div>
+  <div class="grid" id="featured"></div>
+  <div class="sectionhead"><h2>Virtual Live Studio</h2></div>
+  <div class="grid" id="homeLive"></div>
 </section>
-<section class="screen" id="screen-slots"><div class="section-head"><div><h2>Slots</h2><p>Virtual credits only · spin the reels</p></div></div><div class="gamegrid" id="slotsGames"></div></section>
-<section class="screen" id="screen-live"><div class="section-head"><div><h2>Live Casino</h2><p>Dealer-style demo tables · no real live stream connected</p></div></div><div class="livebanner"><div class="liveorb">♛</div><div><div class="liveflag">LIVE-STYLE TABLES</div><h3>Enter the tables</h3><p>Interactive demo games with virtual USD.</p></div></div><div class="gamegrid" id="liveGames"></div></section>
-<section class="screen" id="screen-tables"><div class="section-head"><div><h2>Table Games</h2><p>Roulette, blackjack, dice and baccarat</p></div></div><div class="gamegrid" id="tableGamesAlt"></div></section>
-<section class="screen" id="screen-all"><div class="section-head"><div><h2>All Games</h2><p>Browse the full demo collection</p></div></div><div class="chips"><button class="chip active" onclick="filterGames('all',this)">All games</button><button class="chip" onclick="filterGames('slots',this)">Slots</button><button class="chip" onclick="filterGames('table',this)">Table games</button><button class="chip" onclick="filterGames('live',this)">Live casino</button></div><div class="gamegrid" id="allGames"></div></section>
-<section class="screen" id="screen-game"><div class="gameview"><div class="gamebar"><button class="back" onclick="showScreen('home')">← Lobby</button><h2 id="gameTitle">Game</h2><span class="demo-tag">DEMO</span></div><div id="gameContent"></div></div></section>
-<section class="screen" id="screen-wallet"><div class="section-head"><div><h2>Demo Wallet</h2><p>All funds are virtual and have no cash value</p></div></div><div class="walletgrid"><div class="walletbox"><span class="eyebrow">AVAILABLE BALANCE</span><h2 id="walletBalance" style="font-size:36px;margin:10px 0">$1,000.00</h2><p>Demo USD credits</p><button class="btn" onclick="resetDemo()">Reset to $1,000</button></div><div class="walletbox"><h3>Demo deposit</h3><p>Add virtual credits to test the interface.</p><label for="depositAmount">Amount (USD)</label><input id="depositAmount" type="number" min="1" max="10000" value="100"><button class="btn" onclick="demoDeposit()">Add demo credits</button></div><div class="walletbox"><h3>Demo withdrawal</h3><p>Preview a withdrawal flow. This does not send money.</p><label for="withdrawAmount">Amount (USD)</label><input id="withdrawAmount" type="number" min="1" max="1000" value="50"><button class="btn secondary" onclick="demoWithdraw()">Test withdrawal</button></div><div class="walletbox"><h3>Payment methods preview</h3><p>These are display-only options. No crypto transfer is connected.</p><div class="chips"><button class="chip">USDT · min $50</button><button class="chip">Bitcoin</button><button class="chip">Ethereum</button></div></div></div><div class="notice">Demo-only wallet: no real deposits, withdrawals, blockchain transactions or cash prizes. Balance is stored in this browser only.</div></section>
-<section class="screen" id="screen-history"><div class="section-head"><div><h2>Game History</h2><p>Your latest demo rounds</p></div><button class="textlink" onclick="clearHistory()">CLEAR HISTORY</button></div><div class="gameview" id="historyList"></div></section>
-<section class="screen" id="screen-profile"><div class="section-head"><div><h2>My Profile</h2><p>Your demo casino profile</p></div></div><div class="profilehero"><div class="avatar">M</div><div><h2>Madgek Player</h2><p>Demo member · Virtual USD account</p><span class="demo-tag">LEVEL <span id="profileLevel">1</span></span></div></div><div class="quickstats"><div class="stat"><small>ROUNDS</small><strong id="profileRounds">0</strong></div><div class="stat"><small>NET RESULT</small><strong id="profileNet">$0.00</strong></div><div class="stat"><small>BEST RETURN</small><strong id="profileBigWin">$0.00</strong></div></div><div class="walletbox"><h3>Demo preferences</h3><p>Resetting the demo account restores the initial $1,000 virtual balance.</p><button class="btn secondary" onclick="resetDemo()">Reset demo account</button></div></section>
-<div class="notice">MADGEK is a demo social-casino interface. Credits are virtual, have no monetary value and cannot be withdrawn. Live Casino is a simulated lobby, not a live dealer broadcast.</div>
+
+<section class="screen" id="page-allgames">
+  <div class="sectionhead"><h2>Все игры</h2><span class="badge" id="gamesCount">54 игры</span></div>
+  <input class="search" id="gameSearch" placeholder="🔎 Поиск игры..." oninput="renderAllGames()">
+  <div class="filters" id="gameFilters">
+    <button class="chip active" onclick="setFilter('all',this)">Все</button>
+    <button class="chip" onclick="setFilter('slot',this)">Слоты</button>
+    <button class="chip" onclick="setFilter('table',this)">Настольные</button>
+    <button class="chip" onclick="setFilter('live',this)">Virtual Live</button>
+  </div>
+  <div class="grid" id="allGamesGrid"></div>
+</section>
+
+<section class="screen" id="page-slots">
+  <div class="sectionhead"><h2>🎰 Слоты</h2><span class="badge">DEMO</span></div>
+  <input class="search" id="slotSearch" placeholder="Поиск слотов..." oninput="renderSlots()">
+  <div class="grid" id="slotsGrid"></div>
+</section>
+
+<section class="screen" id="page-table">
+  <div class="sectionhead"><h2>Настольные игры</h2></div>
+  <div class="grid" id="tableGrid"></div>
+</section>
+
+<section class="screen" id="page-live">
+  <div class="hero"><div class="eyebrow">VIRTUAL LIVE STUDIO</div><h1>Твой виртуальный стол.</h1><p>Анимированный дилер, раздача карт и интерактивные игровые столы. Это симуляции, а не настоящие трансляции.</p></div>
+  <div class="grid" id="liveGrid"></div>
+</section>
+
+<section class="screen" id="page-profile">
+  <div class="sectionhead"><h2>Мой профиль</h2><span class="badge">DEMO MEMBER</span></div>
+  <div class="panel">
+    <div style="display:flex;align-items:center;gap:15px;margin-bottom:23px">
+      <div class="avatar" style="width:68px;height:68px;font-size:28px" id="profileAvatar">D</div>
+      <div><h2 id="profileDisplayName">Demyd</h2><p style="margin:5px 0">Участник MADGEK · Demo ID #0001</p></div>
+    </div>
+    <div class="formrow"><label>Имя пользователя</label><input id="profileName" maxlength="30" value="Demyd" placeholder="Твоё имя"></div>
+    <div class="formrow"><label>Язык интерфейса</label><select id="profileLang" onchange="setLanguage(this.value)"><option value="ru">Русский</option><option value="uk">Українська</option><option value="en">English</option><option value="de">Deutsch</option></select></div>
+    <button class="primary" onclick="saveProfile()">Сохранить профиль</button>
+  </div>
+  <div class="stats">
+    <div class="stat"><small>Демобаланс</small><strong id="profileBalance">$1,000</strong></div>
+    <div class="stat"><small>Сыграно раундов</small><strong id="profileRounds">0</strong></div>
+    <div class="stat"><small>Статус</small><strong style="font-size:15px">DEMO</strong></div>
+  </div>
+</section>
+
+<section class="screen" id="page-history">
+  <div class="sectionhead"><h2>История игр</h2><button class="secondary" onclick="clearHistory()">Очистить</button></div>
+  <div class="panel" id="historyList"><p>Ты ещё не сыграл ни одного раунда.</p></div>
+</section>
+
+<section class="screen" id="page-wallet">
+  <div class="sectionhead"><h2>Демо-кошелёк</h2></div>
+  <div class="panel">
+    <div class="eyebrow">AVAILABLE DEMO CREDITS</div>
+    <h1 id="walletBalance">$1,000.00</h1>
+    <p>Это демонстрационные игровые кредиты. Они не являются деньгами и не могут быть выведены или обменены.</p>
+    <button class="primary" onclick="addCredits()">+ Добавить 500 демо-кредитов</button>
+    <button class="secondary" onclick="resetBalance()">Сбросить демобаланс</button>
+  </div>
+  <div class="panel"><h3>История демо-кошелька</h3><div id="walletHistory"><p>Операций пока нет.</p></div></div>
+</section>
+
+<section class="screen" id="page-game">
+  <div class="gamebar"><button class="secondary" onclick="navigate(gameBack)">← Назад</button><h2 id="activeGameTitle">Игра</h2><span class="badge">DEMO</span></div>
+  <div id="gameMount"></div>
+</section>
+
+<div class="notice">MADGEK DEMO · Виртуальные игровые кредиты не имеют денежной стоимости. Эта страница не подключена к реальным казино, платёжным системам или денежным выплатам.</div>
 </main>
 </div>
-<nav class="mobile-nav"><button class="active" data-screen="home" onclick="showScreen('home')"><span>⌂</span>Home</button><button data-screen="slots" onclick="showScreen('slots')"><span>🎰</span>Slots</button><button data-screen="live" onclick="showScreen('live')"><span>♛</span>Live</button><button data-screen="all" onclick="showScreen('all')"><span>✧</span>Games</button><button data-screen="wallet" onclick="showScreen('wallet')"><span>$</span>Wallet</button></nav>
-<div class="toast" id="toast"></div>
+
+<nav class="mobilebottom">
+<button class="active" data-page="home" onclick="navigate('home')">⌂<br>Главная</button>
+<button data-page="allgames" onclick="navigate('allgames')">▦<br>Игры</button>
+<button data-page="slots" onclick="navigate('slots')">🎰<br>Слоты</button>
+<button data-page="history" onclick="navigate('history')">◷<br>История</button>
+<button data-page="profile" onclick="navigate('profile')">◉<br>Профиль</button>
+</nav>
+
 <script>
-const gameData=[
-{id:'slots',name:'Fortune Reels',type:'slots',icon:'🎰',tone:'gold',tag:'POPULAR',desc:'Classic 3-reel slot'},
-{id:'royal',name:'Royal Riches',type:'slots',icon:'👑',tone:'purple',tag:'HOT',desc:'Royal-themed slots'},
-{id:'gems',name:'Gem Rush',type:'slots',icon:'💎',tone:'blue',tag:'NEW',desc:'Gem collection slot'},
-{id:'fruit',name:'Fruit Party',type:'slots',icon:'🍒',tone:'red',tag:'CLASSIC',desc:'Fruit slot machine'},
-{id:'gold',name:'Golden Pharaoh',type:'slots',icon:'𓀀',tone:'gold',tag:'FEATURED',desc:'Ancient treasures'},
-{id:'neon',name:'Neon Nights',type:'slots',icon:'🌌',tone:'purple',tag:'FEATURED',desc:'Neon slot experience'},
-{id:'roulette',name:'European Roulette',type:'table',icon:'🎯',tone:'red',tag:'CLASSIC',desc:'European wheel · 0–36'},
-{id:'blackjack',name:'Blackjack 21',type:'table',icon:'🃏',tone:'blue',tag:'POPULAR',desc:'Beat the dealer to 21'},
-{id:'dice',name:'Dice Duel',type:'table',icon:'🎲',tone:'purple',tag:'QUICK GAME',desc:'Predict the roll'},
-{id:'baccarat',name:'Baccarat',type:'table',icon:'♦️',tone:'red',tag:'CLASSIC',desc:'Player, Banker or Tie'},
-{id:'liveRoulette',name:'Live Roulette',type:'live',icon:'🎡',tone:'gold',tag:'LIVE STYLE',desc:'Simulated roulette table',game:'roulette'},
-{id:'liveBlackjack',name:'Live Blackjack',type:'live',icon:'♠️',tone:'blue',tag:'LIVE STYLE',desc:'Simulated blackjack table',game:'blackjack'}
-];
-let balance=1000,rounds=0,net=0,bigWin=0,history=[],currentGame=gameData[0],roulettePick='red',blackjack=null,slotBusy=false;
-const money=n=>'$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),2400)}
-function updateUI(){['topBalance','heroBalance','walletBalance'].forEach(id=>{let el=document.getElementById(id);if(el)el.textContent=money(balance)});['roundCount','profileRounds'].forEach(id=>{let el=document.getElementById(id);if(el)el.textContent=rounds});['netResult','profileNet'].forEach(id=>{let el=document.getElementById(id);if(el)el.textContent=money(net)});let bw=document.getElementById('profileBigWin');if(bw)bw.textContent=money(bigWin);let level=document.getElementById('profileLevel');if(level)level.textContent=1+Math.floor(rounds/10);renderHistory()}
-function renderCards(target,items){let el=document.getElementById(target);if(!el)return;el.innerHTML=items.map(g=>`<article class="gamecard" data-name="${g.name.toLowerCase()}" data-type="${g.type}"><div class="gameart ${g.tone}"><span>${g.icon}</span><span class="tag">${g.tag}</span></div><div class="gameinfo"><strong>${g.name}</strong><small>${g.desc}</small><button class="play" onclick="openGame('${g.id}')">PLAY DEMO →</button></div></article>`).join('')}
-function showScreen(name){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));let target=document.getElementById('screen-'+name);if(target)target.classList.add('active');document.querySelectorAll('[data-screen]').forEach(b=>b.classList.toggle('active',b.dataset.screen===name));if(name==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
-function openGame(id){let g=gameData.find(x=>x.id===id);if(!g)return;currentGame=g;document.getElementById('gameTitle').textContent=g.name;let c=document.getElementById('gameContent');if(g.type==='slots')renderSlots(c,g);else if(g.game==='roulette'||g.id==='roulette')renderRoulette(c);else if(g.game==='blackjack'||g.id==='blackjack')startBlackjack(c);else if(g.id==='dice')renderDice(c);else if(g.id==='baccarat')renderBaccarat(c);showScreen('game')}
-function filterGames(type,btn){document.querySelectorAll('#screen-all .chip').forEach(x=>x.classList.remove('active'));btn.classList.add('active');renderCards('allGames',gameData.filter(g=>type==='all'||g.type===type||type==='table'&&g.type==='live'))}
-function renderSlots(c,g){c.innerHTML=`<p class="slotsub">${g.desc} · demo credits only</p><div class="slotmachine"><div class="reel" id="reel0">🍒</div><div class="reel" id="reel1">7️⃣</div><div class="reel" id="reel2">💎</div></div><div class="betcontrols"><label>BET (USD)</label><input id="slotBet" type="number" min="1" max="1000" value="10"><button class="btn" id="spinBtn" onclick="spinSlots()">SPIN REELS</button></div><div class="result" id="slotResult">Spin to play</div><div class="notice">Demo payout guide: three matching symbols pay 5×–20×; two matching symbols may pay 1.5×. Outcomes are simulated.</div>`}
-function spinSlots(){if(slotBusy)return;let bet=Number(document.getElementById('slotBet').value);if(!validBet(bet))return;slotBusy=true;balance-=bet;updateUI();document.getElementById('spinBtn').disabled=true;let symbols=['🍒','🍋','🍉','🔔','⭐','💎','7️⃣','👑'];let reels=[0,1,2].map(i=>document.getElementById('reel'+i));reels.forEach(r=>r.classList.add('spin'));let result=reels.map(()=>symbols[Math.floor(Math.random()*symbols.length)]);setTimeout(()=>{reels.forEach((r,i)=>{r.classList.remove('spin');r.textContent=result[i]});let win=0,mult=0;if(result[0]===result[1]&&result[1]===result[2]){mult=result[0]==='7️⃣'?20:result[0]==='👑'?12:result[0]==='💎'?10:5;win=bet*mult}else if(result[0]===result[1]||result[1]===result[2]||result[0]===result[2]){mult=1.5;win=bet*mult}balance+=win;rounds++;net+=win-bet;if(win>bigWin)bigWin=win;history.unshift({name:currentGame.name,bet,label:win?`Win ${money(win)}`:'No win',change:win-bet});history=history.slice(0,30);updateUI();document.getElementById('slotResult').textContent=win?`WIN ${money(win)} · ${mult}× multiplier`:'No win this round — try again';document.getElementById('spinBtn').disabled=false;slotBusy=false},1350)}
-function validBet(b){if(!Number.isFinite(b)||b<=0||b>1000){toast('Choose a bet between $1 and $1,000');return false}if(b>balance){toast('Not enough demo credits');return false}return true}
-function renderRoulette(c){let nums=Array.from({length:37},(_,i)=>i);c.innerHTML=`<p class="slotsub">European roulette · 0–36 · choose a colour or number</p><div class="tablefelt"><div style="position:relative"><div class="wheel-pointer"></div><div class="roulette-wheel" id="wheel"></div></div></div><div class="roulette-result" id="rouletteResult">Place your demo bet</div><div class="betcontrols"><label>BET (USD)</label><input id="rouletteBet" type="number" min="1" max="1000" value="10"><button class="btn" onclick="spinRoulette()">SPIN WHEEL</button></div><div class="chips" style="justify-content:center"><button class="chip active" onclick="setRoulettePick('red',this)">Red · 1:1</button><button class="chip" onclick="setRoulettePick('black',this)">Black · 1:1</button><button class="chip" onclick="setRoulettePick('green',this)">Zero · 35:1</button></div><div class="betgrid">${nums.map(n=>`<button class="betpick ${n===0?'greennum':([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36].includes(n)?'rednum':'blacknum')}" onclick="setRoulettePick('${n}',this)">${n}</button>`).join('')}</div><div class="result" id="rouletteMsg"></div>`}
-function setRoulettePick(p,b){roulettePick=p;document.querySelectorAll('.chips .chip,.betpick').forEach(x=>x.classList.remove('active','selected'));b.classList.add(p==='red'||p==='black'||p==='green'?'active':'selected')}
-function spinRoulette(){let bet=Number(document.getElementById('rouletteBet').value);if(!validBet(bet))return;let wheel=document.getElementById('wheel');document.querySelectorAll('.betcontrols button').forEach(b=>b.disabled=true);balance-=bet;updateUI();let n=Math.floor(Math.random()*37);wheel.style.transform=`rotate(${1440+Math.random()*360+n*9.73}deg)`;setTimeout(()=>{let red=[1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];let color=n===0?'green':red.includes(n)?'red':'black';let win=0;if(roulettePick==='red'||roulettePick==='black'||roulettePick==='green'){if(roulettePick===color)win=bet*(color==='green'?36:2)}else if(Number(roulettePick)===n)win=bet*36;balance+=win;rounds++;net+=win-bet;if(win>bigWin)bigWin=win;history.unshift({name:currentGame.name,bet,label:`${n} ${color}${win?' · Win '+money(win):''}`,change:win-bet});history=history.slice(0,30);updateUI();document.getElementById('rouletteResult').textContent=`${n} · ${color.toUpperCase()}`;document.getElementById('rouletteMsg').textContent=win?`You won ${money(win)} in demo credits!`:'No win this time.';document.querySelectorAll('.betcontrols button').forEach(b=>b.disabled=false)},4050)}
-function card(){let vals=['A','2','3','4','5','6','7','8','9','10','J','Q','K'],suits=['♠','♥','♦','♣'];return {v:vals[Math.floor(Math.random()*13)],s:suits[Math.floor(Math.random()*4)]}}
-function points(cards){let p=0,a=0;cards.forEach(c=>{if(c.v==='A'){a++;p+=11}else p+=['J','Q','K'].includes(c.v)?10:Number(c.v)});while(p>21&&a){p-=10;a--}return p}
-function cardHTML(c){return `<div class="playingcard ${['♥','♦'].includes(c.s)?'redcard':''}"><div>${c.v}${c.s}</div><div class="big">${c.s}</div><div style="text-align:right">${c.v}${c.s}</div></div>`}
-function startBlackjack(c){blackjack={player:[card(),card()],dealer:[card(),card()],bet:10,done:false};c.innerHTML=`<p class="slotsub">Get closer to 21 than the dealer without going over.</p><div class="subheading">DEALER · <span id="dealerPoints">?</span></div><div class="cards" id="dealerCards"></div><div class="subheading">YOU · <span id="playerPoints">0</span></div><div class="cards" id="playerCards"></div><div class="betcontrols"><label>BET (USD)</label><input id="bjBet" type="number" min="1" max="1000" value="10"><button class="btn" id="dealBtn" onclick="dealBlackjack()">DEAL</button><button class="btn secondary" id="hitBtn" onclick="hitBlackjack()" disabled>HIT</button><button class="btn secondary" id="standBtn" onclick="standBlackjack()" disabled>STAND</button></div><div class="result" id="bjResult">Place your bet and deal.</div>`;drawBlackjack(false)}
-function drawBlackjack(reveal){document.getElementById('dealerCards').innerHTML=blackjack.dealer.map((c,i)=>i===1&&!reveal?'<div class="playingcard" style="background:repeating-linear-gradient(45deg,#243d2a,#243d2a 7px,#33563a 7px,#33563a 14px);color:#d4ff9c;display:grid;place-items:center">M</div>':cardHTML(c)).join('');document.getElementById('playerCards').innerHTML=blackjack.player.map(cardHTML).join('');document.getElementById('playerPoints').textContent=points(blackjack.player);document.getElementById('dealerPoints').textContent=reveal?points(blackjack.dealer):points([blackjack.dealer[0]])+' + ?'}
-function dealBlackjack(){let bet=Number(document.getElementById('bjBet').value);if(!validBet(bet))return;balance-=bet;updateUI();blackjack.bet=bet;blackjack.done=false;blackjack.player=[card(),card()];blackjack.dealer=[card(),card()];drawBlackjack(false);document.getElementById('dealBtn').disabled=true;document.getElementById('hitBtn').disabled=false;document.getElementById('standBtn').disabled=false;document.getElementById('bjResult').textContent='Your move.';if(points(blackjack.player)===21)standBlackjack()}
-function hitBlackjack(){if(blackjack.done)return;blackjack.player.push(card());drawBlackjack(false);if(points(blackjack.player)>21)finishBlackjack('Bust — dealer wins',0);else if(points(blackjack.player)===21)standBlackjack()}
-function standBlackjack(){if(blackjack.done)return;while(points(blackjack.dealer)<17)blackjack.dealer.push(card());drawBlackjack(true);let p=points(blackjack.player),d=points(blackjack.dealer),win=p>21?0:d>21||p>d?blackjack.bet*2:p===d?blackjack.bet:0;finishBlackjack(p>21?'Bust — dealer wins':d>21?'Dealer busts!':p>d?'You win!':p===d?'Push — bet returned':'Dealer wins',win)}
-function finishBlackjack(msg,win){blackjack.done=true;balance+=win;rounds++;net+=win-blackjack.bet;if(win>bigWin)bigWin=win;history.unshift({name:currentGame.name,bet:blackjack.bet,label:msg+' · '+money(win),change:win-blackjack.bet});history=history.slice(0,30);updateUI();document.getElementById('bjResult').textContent=`${msg} · ${win?'Return '+money(win):'No return'}`;document.getElementById('dealBtn').disabled=false;document.getElementById('hitBtn').disabled=true;document.getElementById('standBtn').disabled=true}
-function renderDice(c){c.innerHTML=`<p class="slotsub">Pick over or under 50. Every round uses virtual credits.</p><div class="tablefelt" style="border-radius:18px;min-height:220px;flex-direction:column"><div id="diceIcon" style="font-size:80px">🎲</div><div id="diceNumber" style="font-size:28px;font-weight:950">—</div></div><div class="betcontrols"><label>BET (USD)</label><input id="diceBet" type="number" min="1" max="1000" value="10"><button class="btn" onclick="rollDice('over')">OVER 50 · 1.9×</button><button class="btn secondary" onclick="rollDice('under')">UNDER 50 · 1.9×</button></div><div class="result" id="diceResult">Choose over or under to roll.</div>`}
-function rollDice(choice){let bet=Number(document.getElementById('diceBet').value);if(!validBet(bet))return;balance-=bet;updateUI();let n=1+Math.floor(Math.random()*100);document.getElementById('diceIcon').textContent='🎲';document.getElementById('diceNumber').textContent=n;let win=(choice==='over'?n>50:n<50)?bet*1.9:0;balance+=win;rounds++;net+=win-bet;if(win>bigWin)bigWin=win;history.unshift({name:currentGame.name,bet,label:`Rolled ${n} · ${win?'Win':'No win'}`,change:win-bet});history=history.slice(0,30);updateUI();document.getElementById('diceResult').textContent=win?`Nice roll — ${money(win)} returned.`:`Rolled ${n}. No win this round.`}
-function renderBaccarat(c){c.innerHTML=`<p class="slotsub">A simplified baccarat demo. Choose Player, Banker or Tie.</p><div class="tablefelt" style="border-radius:18px;min-height:170px;flex-direction:column"><div style="font-size:45px">🃏　♦️　🂡</div><div id="bacResult" style="font-size:22px;font-weight:900">Choose your side</div></div><div class="betcontrols"><label>BET (USD)</label><input id="bacBet" type="number" min="1" max="1000" value="10"><button class="btn" onclick="playBaccarat('Player')">PLAYER · 1:1</button><button class="btn secondary" onclick="playBaccarat('Banker')">BANKER · 1:1</button><button class="btn ghost" onclick="playBaccarat('Tie')">TIE · 8:1</button></div><div class="result" id="bacMsg"></div>`}
-function playBaccarat(pick){let bet=Number(document.getElementById('bacBet').value);if(!validBet(bet))return;balance-=bet;let outcomes=['Player','Banker','Player','Banker','Tie'];let outcome=outcomes[Math.floor(Math.random()*outcomes.length)];let win=pick===outcome?bet*(pick==='Tie'?9:2):0;balance+=win;rounds++;net+=win-bet;if(win>bigWin)bigWin=win;history.unshift({name:currentGame.name,bet,label:`${outcome} wins · ${win?'Win':'No win'}`,change:win-bet});history=history.slice(0,30);updateUI();document.getElementById('bacResult').textContent=outcome+' wins';document.getElementById('bacMsg').textContent=win?`You won ${money(win)} in demo credits.`:'No win this round.'}
-function demoDeposit(){let a=Number(document.getElementById('depositAmount').value);if(!Number.isFinite(a)||a<=0||a>10000){toast('Enter an amount from $1 to $10,000');return}balance+=a;history.unshift({name:'Demo deposit',bet:0,label:'Added '+money(a),change:a});history=history.slice(0,30);updateUI();toast('Demo credits added')}
-function demoWithdraw(){let a=Number(document.getElementById('withdrawAmount').value);if(!Number.isFinite(a)||a<=0||a>balance){toast('Enter a valid amount within your balance');return}balance-=a;history.unshift({name:'Demo withdrawal',bet:0,label:'Demo withdrawal preview',change:-a});history=history.slice(0,30);updateUI();toast('Demo withdrawal recorded — no money sent')}
-function resetDemo(){balance=1000;rounds=0;net=0;bigWin=0;history=[];updateUI();toast('Demo account reset to $1,000')}
-function renderHistory(){let el=document.getElementById('historyList');if(!el)return;if(!history.length){el.innerHTML='<div class="empty">No demo rounds yet. Choose a game to get started.</div>';return}el.innerHTML=history.map(h=>`<div class="historyrow"><div class="historyicon">◷</div><div class="detail"><strong>${h.name}</strong><small>${h.label} · Bet ${money(h.bet)}</small></div><div class="${h.change>=0?'positive':'negative'}">${h.change>=0?'+':''}${money(h.change)}</div></div>`).join('')}
-function clearHistory(){history=[];renderHistory();toast('History cleared')}
-document.getElementById('search').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('.gamecard').forEach(card=>card.style.display=card.dataset.name.includes(q)?'':'none')});
-renderCards('homeGames',gameData.slice(0,8));renderCards('tableGames',gameData.filter(g=>g.type==='table'));renderCards('slotsGames',gameData.filter(g=>g.type==='slots'));renderCards('liveGames',gameData.filter(g=>g.type==='live'));renderCards('tableGamesAlt',gameData.filter(g=>g.type==='table'));renderCards('allGames',gameData);updateUI();
+const games=[
+["Emerald Fortune","slot","💎","#236a45"],["Golden Pharaoh","slot","𓂀","#80602a"],["Dragon Fire","slot","🐉","#8a352b"],["Moon Princess","slot","🌙","#514b92"],["Wild Jungle","slot","🐅","#3e7843"],["Ocean Treasure","slot","🌊","#247c91"],["Lucky Seven","slot","7️⃣","#943d42"],["Royal Crown","slot","👑","#76602e"],["Crystal Gems","slot","💠","#345a9b"],["Cherry Blast","slot","🍒","#9a3145"],["Phoenix Rise","slot","🔥","#a04d28"],["Mystic Forest","slot","🌳","#366747"],["Space Voyage","slot","🚀","#3c4a8e"],["Candy Kingdom","slot","🍬","#9a5686"],["Diamond Rush","slot","💎","#357b8e"],["Wild West","slot","🤠","#93613b"],["Ice Queen","slot","❄️","#5688a0"],["Treasure Island","slot","🏝️","#48815b"],["Samurai Gold","slot","⚔️","#8c4541"],["Neon Nights","slot","🌃","#7043a0"],["Ruby Reels","slot","♦️","#9d3445"],["Tiger Gold","slot","🐯","#a76a27"],["Magic Lantern","slot","🏮","#b05d2d"],["Star Burst","slot","🌟","#8b7a34"],["Viking Saga","slot","🛡️","#496f78"],["Fruit Party","slot","🍉","#548443"],["Thunder Gods","slot","⚡","#64549a"],["Golden Owl","slot","🦉","#8c7736"],["Lucky Clover","slot","🍀","#397c47"],["Ruby Dragon","slot","🐲","#8c3434"],
+["European Roulette","table","🎡","#276b42"],["Blackjack Pro","table","🂡","#276b42"],["Baccarat Royale","table","🃏","#276b42"],["Dice Arena","table","🎲","#276b42"],["Sic Bo","table","🎲","#276b42"],["Poker Room","table","♠","#276b42"],["Video Poker","table","🂱","#276b42"],["Keno Stars","table","⭐","#276b42"],["Wheel of Fortune","table","🎡","#276b42"],["Red or Black","table","♥️","#276b42"],["Hi-Lo Cards","table","🂮","#276b42"],["Lucky Dice","table","🎲","#276b42"],
+["Live Roulette","live","🎡","#385f37"],["Live Blackjack","live","🃏","#385f37"],["Live Baccarat","live","♦️","#385f37"],["Live Poker","live","♠","#385f37"],["Live Dice","live","🎲","#385f37"],["Live Wheel","live","🎡","#385f37"],["Live Cards","live","🂡","#385f37"],["VIP Table","live","👑","#385f37"],["Golden Room","live","✨","#385f37"],["Emerald Table","live","💚","#385f37"],["Royal Dealer","live","🤵","#385f37"],["Midnight Casino","live","🌙","#385f37"]
+].map((g,i)=>({id:i,name:g[0],type:g[1],icon:g[2],color:g[3]}));
+
+let balance=1000,rounds=[],walletEvents=[{label:"Начальный демобаланс",amount:1000}],activeGame=null,gameBack="home",gameFilter="all",busy=false,selectedRoulette="red",bj=null,lang="ru";
+const $=id=>document.getElementById(id);
+const cash=n=>"$"+Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+const reds=[1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
+
+function updateUI(){
+ $("balance").textContent=cash(balance);
+ ["homeBalance","walletBalance","profileBalance"].forEach(id=>$(id).textContent=cash(balance));
+ $("roundCount").textContent=rounds.length;
+ $("profileRounds").textContent=rounds.length;
+}
+function navigate(page){
+ document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));
+ $("page-"+page).classList.add("active");
+ document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+ if(page!=="game")gameBack=page;
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function addCredits(){
+ balance+=500;walletEvents.unshift({label:"Добавлено виртуальных кредитов",amount:500});
+ updateUI();renderWalletHistory();
+}
+function resetBalance(){
+ if(!confirm("Сбросить демобаланс до $1,000?"))return;
+ balance=1000;walletEvents.unshift({label:"Сброс демобаланса",amount:1000});
+ updateUI();renderWalletHistory();
+}
+function validBet(id){
+ let bet=Number($(id).value);
+ if(!Number.isFinite(bet)||bet<=0||bet>balance){alert("Введи ставку от $0.01 до доступного демобаланса.");return 0}
+ return bet;
+}
+function record(name,bet,payout,detail){
+ rounds.unshift({name,bet,payout,detail,time:new Date().toLocaleTimeString()});
+ if(rounds.length>100)rounds.length=100;
+ updateUI();renderHistory();
+}
+function renderHistory(){
+ $("historyList").innerHTML=rounds.length?rounds.map(r=>`<div class="historyrow"><div><strong>${r.name}</strong><small>${r.time} · ${r.detail}</small></div><div style="text-align:right"><strong class="${r.payout>r.bet?'success':''}">${cash(r.payout)}</strong><small>Ставка ${cash(r.bet)}</small></div></div>`).join(""):"<p>Ты ещё не сыграл ни одного раунда.</p>";
+}
+function clearHistory(){rounds=[];updateUI();renderHistory()}
+function renderWalletHistory(){
+ $("walletHistory").innerHTML=walletEvents.map(e=>`<div class="historyrow"><span>${e.label}</span><strong>${cash(e.amount)}</strong></div>`).join("");
+}
+function card(g){
+ return `<article class="gamecard"><div class="gameart" style="--c:${g.color}"><span>${g.icon}</span></div><div class="gameinfo"><strong>${g.name}</strong><small>${g.type==="slot"?"SLOT GAME":g.type==="live"?"VIRTUAL LIVE":"TABLE GAME"} · DEMO</small><button class="playbtn" onclick="launch(${g.id})">ОТКРЫТЬ ИГРУ</button></div></article>`;
+}
+function renderAllGames(){
+ let q=($("gameSearch").value||"").toLowerCase();
+ $("allGamesGrid").innerHTML=games.filter(g=>(gameFilter==="all"||g.type===gameFilter)&&g.name.toLowerCase().includes(q)).map(card).join("");
+ $("gamesCount").textContent=games.filter(g=>(gameFilter==="all"||g.type===gameFilter)&&g.name.toLowerCase().includes(q)).length+" игр";
+}
+function setFilter(f,b){
+ gameFilter=f;document.querySelectorAll("#gameFilters .chip").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderAllGames();
+}
+function renderSlots(){
+ let q=($("slotSearch").value||"").toLowerCase();
+ $("slotsGrid").innerHTML=games.filter(g=>g.type==="slot"&&g.name.toLowerCase().includes(q)).map(card).join("");
+}
+function renderCollections(){
+ $("featured").innerHTML=games.slice(0,8).map(card).join("");
+ $("homeLive").innerHTML=games.filter(g=>g.type==="live").slice(0,4).map(card).join("");
+ $("tableGrid").innerHTML=games.filter(g=>g.type==="table").map(card).join("");
+ $("liveGrid").innerHTML=games.filter(g=>g.type==="live").map(card).join("");
+ renderAllGames();renderSlots();
+}
+function launch(id){
+ activeGame=games.find(g=>g.id===id);
+ gameBack=activeGame.type==="slot"?"slots":activeGame.type==="live"?"live":"table";
+ $("activeGameTitle").textContent=activeGame.name;
+ navigate("game");
+ if(activeGame.name.includes("Roulette")||activeGame.name==="Wheel of Fortune")rouletteUI();
+ else if(activeGame.name.includes("Blackjack"))blackjackUI();
+ else if(activeGame.name.includes("Baccarat"))baccaratUI();
+ else if(activeGame.name.includes("Dice")||activeGame.name==="Sic Bo")diceUI();
+ else if(activeGame.type==="slot")slotUI();
+ else genericUI();
+}
+function openRoulette(){launch(30)}
+function openBlackjack(){launch(31)}
+function saveProfile(){
+ let name=$("profileName").value.trim()||"Demyd";
+ $("profileDisplayName").textContent=name;$("sideName").textContent=name;$("homeUsername").textContent=name;
+ let initial=name[0].toUpperCase();
+ $("profileAvatar").textContent=initial;$("sideAvatar").textContent=initial;$("headerInitial").textContent=initial;
+ alert("Профиль сохранён."); 
+}
+function setLanguage(l){lang=l;/* Selector ready for interface localization. */}
+function slotUI(){
+ $("gameMount").innerHTML=`
+ <div class="panel"><p style="text-align:center">5 барабанов · виртуальные игровые кредиты</p>
+ <div style="background:#291e12;border:5px solid #9a7740;border-radius:12px;padding:12px"><div class="reels">${Array.from({length:5},(_,i)=>`<div class="reel" id="reel${i}">${activeGame.icon}</div>`).join("")}</div></div>
+ <div class="betrow"><label>СТАВКА</label><input id="slotBet" type="number" value="10" min="1"><button class="primary" id="slotSpin" onclick="spinSlots()">КРУТИТЬ</button></div>
+ <div class="result" id="slotResult">Готов к игре</div>
+ <p style="text-align:center">3 одинаковых — x3 · 4 — x8 · 5 — x20</p></div>`;
+}
+function spinSlots(){
+ if(busy)return;let bet=validBet("slotBet");if(!bet)return;
+ busy=true;balance-=bet;updateUI();$("slotSpin").disabled=true;
+ const symbols=["🍒","🍋","🍇","🍉","⭐","7️⃣","💎",activeGame.icon],results=[];
+ for(let i=0;i<5;i++){
+  let el=$("reel"+i);el.classList.add("spinning");
+  let interval=setInterval(()=>el.textContent=symbols[Math.floor(Math.random()*symbols.length)],70);
+  setTimeout(()=>{
+   clearInterval(interval);results[i]=symbols[Math.floor(Math.random()*symbols.length)];el.textContent=results[i];el.classList.remove("spinning");
+   if(results.filter(Boolean).length===5){
+    let counts={};results.forEach(s=>counts[s]=(counts[s]||0)+1);
+    let best=Math.max(...Object.values(counts)),mult=best>=5?20:best===4?8:best===3?3:0,payout=bet*mult;
+    balance+=payout;updateUI();$("slotResult").textContent=results.join("  ")+" · "+(payout?"Возврат "+cash(payout):"Без выигрыша");
+    record(activeGame.name,bet,payout,mult?"Совпадение x"+mult:"Без совпадения");busy=false;$("slotSpin").disabled=false;
+   }
+  },1000+i*320);
+ }
+}
+function rouletteUI(){
+ $("gameMount").innerHTML=`
+ <div class="panel">
+ <p style="text-align:center">Европейская рулетка · 37 чисел · от 0 до 36</p>
+ <div class="wheelarea"><div class="wheelpointer">▼</div>
+ <div class="wheel" id="rouletteWheel"><svg id="wheelSVG" viewBox="0 0 300 300" aria-label="Рулетка с цифрами"></svg><div class="wheelcenter">M</div></div>
+ <div class="roulette-number" id="rouletteResult">ВЫБЕРИ СТАВКУ</div></div>
+ <div class="betrow"><label>СТАВКА</label><input id="rouletteBet" type="number" value="10" min="1"><button class="primary" id="rouletteSpin" onclick="spinRoulette()">КРУТИТЬ РУЛЕТКУ</button></div>
+ <h3>Выбор ставки</h3>
+ <div class="roulette-bets">
+ <button class="chip active" onclick="chooseRoulette('red',this)">🔴 Красное x2</button>
+ <button class="chip" onclick="chooseRoulette('black',this)">⚫ Чёрное x2</button>
+ <button class="chip" onclick="chooseRoulette('even',this)">Чётное x2</button>
+ <button class="chip" onclick="chooseRoulette('odd',this)">Нечётное x2</button>
+ <button class="chip" onclick="chooseRoulette('low',this)">1–18 x2</button>
+ <button class="chip" onclick="chooseRoulette('high',this)">19–36 x2</button>
+ <button class="chip" onclick="chooseRoulette('green',this)">🟢 Ноль x36</button>
+ </div>
+ <h3 style="margin-top:20px">Или выбери точное число</h3>
+ <div class="numgrid" id="rouletteNumbers"></div>
+ <div class="result" id="rouletteMessage"></div>
+ </div>`;
+ drawWheel();drawNumbers();
+}
+function chooseRoulette(pick,button){
+ selectedRoulette=pick;
+ document.querySelectorAll(".roulette-bets .chip").forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+ document.querySelectorAll(".num").forEach(b=>b.classList.remove("selected"));
+}
+function drawNumbers(){
+ let html=`<button class="num green" onclick="chooseNumber(0,this)">0</button>`;
+ for(let n=1;n<=36;n++)html+=`<button class="num ${reds.includes(n)?"red":"black"}" onclick="chooseNumber(${n},this)">${n}</button>`;
+ $("rouletteNumbers").innerHTML=html;
+}
+function chooseNumber(n,button){
+ selectedRoulette=n;
+ document.querySelectorAll(".num").forEach(b=>b.classList.remove("selected"));button.classList.add("selected");
+ document.querySelectorAll(".roulette-bets .chip").forEach(b=>b.classList.remove("active"));
+}
+function drawWheel(){
+ const svg=$("wheelSVG"),ns="http://www.w3.org/2000/svg";svg.innerHTML="";
+ const order=[0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
+ const cx=150,cy=150,r=143,inner=104,step=2*Math.PI/37;
+ function polar(rad,a){return [cx+rad*Math.sin(a),cy-rad*Math.cos(a)]}
+ order.forEach((n,i)=>{
+  let a=i*step-step/2,b=a+step,[x1,y1]=polar(r,a),[x2,y2]=polar(r,b),[u2,v2]=polar(inner,b),[u1,v1]=polar(inner,a);
+  let path=document.createElementNS(ns,"path");path.setAttribute("d",`M${x1},${y1} A${r},${r} 0 0 1 ${x2},${y2} L${u2},${v2} A${inner},${inner} 0 0 0 ${u1},${v1} Z`);
+  path.setAttribute("fill",n===0?"#138348":reds.includes(n)?"#bd303b":"#17251c");path.setAttribute("stroke","#d0b36f");path.setAttribute("stroke-width",".8");svg.appendChild(path);
+  let [tx,ty]=polar(123,i*step),text=document.createElementNS(ns,"text");
+  text.setAttribute("x",tx);text.setAttribute("y",ty);text.setAttribute("fill","#fff3c9");text.setAttribute("font-size","10");text.setAttribute("font-weight","bold");text.setAttribute("text-anchor","middle");text.setAttribute("dominant-baseline","middle");text.setAttribute("transform",`rotate(${i*360/37},${tx},${ty})`);text.textContent=n;svg.appendChild(text);
+ });
+}
+function spinRoulette(){
+ if(busy)return;let bet=validBet("rouletteBet");if(!bet)return;
+ busy=true;balance-=bet;updateUI();$("rouletteSpin").disabled=true;
+ let n=Math.floor(Math.random()*37),color=n===0?"green":reds.includes(n)?"red":"black";
+ $("rouletteWheel").style.transform=`rotate(${1800+Math.random()*360}deg)`;
+ setTimeout(()=>{
+  let win=0,p=selectedRoulette;
+  if(typeof p==="number")win=n===p?bet*36:0;
+  else if(p==="red"||p==="black")win=color===p?bet*2:0;
+  else if(p==="green")win=n===0?bet*36:0;
+  else if(p==="even")win=n!==0&&n%2===0?bet*2:0;
+  else if(p==="odd")win=n%2===1?bet*2:0;
+  else if(p==="low")win=n>=1&&n<=18?bet*2:0;
+  else if(p==="high")win=n>=19?bet*2:0;
+  balance+=win;updateUI();
+  $("rouletteResult").textContent=""+n+" · "+color.toUpperCase();
+  $("rouletteMessage").textContent=win?"Демо-возврат: "+cash(win):"Не выиграло · Выпало "+n;
+  record(activeGame.name,bet,win,"Число "+n+" · "+color);
+  busy=false;$("rouletteSpin").disabled=false;
+ },5100);
+}
+function drawCard(){
+ const values=["A","2","3","4","5","6","7","8","9","10","J","Q","K"],suits=["♠","♥","♦","♣"];
+ return {v:values[Math.floor(Math.random()*values.length)],s:suits[Math.floor(Math.random()*4)]};
+}
+function val(c){return ["J","Q","K"].includes(c.v)?10:c.v==="A"?11:Number(c.v)}
+function score(cards){
+ let sum=cards.reduce((a,c)=>a+val(c),0),aces=cards.filter(c=>c.v==="A").length;
+ while(sum>21&&aces){sum-=10;aces--}return sum;
+}
+function cardHTML(c){
+ return `<div class="card ${["♥","♦"].includes(c.s)?"red":""}"><div>${c.v}${c.s}</div><div class="suit">${c.s}</div><div style="text-align:right">${c.v}</div></div>`;
+}
+function dealerHeader(){
+ return `<div class="dealer"><div class="dealerface" id="dealerFace">🤵</div><div><strong id="dealerName">Alex · Virtual Dealer</strong><small id="dealerStatus">Добро пожаловать за стол. Приготовься к раздаче.</small></div></div>`;
+}
+function blackjackUI(){
+ bj=null;
+ $("gameMount").innerHTML=`${dealerHeader()}
+ <div class="felt">
+ <div class="hand"><p>ДИЛЕР · <strong id="dealerScore">—</strong></p><div class="cards" id="dealerCards"></div></div>
+ <div style="height:1px;background:#ffffff2c;margin:18px 0"></div>
+ <div class="hand"><p>ТВОЯ РУКА · <strong id="playerScore">—</strong></p><div class="cards" id="playerCards"></div></div>
+ </div>
+ <div class="panel" style="margin-top:15px">
+ <div class="betrow"><label>СТАВКА</label><input id="bjBet" type="number" min="1" value="10">
+ <button class="primary" id="bjDeal" onclick="dealBJ()">РАЗДАТЬ КАРТЫ</button>
+ <button class="secondary" id="bjHit" onclick="hitBJ()" disabled>ЕЩЁ КАРТУ</button>
+ <button class="secondary" id="bjStand" onclick="standBJ()" disabled>СТОП</button></div>
+ <div class="result" id="bjResult">Дилер ждёт твою ставку.</div></div>`;
+}
+function dealBJ(){
+ if(busy)return;let bet=validBet("bjBet");if(!bet)return;
+ busy=true;balance-=bet;updateUI();
+ bj={bet,p:[drawCard(),drawCard()],d:[drawCard(),drawCard()],done:false};
+ $("bjDeal").disabled=true;$("dealerStatus").textContent="Дилер раздаёт карты...";
+ $("dealerFace").animate([{transform:"translateY(-8px)"},{transform:"translateY(0)"}],{duration:300});
+ setTimeout(()=>{
+  if(!bj)return;
+  drawBJ(false);$("bjResult").textContent="Твой ход. Бери карту или остановись.";
+  $("dealerStatus").textContent="Твоя очередь — Hit или Stand.";
+  $("bjHit").disabled=false;$("bjStand").disabled=false;
+  if(score(bj.p)===21)standBJ();
+ },650);
+}
+function drawBJ(reveal){
+ $("playerCards").innerHTML=bj.p.map(cardHTML).join("");
+ $("dealerCards").innerHTML=bj.d.map((c,i)=>i===1&&!reveal?'<div class="card" style="background:linear-gradient(135deg,#244a31,#102217);color:#e1c57e;display:grid;place-items:center;font-size:24px">M</div>':cardHTML(c)).join("");
+ $("playerScore").textContent=score(bj.p);
+ $("dealerScore").textContent=reveal?score(bj.d):val(bj.d[0])+" + ?";
+}
+function hitBJ(){
+ if(!bj||bj.done)return;
+ $("dealerStatus").textContent="Дилер ждёт...";
+ bj.p.push(drawCard());drawBJ(false);
+ if(score(bj.p)>21)finishBJ("Перебор! Дилер выигрывает.",0);
+ else if(score(bj.p)===21)standBJ();
+}
+function standBJ(){
+ if(!bj||bj.done)return;
+ $("dealerStatus").textContent="Дилер открывает карты...";
+ while(score(bj.d)<17)bj.d.push(drawCard());
+ drawBJ(true);
+ let p=score(bj.p),d=score(bj.d);
+ let win=p>21?0:d>21||p>d?bj.bet*2:p===d?bj.bet:0;
+ let msg=p>21?"Перебор — проигрыш":d>21?"Дилер перебрал":p>d?"Ты выиграл!":p===d?"Ничья":"Дилер выиграл";
+ finishBJ(msg,win);
+}
+function finishBJ(msg,win){
+ if(!bj||bj.done)return;
+ bj.done=true;balance+=win;updateUI();
+ $("bjResult").textContent=msg+" · Возврат "+cash(win);
+ $("dealerStatus").textContent=msg;
+ $("bjDeal").disabled=false;$("bjHit").disabled=true;$("bjStand").disabled=true;
+ record(activeGame.name,bj.bet,win,msg);
+ busy=false;
+}
+function baccaratUI(){
+ $("gameMount").innerHTML=`${dealerHeader()}<div class="felt">
+ <div class="hand"><p>PLAYER · <strong id="bacPS">—</strong></p><div class="cards" id="bacP"></div></div>
+ <div class="hand"><p>BANKER · <strong id="bacBS">—</strong></p><div class="cards" id="bacB"></div></div>
+ </div><div class="panel"><div class="betrow"><label>СТАВКА</label><input id="bacBet" type="number" value="10" min="1"><button class="primary" onclick="playBac('Player')">PLAYER x2</button><button class="secondary" onclick="playBac('Banker')">BANKER x2</button><button class="secondary" onclick="playBac('Tie')">TIE x8</button></div><div class="result" id="bacResult">Выбери исход раздачи.</div></div>`;
+}
+function playBac(pick){
+ if(busy)return;let bet=validBet("bacBet");if(!bet)return;
+ busy=true;balance-=bet;updateUI();
+ $("dealerStatus").textContent="Дилер раздаёт карты...";
+ setTimeout(()=>{
+  let p=[drawCard(),drawCard()],b=[drawCard(),drawCard()];
+  let ps=p.reduce((s,c)=>s+val(c),0)%10,bs=b.reduce((s,c)=>s+val(c),0)%10;
+  let outcome=ps===bs?"Tie":ps>bs?"Player":"Banker";
+  let win=pick===outcome?bet*(pick==="Tie"?8:2):0;
+  $("bacP").innerHTML=p.map(cardHTML).join("");$("bacB").innerHTML=b.map(cardHTML).join("");
+  $("bacPS").textContent=ps;$("bacBS").textContent=bs;
+  $("bacResult").textContent=outcome+" · "+(win?"Возврат "+cash(win):"Без выигрыша");
+  $("dealerStatus").textContent="Раздача завершена.";
+  balance+=win;updateUI();record(activeGame.name,bet,win,outcome);busy=false;
+ },900);
+}
+function diceUI(){
+ $("gameMount").innerHTML=`${dealerHeader()}<div class="felt" style="text-align:center"><div id="diceFace" style="font-size:90px">🎲</div><strong id="diceNumber" style="font-size:30px">—</strong></div>
+ <div class="panel"><div class="betrow"><label>СТАВКА</label><input id="diceBet" type="number" value="10" min="1"><button class="primary" onclick="rollDice('high')">HIGH x2</button><button class="secondary" onclick="rollDice('low')">LOW x2</button></div><div class="result" id="diceResult"></div></div>`;
+}
+function rollDice(pick){
+ if(busy)return;let bet=validBet("diceBet");if(!bet)return;
+ busy=true;balance-=bet;updateUI();
+ let faces=["⚀","⚁","⚂","⚃","⚄","⚅"],i=0;
+ let timer=setInterval(()=>{$("diceFace").textContent=faces[Math.floor(Math.random()*6)];i++;if(i>10)clearInterval(timer)},75);
+ setTimeout(()=>{
+  let n=1+Math.floor(Math.random()*6),win=(pick==="high"?n>=4:n<=3)?bet*2:0;
+  $("diceFace").textContent=faces[n-1];$("diceNumber").textContent="Выпало "+n;
+  $("diceResult").textContent=win?"Возврат "+cash(win):"Без выигрыша";
+  balance+=win;updateUI();record(activeGame.name,bet,win,"Результат "+n);busy=false;
+ },900);
+}
+function genericUI(){
+ $("gameMount").innerHTML=`${dealerHeader()}<div class="felt" style="text-align:center"><div id="genericIcon" style="font-size:90px">${activeGame.icon}</div><strong id="genericResult" style="font-size:23px">СТОЛ ГОТОВ</strong></div>
+ <div class="panel"><div class="betrow"><label>СТАВКА</label><input id="genericBet" type="number" value="10" min="1"><button class="primary" onclick="playGeneric()">ИГРАТЬ</button></div><div class="result" id="genericMsg">Демонстрационный игровой раунд</div></div>`;
+}
+function playGeneric(){
+ if(busy)return;let bet=validBet("genericBet");if(!bet)return;
+ busy=true;balance-=bet;updateUI();
+ $("dealerStatus").textContent="Виртуальный дилер запускает раунд...";
+ let symbols=[activeGame.icon,"⭐","💎","7️⃣","🍀","👑","🔥"];
+ setTimeout(()=>{
+  let symbol=symbols[Math.floor(Math.random()*symbols.length)],win=Math.random()<.3?bet*(2+Math.floor(Math.random()*3)):0;
+  $("genericIcon").textContent=symbol;$("genericResult").textContent=win?"WIN "+cash(win):"ROUND COMPLETE";
+  $("genericMsg").textContent=win?"Демо-возврат "+cash(win):"В этот раз без выигрыша";
+  $("dealerStatus").textContent="Раунд завершён.";
+  balance+=win;updateUI();record(activeGame.name,bet,win,win?"Демо-выигрыш":"Без выигрыша");busy=false;
+ },800);
+}
+renderCollections();updateUI();renderHistory();renderWalletHistory();
 </script>
 </body>
-</html> 
+</html>
