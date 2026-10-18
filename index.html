@@ -208,5 +208,420 @@ document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{document.qu
 $('#language').onchange=e=>{lang=e.target.value;document.documentElement.lang=lang;toast(lang==='en'?'Language selected: English':lang==='uk'?'Мову змінено на українську':'Язык изменён на русский')};
 grid('#homeGrid');grid('#allGrid');renderStats();renderHistory();renderTickets();
 </script>
+<script>
+/* MADGEK UPDATE: PROFILE + GAME RULES + LANGUAGE */
+
+const EXTRA_LANG = {
+ru: {
+profile:"Профиль", profileTitle:"Профиль игрока",
+profileSub:"Статистика, достижения и последние результаты",
+player:"Игрок", localProfile:"Локальный профиль",
+balance:"Баланс", rounds:"Сыграно раундов",
+best:"Лучший выигрыш", achievements:"Достижения",
+activity:"Последняя активность", viewHistory:"Полная история",
+rules:"Описание и правила игры", play:"Играть →",
+unlocked:"Открыто", locked:"Пока закрыто",
+empty:"Пока нет игровых результатов.",
+rouletteDesc:"Европейская рулетка с числами от 0 до 36. Выбери тип ставки и дождись остановки колеса.",
+rouletteRules:"Красное или чёрное: выплата 1:1. Чётное или нечётное: 1:1. Точное число: 35:1. Зеро: 35:1. Ноль не считается чётным или нечётным.",
+slotsDesc:"Три барабана с символами. Запусти их и попробуй собрать выигрышную комбинацию.",
+slotsRules:"Три 💎: ×12. Три одинаковых символа: ×8. Два одинаковых символа: ×2. Если комбинации нет, ставка теряется.",
+blackjackDesc:"Карточная игра против дилера. Цель — набрать сумму ближе к 21, не превышая её.",
+blackjackRules:"Карты 2–10 имеют своё значение, J/Q/K дают 10, туз — 1 или 11. Дилер берёт карты до 17. Если сумма превышает 21, раунд проигран.",
+baccaratDesc:"Сравниваются руки игрока и банкира. Побеждает сумма, ближайшая к 9.",
+baccaratRules:"Карты 10, J, Q и K дают 0, туз — 1. Учитывается последняя цифра суммы. Выбери Игрок, Банкир или Ничья до раздачи.",
+crashDesc:"Множитель растёт во время раунда. Попробуй забрать результат до завершения раунда.",
+crashRules:"Нажми кнопку забора, пока множитель растёт. Выплата зависит от множителя в момент забора. Если раунд завершится раньше, ставка теряется.",
+minesDesc:"На поле из 25 клеток спрятаны драгоценности и ловушки. Открывай клетки и решай, когда остановиться.",
+minesRules:"Попадание на ловушку завершает раунд. После открытия безопасных клеток можно забрать текущий результат.",
+diceDesc:"Брось два кубика и попробуй угадать их общую сумму.",
+diceRules:"Выбери сумму от 2 до 12. При точном совпадении выплата составляет ×5 от ставки. Иначе ставка теряется.",
+wheelDesc:"Колесо с секторами и разными множителями.",
+wheelRules:"Запусти колесо и дождись результата. Итог рассчитывается по выпавшему множителю.",
+close:"Закрыть", bet:"Ставка (USD)", spin:"Крутить",
+hit:"Ещё карту", stand:"Хватит", deal:"Раздать карты",
+dealer:"Дилер", yourHand:"Твоя рука", playerSide:"Игрок",
+banker:"Банкир", tie:"Ничья", guess:"Угадай сумму (2–12)",
+roll:"Бросить кубики", minesCount:"Количество ловушек",
+start:"Начать раунд", collect:"Забрать очки",
+launch:"Запустить", collectWin:"Забрать результат",
+wheelSpin:"Крутить колесо", spinning:"Колесо вращается…",
+onlyVirtual:"Только виртуальные очки. Результаты сохраняются локально."
+},
+uk: {
+profile:"Профіль", profileTitle:"Профіль гравця",
+profileSub:"Статистика, досягнення та останні результати",
+player:"Гравець", localProfile:"Локальний профіль",
+balance:"Баланс", rounds:"Зіграно раундів",
+best:"Найкращий виграш", achievements:"Досягнення",
+activity:"Остання активність", viewHistory:"Повна історія",
+rules:"Опис і правила гри", play:"Грати →",
+unlocked:"Відкрито", locked:"Ще закрито",
+empty:"Ігрових результатів поки немає.",
+rouletteDesc:"Європейська рулетка з числами від 0 до 36. Обери тип ставки та дочекайся зупинки колеса.",
+rouletteRules:"Червоне або чорне: виплата 1:1. Парне або непарне: 1:1. Точне число: 35:1. Зеро: 35:1. Нуль не є парним або непарним.",
+slotsDesc:"Три барабани із символами. Запусти їх і спробуй зібрати виграшну комбінацію.",
+slotsRules:"Три 💎: ×12. Три однакові символи: ×8. Два однакові символи: ×2. Якщо комбінації немає, ставка втрачається.",
+blackjackDesc:"Карткова гра проти дилера. Мета — набрати суму ближче до 21, не перевищуючи її.",
+blackjackRules:"Карти 2–10 мають власне значення, J/Q/K дають 10, туз — 1 або 11. Дилер бере карти до 17. Якщо сума перевищує 21, раунд програно.",
+baccaratDesc:"Порівнюються руки гравця та банкіра. Перемагає сума, найближча до 9.",
+baccaratRules:"Карти 10, J, Q і K дають 0, туз — 1. Враховується остання цифра суми. Обери Гравець, Банкір або Нічия до роздачі.",
+crashDesc:"Множник зростає протягом раунду. Спробуй забрати результат до завершення раунду.",
+crashRules:"Натисни кнопку отримання, поки множник зростає. Виплата залежить від множника в момент отримання. Якщо раунд завершиться раніше, ставка втрачається.",
+minesDesc:"На полі з 25 клітин заховані коштовності та пастки. Відкривай клітини й вирішуй, коли зупинитися.",
+minesRules:"Потрапляння на пастку завершує раунд. Після відкриття безпечних клітин можна забрати поточний результат.",
+diceDesc:"Кинь два кубики та спробуй вгадати їхню загальну суму.",
+diceRules:"Обери суму від 2 до 12. За точного збігу виплата становить ×5 від ставки. Інакше ставка втрачається.",
+wheelDesc:"Колесо із секторами та різними множниками.",
+wheelRules:"Запусти колесо й дочекайся результату. Підсумок розраховується за множником сектора.",
+close:"Закрити", bet:"Ставка (USD)", spin:"Крутити",
+hit:"Ще карту", stand:"Досить", deal:"Роздати карти",
+dealer:"Дилер", yourHand:"Твоя рука", playerSide:"Гравець",
+banker:"Банкір", tie:"Нічия", guess:"Вгадай суму (2–12)",
+roll:"Кинути кубики", minesCount:"Кількість пасток",
+start:"Почати раунд", collect:"Забрати очки",
+launch:"Запустити", collectWin:"Забрати результат",
+wheelSpin:"Крутити колесо", spinning:"Колесо обертається…",
+onlyVirtual:"Лише віртуальні очки. Результати зберігаються локально."
+},
+en: {
+profile:"Profile", profileTitle:"Player profile",
+profileSub:"Stats, achievements and recent results",
+player:"Player", localProfile:"Local profile",
+balance:"Balance", rounds:"Rounds played",
+best:"Best win", achievements:"Achievements",
+activity:"Recent activity", viewHistory:"Full history",
+rules:"Game description & rules", play:"Play →",
+unlocked:"Unlocked", locked:"Locked",
+empty:"No game results yet.",
+rouletteDesc:"European roulette with numbers from 0 to 36. Choose a bet type and wait for the wheel to stop.",
+rouletteRules:"Red or black: pays 1:1. Even or odd: 1:1. Exact number: 35:1. Zero: 35:1. Zero is neither even nor odd.",
+slotsDesc:"Three symbol reels. Spin them and try to make a winning combination.",
+slotsRules:"Three 💎: ×12. Three matching symbols: ×8. Two matching symbols: ×2. Otherwise, the stake is lost.",
+blackjackDesc:"A card game against the dealer. Aim for a total closer to 21 without going over.",
+blackjackRules:"Cards 2–10 have face value, J/Q/K count as 10, and an ace is 1 or 11. The dealer draws until 17. Going over 21 means a loss.",
+baccaratDesc:"The Player and Banker hands are compared. The hand closest to 9 wins.",
+baccaratRules:"10, J, Q and K count as 0; an ace counts as 1. Only the last digit of the total counts. Choose Player, Banker or Tie before dealing.",
+crashDesc:"The multiplier rises during a round. Try to collect before the round ends.",
+crashRules:"Press Collect while the multiplier rises. Your result depends on the multiplier when you collect. If the round ends first, the stake is lost.",
+minesDesc:"A 25-tile board hides gems and mines. Open tiles and decide when to stop.",
+minesRules:"Hitting a mine ends the round. After opening safe tiles, you can collect the current result.",
+diceDesc:"Roll two dice and try to guess their total.",
+diceRules:"Choose a total from 2 to 12. An exact match pays ×5 the stake. Otherwise, the stake is lost.",
+wheelDesc:"A wheel with sectors and different multipliers.",
+wheelRules:"Spin the wheel and wait for the result. The result is calculated using the landed multiplier.",
+close:"Close", bet:"Bet (USD)", spin:"Spin",
+hit:"Hit", stand:"Stand", deal:"Deal cards",
+dealer:"Dealer", yourHand:"Your hand", playerSide:"Player",
+banker:"Banker", tie:"Tie", guess:"Guess total (2–12)",
+roll:"Roll dice", minesCount:"Number of mines",
+start:"Start round", collect:"Collect",
+launch:"Launch", collectWin:"Collect result",
+wheelSpin:"Spin wheel", spinning:"Wheel spinning…",
+onlyVirtual:"Virtual credits only. Results are stored locally."
+}
+};
+
+const EXTRA_GAME_IDS = [
+"roulette","slots","blackjack","baccarat",
+"crash","mines","dice","wheel"
+];
+
+const EXTRA_RULES = {
+roulette:["rouletteDesc","rouletteRules"],
+slots:["slotsDesc","slotsRules"],
+blackjack:["blackjackDesc","blackjackRules"],
+baccarat:["baccaratDesc","baccaratRules"],
+crash:["crashDesc","crashRules"],
+mines:["minesDesc","minesRules"],
+dice:["diceDesc","diceRules"],
+wheel:["wheelDesc","wheelRules"]
+};
+
+function extraT(key){
+  return (EXTRA_LANG[lang] && EXTRA_LANG[lang][key]) ||
+         (EXTRA_LANG.ru[key]) || key;
+}
+
+function addProfilePage(){
+  if(document.getElementById("profile")) return;
+
+  const desktop=document.querySelector(".top .nav");
+  const mobile=document.querySelector(".mobilebar");
+
+  if(desktop){
+    const b=document.createElement("button");
+    b.dataset.page="profile";
+    b.textContent=extraT("profile");
+    desktop.appendChild(b);
+    b.addEventListener("click",()=>extraPage("profile"));
+  }
+
+  if(mobile){
+    const b=document.createElement("button");
+    b.dataset.page="profile";
+    b.innerHTML='<span>◎</span><b></b>';
+    b.querySelector("b").textContent=extraT("profile");
+    mobile.appendChild(b);
+    b.addEventListener("click",()=>extraPage("profile"));
+  }
+
+  const support=document.getElementById("support");
+  const section=document.createElement("section");
+  section.id="profile";
+  section.className="page";
+  section.innerHTML=`
+    <div class="heading">
+      <div>
+        <h2>${extraT("profileTitle")}</h2>
+        <p>${extraT("profileSub")}</p>
+      </div>
+    </div>
+    <div class="layout">
+      <div class="panel">
+        <div style="display:flex;align-items:center;gap:15px">
+          <div class="brandmark" style="width:58px;height:58px;font-size:28px">M</div>
+          <div>
+            <div class="eyebrow">MADGEK MEMBER</div>
+            <h2 style="margin:5px 0">${extraT("player")}</h2>
+            <div class="muted">${extraT("localProfile")}</div>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><span>${extraT("balance")}</span><b id="extraProfileBalance">$0.00</b></div>
+          <div class="stat"><span>${extraT("rounds")}</span><b id="extraProfileRounds">0</b></div>
+          <div class="stat"><span>${extraT("best")}</span><b id="extraProfileBest">$0.00</b></div>
+        </div>
+        <h3>${extraT("achievements")}</h3>
+        <div id="extraAchievements" class="history"></div>
+      </div>
+      <div class="panel">
+        <h2>${extraT("activity")}</h2>
+        <div id="extraRecent" class="history" style="margin-top:12px"></div>
+        <button class="outline wide" id="extraHistoryButton">${extraT("viewHistory")}</button>
+      </div>
+    </div>`;
+
+  if(support) support.before(section);
+  else document.querySelector("main").appendChild(section);
+
+  document.getElementById("extraHistoryButton").onclick=()=>extraPage("history");
+}
+
+function extraPage(id){
+  if(typeof page==="function") page(id);
+  else{
+    document.querySelectorAll(".page").forEach(e=>e.classList.toggle("active",e.id===id));
+  }
+  if(id==="profile") renderExtraProfile();
+}
+
+function renderExtraProfile(){
+  const money=n=>"$"+Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+  const set=(id,value)=>{const e=document.getElementById(id);if(e)e.textContent=value};
+
+  if(typeof S!=="undefined"){
+    set("extraProfileBalance",money(S.balance));
+    set("extraProfileRounds",S.rounds||0);
+    set("extraProfileBest",money(S.best||0));
+
+    const checks=[
+      ["first",S.rounds>=1,["Первый раунд","Перший раунд","First round"]],
+      ["ten",S.rounds>=10,["10 раундов","10 раундів","10 rounds"]],
+      ["win",(S.history||[]).some(x=>x.delta>0),["Первая победа","Перша перемога","First win"]],
+      ["big",S.best>=1000,["Крупный выигрыш","Великий виграш","Big win"]],
+      ["explorer",new Set((S.history||[]).map(x=>x.game)).size>=4,["Исследователь","Дослідник","Explorer"]]
+    ];
+
+    const idx=lang==="uk"?1:lang==="en"?2:0;
+    const achievements=document.getElementById("extraAchievements");
+    if(achievements){
+      achievements.innerHTML=checks.map(a=>`
+        <div class="histrow">
+          <span>${a[1]?"🏆":"🔒"} ${a[2][idx]}</span>
+          <b>${a[1]?extraT("unlocked"):extraT("locked")}</b>
+        </div>`).join("");
+    }
+
+    const recent=document.getElementById("extraRecent");
+    if(recent){
+      recent.innerHTML=(S.history||[]).length
+        ? S.history.slice(0,5).map(h=>`
+          <div class="histrow">
+            <span><b>${h.game}</b><br><span class="muted">${h.time}</span></span>
+            <b class="${h.delta>=0?"positive":"negative"}">${h.delta>=0?"+":"−"}${money(Math.abs(h.delta))}</b>
+          </div>`).join("")
+        : `<div class="empty">${extraT("empty")}</div>`;
+    }
+  }
+}
+
+function translateExtraGame(){
+  const mount=document.getElementById("mount");
+  if(!mount)return;
+
+  const dictionary={
+    ru:{
+      "GAME CONTROLS":"УПРАВЛЕНИЕ ИГРОЙ",
+      "Bet amount (USD)":"Ставка (USD)",
+      "Bet type":"Тип ставки","Red":"Красное","Black":"Чёрное",
+      "Green 0":"Зелёное 0","Even":"Чётное","Odd":"Нечётное",
+      "Number":"Число","SPIN THE WHEEL":"Крутить рулетку",
+      "Wheel spinning…":"Колесо вращается…",
+      "DEAL CARDS":"Раздать карты","Hit":"Ещё карту","Stand":"Хватит",
+      "Dealer":"Дилер","Your hand":"Твоя рука",
+      "Player":"Игрок","Banker":"Банкир","Tie":"Ничья",
+      "DEAL":"Раздать карты","Target total (2–12)":"Угадай сумму (2–12)",
+      "ROLL DICE":"Бросить кубики","Number of mines":"Количество ловушек",
+      "START ROUND":"Начать раунд","COLLECT":"Забрать очки",
+      "LAUNCH":"Запустить","COLLECT WINNINGS":"Забрать результат",
+      "Spin for a multiplier":"Крути колесо","SPIN WHEEL":"Крутить колесо",
+      "Close":"Закрыть","Place your bet · Выбери ставку":"Выбери ставку",
+      "Open safe tiles":"Открывай безопасные клетки",
+      "Choose a side":"Выбери сторону","Guess the total":"Угадай сумму",
+      "Start a round":"Начни раунд","Try to reach 21":"Набери 21",
+      "Your turn":"Твой ход","Choose your tiles":"Выбирай клетки",
+      "Multiplier rising…":"Множитель растёт…"
+    },
+    uk:{
+      "GAME CONTROLS":"КЕРУВАННЯ ГРОЮ",
+      "Bet amount (USD)":"Ставка (USD)",
+      "Bet type":"Тип ставки","Red":"Червоне","Black":"Чорне",
+      "Green 0":"Зелене 0","Even":"Парне","Odd":"Непарне",
+      "Number":"Число","SPIN THE WHEEL":"Крутити рулетку",
+      "Wheel spinning…":"Колесо обертається…",
+      "DEAL CARDS":"Роздати карти","Hit":"Ще карту","Stand":"Досить",
+      "Dealer":"Дилер","Your hand":"Твоя рука",
+      "Player":"Гравець","Banker":"Банкір","Tie":"Нічия",
+      "DEAL":"Роздати карти","Target total (2–12)":"Вгадай суму (2–12)",
+      "ROLL DICE":"Кинути кубики","Number of mines":"Кількість пасток",
+      "START ROUND":"Почати раунд","COLLECT":"Забрати очки",
+      "LAUNCH":"Запустити","COLLECT WINNINGS":"Забрати результат",
+      "Spin for a multiplier":"Крути колесо","SPIN WHEEL":"Крутити колесо",
+      "Close":"Закрити","Place your bet · Выбери ставку":"Обери ставку",
+      "Open safe tiles":"Відкривай безпечні клітинки",
+      "Choose a side":"Обери сторону","Guess the total":"Вгадай суму",
+      "Start a round":"Почни раунд","Try to reach 21":"Набери 21",
+      "Your turn":"Твій хід","Choose your tiles":"Обирай клітинки",
+      "Multiplier rising…":"Множник зростає…"
+    }
+  };
+
+  const dict=dictionary[lang]||{};
+  const walker=document.createTreeWalker(mount,NodeFilter.SHOW_TEXT);
+  const nodes=[];
+  while(walker.nextNode())nodes.push(walker.currentNode);
+
+  nodes.forEach(node=>{
+    if(!node.datasetOriginalText)node.datasetOriginalText=node.nodeValue;
+    const original=node.datasetOriginalText;
+    const trimmed=original.trim();
+    if(dict[trimmed]){
+      node.nodeValue=original.replace(trimmed,dict[trimmed]);
+    }else if(lang==="en"){
+      node.nodeValue=original;
+    }
+  });
+
+  const title=mount.querySelector(".stagehead h2");
+  const gameId=mount.dataset.gameId;
+  if(title&&gameId&&typeof games!=="undefined"){
+    const game=games.find(g=>g.id===gameId);
+    if(game)title.textContent=lang==="en"?game.id==="roulette"?"European Roulette":game.name:lang==="uk"?game.name:game.name;
+  }
+
+  const rules=document.getElementById("extraGameRules");
+  if(rules&&gameId){
+    rules.querySelector("[data-extra-desc]").textContent=extraT(gameId+"Desc");
+    rules.querySelector("[data-extra-rules]").textContent=extraT(gameId+"Rules");
+    rules.querySelector("[data-extra-title]").textContent=extraT("rules");
+  }
+}
+
+function addExtraRules(id){
+  const mount=document.getElementById("mount");
+  if(!mount)return;
+
+  mount.dataset.gameId=id;
+  const rules=document.createElement("div");
+  rules.id="extraGameRules";
+  rules.className="panel";
+  rules.style.marginTop="15px";
+  rules.innerHTML=`
+    <h2 data-extra-title>${extraT("rules")}</h2>
+    <p class="muted" data-extra-desc></p>
+    <p data-extra-rules style="line-height:1.7"></p>`;
+  mount.appendChild(rules);
+  translateExtraGame();
+}
+
+function refreshExtraCards(){
+  if(typeof games==="undefined")return;
+  document.querySelectorAll("#homeGrid .game,#allGrid .game").forEach(card=>{
+    const button=card.querySelector("[data-open]");
+    if(!button)return;
+    const id=button.dataset.open;
+    const idx=EXTRA_GAME_IDS.indexOf(id);
+    const title=card.querySelector("h3");
+    const desc=card.querySelector("p");
+    const nameMap={
+      roulette:["Рулетка","Рулетка","European Roulette"],
+      slots:["Золотые слоты","Золоті слоти","Golden Slots"],
+      blackjack:["Blackjack","Blackjack","Blackjack"],
+      baccarat:["Baccarat","Baccarat","Baccarat"],
+      crash:["Sky Multiplier","Sky Multiplier","Sky Multiplier"],
+      mines:["Mines","Mines","Mines"],
+      dice:["Dice","Dice","Dice"],
+      wheel:["Колесо удачи","Колесо удачі","Prize Wheel"]
+    };
+    const descMap={
+      roulette:["Колесо с номерами 0–36","Колесо з числами 0–36","Wheel with numbers 0–36"],
+      slots:["Барабаны и комбинации","Барабани та комбінації","Reels and combinations"],
+      blackjack:["Набери 21 против дилера","Набери 21 проти дилера","Reach 21 against the dealer"],
+      baccarat:["Игрок против банкира","Гравець проти банкіра","Player vs Banker"],
+      crash:["Следи за ростом множителя","Стеж за зростанням множника","Watch the multiplier rise"],
+      mines:["Открывай безопасные клетки","Відкривай безпечні клітинки","Open safe tiles"],
+      dice:["Угадай сумму кубиков","Вгадай суму кубиків","Guess the dice total"],
+      wheel:["Сектора с разными множителями","Сектори з різними множниками","Sectors with different multipliers"]
+    };
+    if(idx<0)return;
+    const languageIndex=lang==="uk"?1:lang==="en"?2:0;
+    if(title)title.textContent=nameMap[id][languageIndex];
+    if(desc)desc.textContent=descMap[id][languageIndex];
+    button.textContent=extraT("play");
+  });
+}
+
+const originalOpenGame=openGame;
+openGame=function(id){
+  originalOpenGame(id);
+  addExtraRules(id);
+  translateExtraGame();
+  renderExtraProfile();
+};
+
+const originalSetLang=setLang;
+setLang=function(value){
+  originalSetLang(value);
+  refreshExtraCards();
+  translateExtraGame();
+  renderExtraProfile();
+  const p=document.getElementById("profile");
+  if(p&&p.classList.contains("active")){
+    addProfilePage();
+  }
+};
+
+const originalHistoryRecord=historyRecord;
+historyRecord=function(...args){
+  originalHistoryRecord(...args);
+  renderExtraProfile();
+};
+
+addProfilePage();
+refreshExtraCards();
+renderExtraProfile();
+setLang(lang);
+</script>
 </body>
 </html>
